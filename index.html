@@ -53,7 +53,7 @@ a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
 .btn-success{background:var(--green);color:#fff;border-color:var(--green)}.btn-success:hover{background:#0a6440}
 .btn-state{background:var(--state-accent);color:#fff;border-color:var(--state-accent)}.btn-state:hover{background:var(--state-accent-hover)}
 
-.tbl-wrap{border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--white);overflow-x:auto}
+.tbl-wrap{border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--white);overflow:auto}
 table{width:100%;border-collapse:collapse;font-size:14px}
 thead th{text-align:left;padding:14px 16px;font-weight:600;font-size:13px;color:var(--text-sec);border-bottom:1px solid var(--border);background:var(--white);white-space:nowrap}
 tbody td{padding:12px 16px;border-bottom:1px solid var(--border-lt);vertical-align:middle}
@@ -102,13 +102,13 @@ tbody tr:hover td{background:#f8f9fc}
 .search-box input{border:none;outline:none;font-size:14px;flex:1;color:var(--text);background:transparent;font-family:var(--font)}
 
 /* IMPORT OVERLAY */
-.import-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:var(--bg)}
+.import-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:var(--bg);overflow:hidden}
 .import-overlay.open{display:flex;flex-direction:column}
 .import-nav{display:flex;align-items:center;background:var(--white);height:52px;padding:0 32px;border-bottom:1px solid var(--border);flex-shrink:0}
 .import-nav-left{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text-sec)}
 .import-nav-left a{color:var(--text-sec);text-decoration:none;font-weight:500;cursor:pointer}.import-nav-left a:hover{color:var(--text)}
 .import-nav-center{position:absolute;left:50%;transform:translateX(-50%);font-size:14px;color:var(--text-sec);white-space:nowrap}
-.import-body{display:flex;flex:1;overflow:hidden}
+.import-body{display:flex;flex:1;overflow:hidden;min-width:0}
 .import-sidebar{width:240px;background:var(--white);border-right:1px solid var(--border);padding:28px 0;flex-shrink:0;overflow-y:auto}
 .sidebar-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-hint);padding:0 24px;margin-bottom:16px}
 .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 24px;font-size:14px;color:var(--text-sec);cursor:pointer;border-left:3px solid transparent;transition:all .12s}
@@ -120,9 +120,9 @@ tbody tr:hover td{background:#f8f9fc}
 .sidebar-item.done .si-num{background:var(--green-bg);color:var(--green)}
 .sidebar-sub{padding:4px 0 8px 60px;font-size:13px;color:var(--text-hint)}
 .sidebar-sub.active-sub{color:var(--accent);font-weight:600}
-.import-main{flex:1;overflow-y:auto;padding:40px 48px 120px;display:flex;justify-content:center;align-items:flex-start}
-.import-content{width:100%;max-width:640px}
-.import-content-wide{width:100%;max-width:100%}
+.import-main{flex:1;overflow:auto;padding:40px 48px 120px;min-width:0}
+.import-content{width:100%;max-width:640px;margin:0 auto}
+.import-content-wide{width:100%;max-width:100%;min-width:0}
 .import-title{font-size:28px;font-weight:400;margin-bottom:6px;font-family:var(--font-heading);letter-spacing:.5px}
 .import-desc{font-size:14px;color:var(--text-sec);margin-bottom:28px}
 .import-bottom{position:fixed;bottom:0;left:0;right:0;height:60px;background:var(--white);border-top:1px solid var(--border);display:flex;align-items:center;padding:0 32px;z-index:210}
@@ -236,7 +236,7 @@ tbody tr:hover td{background:#f8f9fc}
 .bulk-bar.visible{display:flex}
 .bulk-count{font-size:14px;font-weight:600;color:var(--accent)}
 
-.screen{display:none}.screen.visible{display:block;animation:fadeIn .2s ease}
+.screen{display:none;width:100%;min-width:0}.screen.visible{display:block;animation:fadeIn .2s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:900px){.stat-row,.review-summary{grid-template-columns:1fr 1fr}.chart-row{grid-template-columns:1fr}.import-sidebar{display:none}}
 
@@ -320,6 +320,26 @@ tbody tr:hover td{background:#f8f9fc}
 .tmpl-field-badge.type{background:var(--accent-bg);color:var(--accent)}
 .tmpl-field-badge.req{background:var(--amber-bg);color:var(--amber)}
 .tmpl-field-badge.opt{background:var(--bg);color:var(--text-hint)}
+/* Compare button */
+.view-source-btn{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--text-sec);transition:all .12s;white-space:nowrap}
+.view-source-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+
+/* Daily column group tabs */
+.daily-col-tab.active{background:var(--accent) !important;color:#fff !important;border-color:var(--accent) !important}
+
+/* PDF Preview Panel */
+.pdf-preview-panel{display:none;position:fixed;top:52px;right:0;width:420px;height:calc(100vh - 52px - 60px);background:var(--white);border-left:1px solid var(--border);box-shadow:-2px 0 12px rgba(0,0,0,0.06);z-index:250;flex-direction:column}
+.pdf-preview-panel.open{display:flex}
+.pp-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
+.pp-title{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pp-close{background:none;border:none;cursor:pointer;color:var(--text-hint);font-size:20px;padding:4px 8px;border-radius:4px;flex-shrink:0}.pp-close:hover{background:var(--bg)}
+.pp-body{flex:1;overflow-y:auto;padding:20px}
+.pp-doc{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:24px;font-size:12px;line-height:1.9;color:var(--text-sec)}
+.pp-doc-header{font-size:14px;font-weight:700;color:var(--text);border-bottom:2px solid var(--accent);padding-bottom:8px;margin-bottom:12px}
+.pp-doc table{width:100%;font-size:11px;border-collapse:collapse;margin-top:10px}
+.pp-doc table td{padding:3px 0}
+.pp-highlight{background:#fff3cd;padding:1px 4px;border-radius:2px}
+.pp-page-info{text-align:center;font-size:11px;color:var(--text-hint);margin-top:12px}
 </style>
 </head>
 <body>
@@ -942,6 +962,26 @@ tbody tr:hover td{background:#f8f9fc}
 </div>
 
 
+<!-- PDF PREVIEW PANEL -->
+<div class="pdf-preview-panel" id="pdf-preview-panel">
+ <div class="pp-header"><span class="pp-title" id="pp-title">Source document</span><button class="pp-close" onclick="closePdfPreview()">×</button></div>
+ <div class="pp-body">
+  <div class="pp-doc">
+   <div class="pp-doc-header">Monthly Operating Report — Surface Water Sources</div>
+   <div><strong>Water System:</strong> Carmel Water Department</div>
+   <div><strong>WSID No.:</strong> IN5201002</div>
+   <div><strong>Treatment Facility:</strong> WTP-01 Main Plant</div>
+   <div><strong>Month/Year:</strong> March 2026</div>
+   <div style="margin-top:10px;border-top:1px solid var(--border);padding-top:10px;font-size:11px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px">Daily Entries</div>
+   <table>
+    <tr style="font-weight:700;border-bottom:1px solid var(--border)"><td>Parameter</td><td>Value</td><td>Units</td><td>MCL</td><td></td></tr>
+    <tbody id="pp-table-body"></tbody>
+   </table>
+  </div>
+  <div class="pp-page-info" id="pp-page-info">Day 1 of 31 — March_MOR_Report.pdf</div>
+ </div>
+</div>
+
 <!-- =========================================== -->
 <!-- MOR IMPORT OVERLAY (Sample Manager)         -->
 <!-- =========================================== -->
@@ -961,12 +1001,26 @@ tbody tr:hover td{background:#f8f9fc}
    <div class="screen visible" id="mor-s-upload">
     <div class="import-content">
      <div class="import-title">Upload Results</div>
-     <div class="import-desc">Upload your lab results PDF. The system will extract values and auto-populate your monthly operating report.</div>
+     <div class="import-desc">Select your facility and upload your monthly operating report. The system will extract daily values and auto-populate your report fields.</div>
+
+     <!-- Facility selector -->
+     <div class="section-card" style="margin-bottom:20px">
+      <div class="section-title">Facility</div>
+      <div class="section-desc" style="margin-bottom:12px">Select the facility this report is for.</div>
+      <select id="mor-facility-select" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:var(--font);background:var(--white)">
+       <option value="">Select a facility...</option>
+       <option value="wtp01" selected>WTP-01 Main Plant — Surface Water Treatment</option>
+       <option value="wtp02">WTP-02 South Plant — Groundwater Treatment</option>
+       <option value="dist">Distribution System</option>
+       <option value="booster">Booster Station #3</option>
+      </select>
+     </div>
+
      <div class="dropzone" id="mor-dropzone" onclick="morSimulateUpload()">
       <div class="dz-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="dz-title">Drag and drop your results PDF</div>
+      <div class="dz-title">Drag and drop your monthly operating report</div>
       <div class="dz-sub">or <a href="#" onclick="event.preventDefault();morSimulateUpload()">browse your computer</a></div>
-      <div class="dz-formats">PDF · Max 25 MB per file</div>
+      <div class="dz-formats">PDF, XLS, XLSX · Max 25 MB per file</div>
      </div>
      <div id="mor-file-list" style="display:none;margin-top:20px"></div>
      <div class="inline-actions" id="mor-upload-actions" style="display:none">
@@ -987,8 +1041,8 @@ tbody tr:hover td{background:#f8f9fc}
       <div class="progress-sub" id="mor-prog-sub">Processing 1 file</div>
       <div class="agent-steps">
        <div class="agent-step" id="mor-as0"><span class="agent-dot pending"></span><span>Detecting file type</span><span class="agent-check" style="display:none">✓</span></div>
-       <div class="agent-step" id="mor-as1"><span class="agent-dot pending"></span><span>Identifying report fields</span><span class="agent-check" style="display:none">✓</span></div>
-       <div class="agent-step" id="mor-as2"><span class="agent-dot pending"></span><span>Extracting results data</span><span class="agent-check" style="display:none">✓</span></div>
+       <div class="agent-step" id="mor-as1"><span class="agent-dot pending"></span><span>Identifying daily entry columns</span><span class="agent-check" style="display:none">✓</span></div>
+       <div class="agent-step" id="mor-as2"><span class="agent-dot pending"></span><span>Extracting 31 days of data</span><span class="agent-check" style="display:none">✓</span></div>
        <div class="agent-step" id="mor-as3"><span class="agent-dot pending"></span><span>Mapping to report template</span><span class="agent-check" style="display:none">✓</span></div>
       </div>
      </div></div>
@@ -999,21 +1053,34 @@ tbody tr:hover td{background:#f8f9fc}
    <div class="screen" id="mor-s-review">
     <div class="import-content-wide">
      <div class="import-title">Review & Edit Results</div>
-     <div class="import-desc">Review extracted results and verify values before submitting your monthly operating report.</div>
+     <div class="import-desc">Review extracted daily entries and verify values before submitting. The system extracted 31 days of operating data.</div>
 
-     <div class="conf-card"><div class="conf-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg></div><div><div class="conf-label">High confidence extraction</div><div class="conf-desc">The system extracted most values with high certainty. 2 items need manual review, and 2 results exceed MCL limits.</div></div></div>
+     <div class="conf-card"><div class="conf-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg></div><div><div class="conf-label">High confidence extraction</div><div class="conf-desc">682 of 682 daily values extracted. 3 values flagged for review, 3 threshold exceedances detected.</div></div></div>
 
      <div class="review-summary">
-      <div class="summary-card"><div class="summary-label">Fields Populated</div><div class="summary-val">18</div></div>
-      <div class="summary-card"><div class="summary-label">Needs Review</div><div class="summary-val" style="color:var(--amber)">2</div></div>
-      <div class="summary-card"><div class="summary-label">MCL Exceedances</div><div class="summary-val" style="color:var(--amber)">2</div></div>
-      <div class="summary-card"><div class="summary-label">Source File</div><div class="summary-val" style="font-size:14px">March_Lab_Results.pdf</div></div>
+      <div class="summary-card"><div class="summary-label">Days Extracted</div><div class="summary-val">31</div></div>
+      <div class="summary-card"><div class="summary-label">Daily Parameters</div><div class="summary-val">22</div></div>
+      <div class="summary-card"><div class="summary-label">Needs Review</div><div class="summary-val" style="color:var(--amber)">3</div></div>
+      <div class="summary-card"><div class="summary-label">Threshold Exceedances</div><div class="summary-val" style="color:var(--amber)">3</div></div>
      </div>
 
-     <div class="tbl-wrap">
-      <table>
-       <thead><tr><th>Field</th><th>Extracted Value</th><th>Unit</th><th>MCL</th><th>Method</th><th>Confidence</th><th>Status</th></tr></thead>
+     <!-- Column group filter tabs -->
+     <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+      <span style="font-size:12px;font-weight:600;color:var(--text-sec);margin-right:4px">View:</span>
+      <button class="btn btn-sm daily-col-tab active" onclick="setDailyColGroup('all',this)" style="padding:5px 12px;font-size:11px">All Columns</button>
+      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('usage',this)" style="padding:5px 12px;font-size:11px">Water Usage</button>
+      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('raw',this)" style="padding:5px 12px;font-size:11px">Raw Water Quality</button>
+      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('plant',this)" style="padding:5px 12px;font-size:11px">Plant Operation</button>
+      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('filtered',this)" style="padding:5px 12px;font-size:11px">Filtered Water</button>
+      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('entry',this)" style="padding:5px 12px;font-size:11px">Entry Point</button>
+      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('flags',this)" style="padding:5px 12px;font-size:11px;color:var(--amber)">⚠ Flagged Only</button>
+     </div>
+
+     <div class="tbl-wrap" style="max-height:calc(100vh - 380px);overflow:auto;-webkit-overflow-scrolling:touch">
+      <table style="font-size:11px;white-space:nowrap;min-width:800px" id="daily-review-table">
+       <thead id="daily-review-thead" style="position:sticky;top:0;z-index:2"></thead>
        <tbody id="mor-review-tbody"></tbody>
+       <tfoot id="daily-review-tfoot" style="position:sticky;bottom:0;z-index:2;background:var(--white)"></tfoot>
       </table>
      </div>
 
@@ -1034,11 +1101,11 @@ tbody tr:hover td{background:#f8f9fc}
       <div class="section-title">Report Summary</div>
       <div class="section-desc">Water Quality Monthly Report — March 2026</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;font-size:13px">
-       <div><span style="color:var(--text-sec);font-weight:600">Utility:</span> Carmel Water Department</div>
+       <div><span style="color:var(--text-sec);font-weight:600">Facility:</span> WTP-01 Main Plant</div>
        <div><span style="color:var(--text-sec);font-weight:600">Period:</span> March 2026</div>
-       <div><span style="color:var(--text-sec);font-weight:600">Template:</span> Water Quality Monthly Report</div>
-       <div><span style="color:var(--text-sec);font-weight:600">Fields Completed:</span> 18 of 18</div>
-       <div><span style="color:var(--text-sec);font-weight:600">Results Imported:</span> 18</div>
+       <div><span style="color:var(--text-sec);font-weight:600">Template:</span> Surface Water MOR — Daily Entries</div>
+       <div><span style="color:var(--text-sec);font-weight:600">Days Completed:</span> 31 of 31</div>
+       <div><span style="color:var(--text-sec);font-weight:600">Daily Parameters:</span> 22</div>
        <div><span style="color:var(--text-sec);font-weight:600">Report Status:</span> <span class="td-status analyzed">Complete</span></div>
       </div>
      </div>
@@ -1072,16 +1139,16 @@ tbody tr:hover td{background:#f8f9fc}
       <div class="success-sub">Your Water Quality Monthly Report for March 2026 has been submitted to the state for review. You'll be notified when it's reviewed.</div>
      </div>
      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;text-align:center">
-      <div class="summary-card"><div class="summary-label">Results Imported</div><div class="summary-val">18</div></div>
+      <div class="summary-card"><div class="summary-label">Days Imported</div><div class="summary-val">31</div></div>
       <div class="summary-card"><div class="summary-label">Report Status</div><div class="summary-val" style="font-size:16px;color:var(--accent)">Submitted</div></div>
       <div class="summary-card"><div class="summary-label">Submitted To</div><div class="summary-val" style="font-size:14px">Indiana IDEM</div></div>
      </div>
      <div class="audit-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="2"/></svg> Audit trail</div>
      <div class="audit-list">
       <div class="audit-row"><span class="audit-time">10:14:02 AM</span><span class="audit-dot"></span><span>File uploaded by <strong>AD</strong></span></div>
-      <div class="audit-row"><span class="audit-time">10:14:04 AM</span><span class="audit-dot"></span><span>File type detected: PDF (Lab Results)</span></div>
-      <div class="audit-row"><span class="audit-time">10:14:22 AM</span><span class="audit-dot"></span><span>Extraction complete — 18 results, 6 analytes, 2 flagged for review</span></div>
-      <div class="audit-row"><span class="audit-time">10:16:45 AM</span><span class="audit-dot"></span><span>User reviewed and confirmed all 18 results</span></div>
+      <div class="audit-row"><span class="audit-time">10:14:04 AM</span><span class="audit-dot"></span><span>File type detected: PDF (Monthly Operating Report)</span></div>
+      <div class="audit-row"><span class="audit-time">10:14:22 AM</span><span class="audit-dot"></span><span>Extraction complete — 31 days, 22 parameters, 682 values, 3 flagged for review</span></div>
+      <div class="audit-row"><span class="audit-time">10:16:45 AM</span><span class="audit-dot"></span><span>User reviewed and confirmed all daily entries</span></div>
       <div class="audit-row"><span class="audit-time">10:17:01 AM</span><span class="audit-dot"></span><span>Report submitted to Indiana IDEM for review</span></div>
      </div>
      <div class="inline-actions">
@@ -1154,16 +1221,16 @@ tbody tr:hover td{background:#f8f9fc}
    </div>
 
    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-    <div style="font-size:16px;font-weight:700">Fields <span style="font-size:13px;font-weight:400;color:var(--text-sec)" id="tmpl-field-count">(42 fields)</span></div>
-    <button class="btn btn-sm btn-primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-7-7h14" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Add Field</button>
+    <div style="font-size:16px;font-weight:700">Fields <span style="font-size:13px;font-weight:400;color:var(--text-sec)" id="tmpl-field-count">(0 fields)</span></div>
+    <button class="btn btn-sm btn-primary" onclick="addDemoFields()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-7-7h14" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Add Fields</button>
    </div>
 
-   <div style="margin-bottom:8px;padding:8px 12px;background:var(--bg);border-radius:var(--radius);font-size:11px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.4px">General Information</div>
+   <div id="tmpl-section-headers"></div>
    <div id="tmpl-fields-list"></div>
 
    <div class="inline-actions" style="margin-top:32px">
     <button class="btn" onclick="closeTemplateBuilder()">Cancel</button>
-    <button class="btn btn-primary" onclick="closeTemplateBuilder();showToast('Template saved successfully')">Save Template</button>
+    <button class="btn btn-primary" onclick="var ct=newTmplFields.length||0;closeTemplateBuilder();showToast('Template saved successfully — '+ct+' fields')">Save Template</button>
    </div>
   </div>
  </div>
@@ -1181,26 +1248,60 @@ var MOR_REPORTS = [
  {period:'February 2026',name:'Lead & Copper Compliance',facility:'Distribution System',template:'Lead & Copper Compliance',results:14,exceedances:0,status:'Submitted',submitted:'Mar 3, 2026',statusCls:'submitted'}
 ];
 
-var MOR_REVIEW_RESULTS = [
- {field:'Lead',value:'0.012',unit:'mg/L',mcl:'0.015',method:'EPA 200.8',conf:99,flag:false},
- {field:'Copper',value:'0.87',unit:'mg/L',mcl:'1.3',method:'EPA 200.8',conf:98,flag:false},
- {field:'Nitrate',value:'4.2',unit:'mg/L',mcl:'10.0',method:'EPA 300.0',conf:99,flag:false},
- {field:'Fluoride',value:'1.8',unit:'mg/L',mcl:'4.0',method:'EPA 300.0',conf:96,flag:false},
- {field:'Arsenic',value:'0.012',unit:'mg/L',mcl:'0.010',method:'EPA 200.8',conf:68,flag:true},
- {field:'Barium',value:'0.54',unit:'mg/L',mcl:'2.0',method:'EPA 200.7',conf:99,flag:false},
- {field:'Chromium',value:'0.018',unit:'mg/L',mcl:'0.1',method:'EPA 200.8',conf:97,flag:false},
- {field:'TTHM',value:'84.0',unit:'ug/L',mcl:'80.0',method:'EPA 524.2',conf:71,flag:true},
- {field:'HAA5',value:'48.3',unit:'ug/L',mcl:'60.0',method:'EPA 552.2',conf:94,flag:false},
- {field:'Total Coliform',value:'Absent',unit:'P/A',mcl:'Present','method':'SM 9223B',conf:99,flag:false},
- {field:'E. coli',value:'Absent',unit:'P/A',mcl:'Present',method:'SM 9223B',conf:99,flag:false},
- {field:'Chlorine Residual',value:'1.2',unit:'mg/L',mcl:'4.0',method:'SM 4500-Cl',conf:95,flag:false},
- {field:'pH',value:'7.4',unit:'SU',mcl:'6.5–8.5',method:'SM 4500-H',conf:97,flag:false},
- {field:'Turbidity',value:'0.15',unit:'NTU',mcl:'1.0',method:'EPA 180.1',conf:99,flag:false},
- {field:'Alkalinity',value:'180',unit:'mg/L',mcl:'—',method:'SM 2320',conf:93,flag:false},
- {field:'Hardness',value:'220',unit:'mg/L',mcl:'—',method:'SM 2340',conf:91,flag:false},
- {field:'Iron',value:'0.08',unit:'mg/L',mcl:'0.3',method:'EPA 200.7',conf:96,flag:false},
- {field:'Manganese',value:'0.02',unit:'mg/L',mcl:'0.05',method:'EPA 200.8',conf:94,flag:false}
-];
+var MOR_REVIEW_RESULTS = [];
+// Generate 31 days of daily data
+var DAILY_COLUMNS = ['Processed (MG)','Pumped to Dist. (MG)','Raw pH','Alkalinity (mg/L)','Temp (°C)','Raw Fe (mg/L)','Raw Mn (mg/L)','Max Raw Turb. (NTU)','Min Raw Turb. (NTU)','Plant Hrs','Filters in Use','Max Settled Turb.','Filtered pH','Max Filt. Turb.','Min Filt. Turb.','Avg Filt. Turb.','EP Fe (mg/L)','EP Mn (mg/L)','Fluoride (mg/L)','pH Max','pH Min','Cl₂ Free Min (mg/L)'];
+var DAILY_UNITS = ['MG','MG','SU','mg/L','°C','mg/L','mg/L','NTU','NTU','hrs','','NTU','SU','NTU','NTU','NTU','mg/L','mg/L','mg/L','SU','SU','mg/L'];
+var DAILY_MCLS = ['—','—','—','—','—','—','—','—','—','—','—','—','—','1.0','—','—','0.3','0.05','4.0','8.5','6.5','0.2'];
+
+function generateDailyData() {
+ var data = [];
+ for(var d=1;d<=31;d++){
+  var row = {
+   day: d,
+   date: 'Mar '+d+', 2026',
+   operator: d%3===0?'B. Miller':'A. Davis',
+   source: 'Reservoir A',
+   values: [
+    (2.1+Math.random()*0.8).toFixed(2),  // Processed
+    (1.9+Math.random()*0.7).toFixed(2),  // Pumped
+    (7.1+Math.random()*0.6).toFixed(1),  // Raw pH
+    (170+Math.floor(Math.random()*30)).toString(), // Alkalinity
+    (8+Math.floor(Math.random()*6)).toString(),  // Temp
+    (0.02+Math.random()*0.08).toFixed(2), // Raw Fe
+    (0.01+Math.random()*0.04).toFixed(3), // Raw Mn
+    (3+Math.random()*8).toFixed(1),       // Max Raw Turb
+    (0.5+Math.random()*2).toFixed(1),     // Min Raw Turb
+    (20+Math.floor(Math.random()*4)).toString(), // Plant Hrs
+    (3+Math.floor(Math.random()*2)).toString(),  // Filters
+    (0.3+Math.random()*0.5).toFixed(2),   // Max Settled Turb
+    (7.0+Math.random()*0.5).toFixed(1),   // Filtered pH
+    (0.05+Math.random()*0.12).toFixed(2), // Max Filt Turb
+    (0.02+Math.random()*0.05).toFixed(2), // Min Filt Turb
+    (0.03+Math.random()*0.06).toFixed(2), // Avg Filt Turb
+    (0.01+Math.random()*0.06).toFixed(2), // EP Fe
+    (0.005+Math.random()*0.015).toFixed(3), // EP Mn
+    (1.0+Math.random()*0.5).toFixed(1),   // Fluoride
+    (7.2+Math.random()*0.6).toFixed(1),   // pH Max
+    (6.8+Math.random()*0.4).toFixed(1),   // pH Min
+    (0.3+Math.random()*0.8).toFixed(1)    // Cl2 Free Min
+   ],
+   conf: []
+  };
+  // Generate confidence per value - most high, a few flagged
+  row.values.forEach(function(v,ci) {
+   row.conf.push((d===5&&ci===13)||(d===18&&ci===16)||(d===22&&ci===21) ? 65 : 95+Math.floor(Math.random()*5));
+  });
+  data.push(row);
+ }
+ return data;
+}
+
+var DAILY_DATA = generateDailyData();
+// Insert some MCL exceedances for demo
+DAILY_DATA[4].values[13] = '1.12';  // Day 5 Max Filt Turb > 1.0
+DAILY_DATA[17].values[16] = '0.35'; // Day 18 EP Fe > 0.3
+DAILY_DATA[21].values[21] = '0.15'; // Day 22 Cl2 Free Min < 0.2 (below minimum)
 
 var SD_MOR_QUEUE = [
  {id:1,utility:'Carmel Water Department',report:'Water Quality Monthly Report',period:'March 2026',submitted:'Apr 15, 2026',results:18,fields:42,contact:'Alex Davis',status:'Pending Review',selected:false},
@@ -1288,6 +1389,7 @@ function morNavigate(step) {
  morBuildSidebar();
  if(step===1) morRunProcessing();
  if(step===2) morBuildReviewTable();
+ if(step!==2) closePdfPreview();
  var nx = document.getElementById('mor-bb-next');
  nx.style.display = (step===1||step===4)?'none':'';
  if(step===4) nx.style.display = 'none';
@@ -1305,7 +1407,7 @@ function morPrevStep() {
 
 function morSimulateUpload() {
  var fl = document.getElementById('mor-file-list');
- fl.innerHTML = '<div class="file-item"><div class="file-badge pdf">PDF</div><div class="file-info"><div class="file-name">March_Lab_Results.pdf</div><div class="file-meta">1.8 MB · 8 pages</div></div><span class="status-ready">Ready</span><button class="file-remove" onclick="this.closest(\'.file-item\').remove()">×</button></div>';
+ fl.innerHTML = '<div class="file-item"><div class="file-badge pdf">PDF</div><div class="file-info"><div class="file-name">March_2026_MOR_WTP01.pdf</div><div class="file-meta">2.4 MB · 12 pages</div></div><span class="status-ready">Ready</span><button class="file-remove" onclick="this.closest(\'.file-item\').remove()">×</button></div>';
  fl.style.display = 'block';
  document.getElementById('mor-dropzone').style.display = 'none';
  document.getElementById('mor-upload-actions').style.display = 'flex';
@@ -1353,38 +1455,148 @@ function morRunProcessing() {
  });
 }
 
+var dailyColGroup = 'all';
+var COL_GROUPS = {
+ all: null,
+ usage: [0,1],
+ raw: [2,3,4,5,6,7,8],
+ plant: [9,10,11],
+ filtered: [12,13,14,15],
+ entry: [16,17,18,19,20,21],
+ flags: 'flags'
+};
+
+function setDailyColGroup(group, btn) {
+ dailyColGroup = group;
+ document.querySelectorAll('.daily-col-tab').forEach(function(b){b.classList.remove('active');});
+ btn.classList.add('active');
+ morBuildReviewTable();
+}
+
 function morBuildReviewTable() {
+ var cols = COL_GROUPS[dailyColGroup];
+ var visibleCols;
+ var isFlagsMode = cols === 'flags';
+
+ if(isFlagsMode) {
+  // Show only columns that have flags or exceedances
+  var flaggedCols = {};
+  DAILY_DATA.forEach(function(day) {
+   day.values.forEach(function(v, ci) {
+    var mcl = DAILY_MCLS[ci];
+    var isExceed = mcl !== '—' && parseFloat(v) > parseFloat(mcl);
+    var isLowConf = day.conf[ci] < 80;
+    if(isExceed || isLowConf) flaggedCols[ci] = true;
+   });
+  });
+  visibleCols = Object.keys(flaggedCols).map(Number);
+  if(visibleCols.length === 0) visibleCols = [0];
+ } else {
+  visibleCols = cols || DAILY_COLUMNS.map(function(_,i){return i;});
+ }
+
+ var stickyDay = 'position:sticky;left:0;z-index:3;background:var(--white);min-width:72px;width:72px';
+ var stickyCmp = 'position:sticky;left:72px;z-index:3;background:var(--white);min-width:92px;width:92px;border-right:2px solid var(--border);box-shadow:4px 0 8px rgba(0,0,0,0.04)';
+
+ // Header
+ var thead = document.getElementById('daily-review-thead');
+ var hh = '<tr>';
+ hh += '<th style="'+stickyDay+'">Day</th>';
+ hh += '<th style="'+stickyCmp+'">Compare</th>';
+ hh += '<th style="min-width:80px">Operator</th>';
+ visibleCols.forEach(function(ci) {
+  hh += '<th style="min-width:90px">'+DAILY_COLUMNS[ci]+'<div style="font-size:9px;font-weight:400;color:var(--text-hint)">'+(DAILY_MCLS[ci]!=='—'?'MCL: '+DAILY_MCLS[ci]+' '+DAILY_UNITS[ci]:'')+'</div></th>';
+ });
+ hh += '</tr>';
+ thead.innerHTML = hh;
+
+ // Body
  var tb = document.getElementById('mor-review-tbody');
  var h = '';
- MOR_REVIEW_RESULTS.forEach(function(r) {
-  var isHigh = r.conf >= 80;
-  // Detect MCL exceedance
-  var exceedance = false;
-  if(r.mcl !== '—' && r.mcl !== 'Present' && !r.mcl.includes('–')) {
-   exceedance = parseFloat(r.value) > parseFloat(r.mcl);
-  }
-  var rowBg = exceedance ? 'background:#fef2f2' : (r.flag ? 'background:#fffcf2' : '');
-  h += '<tr'+(rowBg?' style="'+rowBg+'"':'')+'>';
-  h += '<td style="font-weight:500">'+r.field+'</td>';
-  h += '<td><input class="cell-input'+(r.flag?' warn':'')+(exceedance?' warn':'')+'" value="'+r.value+'" style="max-width:80px'+(exceedance?';color:var(--red);font-weight:600':'')+'"></td>';
-  h += '<td>'+r.unit+'</td><td>'+r.mcl+'</td><td>'+r.method+'</td>';
-  h += '<td><span class="conf-badge '+(isHigh?'high':'review')+'"><span class="conf-badge-dot"></span> '+(isHigh?'High':'Review')+'</span></td>';
-  if(exceedance) {
-   h += '<td><span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;color:var(--amber);background:var(--amber-bg);padding:3px 8px;border-radius:10px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Exceeds MCL</span></td>';
-  } else {
-   h += '<td><span class="td-status '+(isHigh?'analyzed':'sent')+'" style="font-size:10px;padding:2px 8px">'+(isHigh?'Ready':'Review')+'</span></td>';
-  }
+ DAILY_DATA.forEach(function(day) {
+  var rowHasFlag = false;
+  visibleCols.forEach(function(ci) {
+   var mcl = DAILY_MCLS[ci];
+   if((mcl !== '—' && parseFloat(day.values[ci]) > parseFloat(mcl)) || day.conf[ci] < 80) rowHasFlag = true;
+  });
+  h += '<tr>';
+  h += '<td style="position:sticky;left:0;z-index:1;background:var(--white);font-weight:600;font-size:12px;min-width:72px;width:72px">Mar '+day.day+'</td>';
+  h += '<td style="position:sticky;left:72px;z-index:1;background:var(--white);border-right:2px solid var(--border);box-shadow:4px 0 8px rgba(0,0,0,0.04);min-width:92px;width:92px"><button class="view-source-btn" onclick="openPdfPreview('+(day.day-1)+')"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.5"/></svg> Compare</button></td>';
+  h += '<td style="font-size:11px;color:var(--text-sec);min-width:80px">'+day.operator+'</td>';
+  visibleCols.forEach(function(ci) {
+   var v = day.values[ci];
+   var mcl = DAILY_MCLS[ci];
+   var isExceed = mcl !== '—' && parseFloat(v) > parseFloat(mcl);
+   var isLowConf = day.conf[ci] < 80;
+   var cellStyle = isExceed ? 'background:#fef2f2;' : (isLowConf ? 'background:#fffcf2;' : '');
+   var inputStyle = isExceed ? 'color:var(--red);font-weight:600' : '';
+   h += '<td style="'+cellStyle+'padding:4px 6px;min-width:90px">';
+   h += '<input class="cell-input'+(isExceed||isLowConf?' warn':'')+'" value="'+v+'" style="max-width:70px;'+inputStyle+'">';
+   if(isExceed) h += ' <span style="color:var(--amber);font-size:9px" title="Exceeds threshold">⚠</span>';
+   if(isLowConf) h += ' <span style="color:var(--amber);font-size:9px" title="Low confidence">?</span>';
+   h += '</td>';
+  });
   h += '</tr>';
-  // Inline alert row for exceedances
-  if(exceedance) {
-   h += '<tr style="background:#fef2f2"><td colspan="7" style="padding:6px 16px 10px;border-bottom:1px solid #f0c4c4">';
-   h += '<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-sec)">';
-   h += '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"/></svg>';
-   h += '<span><strong style="color:var(--text)">'+r.field+'</strong> result of <strong style="color:var(--red)">'+r.value+' '+r.unit+'</strong> exceeds the MCL of <strong>'+r.mcl+' '+r.unit+'</strong>. Please verify this value before submitting.</span>';
-   h += '</div></td></tr>';
-  }
  });
  tb.innerHTML = h;
+
+ // Footer with summary
+ var tfoot = document.getElementById('daily-review-tfoot');
+ var fh = '';
+ // Avg row
+ fh += '<tr style="border-top:2px solid var(--border)">';
+ fh += '<td style="position:sticky;left:0;z-index:1;background:var(--white);font-weight:700;font-size:11px;min-width:72px;width:72px;padding:12px 16px">AVG</td>';
+ fh += '<td style="position:sticky;left:72px;z-index:1;background:var(--white);border-right:2px solid var(--border);box-shadow:4px 0 8px rgba(0,0,0,0.04);min-width:92px;width:92px;padding:12px 16px"></td>';
+ fh += '<td style="min-width:80px;padding:12px 16px"></td>';
+ visibleCols.forEach(function(ci) {
+  var sum=0,ct=0;
+  DAILY_DATA.forEach(function(d){var v=parseFloat(d.values[ci]);if(!isNaN(v)){sum+=v;ct++;}});
+  fh += '<td style="font-size:11px;font-weight:600;color:var(--text-sec);min-width:90px;padding:4px 6px"><input class="cell-input" value="'+(ct>0?(sum/ct).toFixed(2):'—')+'" disabled style="max-width:70px;background:transparent;border-color:transparent;color:var(--text-sec);font-weight:600"></td>';
+ });
+ fh += '</tr>';
+ // Max row
+ fh += '<tr>';
+ fh += '<td style="position:sticky;left:0;z-index:1;background:var(--white);font-weight:700;font-size:11px;min-width:72px;width:72px;padding:12px 16px">MAX</td>';
+ fh += '<td style="position:sticky;left:72px;z-index:1;background:var(--white);border-right:2px solid var(--border);box-shadow:4px 0 8px rgba(0,0,0,0.04);min-width:92px;width:92px;padding:12px 16px"></td>';
+ fh += '<td style="min-width:80px;padding:12px 16px"></td>';
+ visibleCols.forEach(function(ci) {
+  var mx=-Infinity;
+  DAILY_DATA.forEach(function(d){var v=parseFloat(d.values[ci]);if(!isNaN(v)&&v>mx)mx=v;});
+  fh += '<td style="font-size:11px;font-weight:600;color:var(--text-sec);min-width:90px;padding:4px 6px"><input class="cell-input" value="'+(mx>-Infinity?mx.toFixed(2):'—')+'" disabled style="max-width:70px;background:transparent;border-color:transparent;color:var(--text-sec);font-weight:600"></td>';
+ });
+ fh += '</tr>';
+ // Min row
+ fh += '<tr>';
+ fh += '<td style="position:sticky;left:0;z-index:1;background:var(--white);font-weight:700;font-size:11px;min-width:72px;width:72px;padding:12px 16px">MIN</td>';
+ fh += '<td style="position:sticky;left:72px;z-index:1;background:var(--white);border-right:2px solid var(--border);box-shadow:4px 0 8px rgba(0,0,0,0.04);min-width:92px;width:92px;padding:12px 16px"></td>';
+ fh += '<td style="min-width:80px;padding:12px 16px"></td>';
+ visibleCols.forEach(function(ci) {
+  var mn=Infinity;
+  DAILY_DATA.forEach(function(d){var v=parseFloat(d.values[ci]);if(!isNaN(v)&&v<mn)mn=v;});
+  fh += '<td style="font-size:11px;font-weight:600;color:var(--text-sec);min-width:90px;padding:4px 6px"><input class="cell-input" value="'+(mn<Infinity?mn.toFixed(2):'—')+'" disabled style="max-width:70px;background:transparent;border-color:transparent;color:var(--text-sec);font-weight:600"></td>';
+ });
+ fh += '</tr>';
+ tfoot.innerHTML = fh;
+}
+
+function openPdfPreview(dayIdx) {
+ var day = DAILY_DATA[dayIdx];
+ document.getElementById('pp-title').textContent = 'Day '+day.day+' — March_MOR_Report.pdf';
+ var tb = document.getElementById('pp-table-body');
+ var h = '';
+ // Show all daily values for this day in the source doc view
+ DAILY_COLUMNS.forEach(function(col, ci) {
+  var v = day.values[ci];
+  var isHighlight = dayIdx === dayIdx; // all rows highlighted since it's a single day view
+  h += '<tr><td>'+col+'</td><td class="pp-highlight">'+v+'</td><td>'+DAILY_UNITS[ci]+'</td><td>'+(DAILY_MCLS[ci]!=='—'?DAILY_MCLS[ci]:'—')+'</td><td></td></tr>';
+ });
+ tb.innerHTML = h;
+ document.getElementById('pp-page-info').textContent = 'Day '+day.day+' of 31 — March_MOR_Report.pdf';
+ document.getElementById('pdf-preview-panel').classList.add('open');
+}
+
+function closePdfPreview() {
+ document.getElementById('pdf-preview-panel').classList.remove('open');
 }
 
 
@@ -1652,14 +1864,128 @@ var STARTER_FIELDS = [
  {name:'Turbidity',type:'number',unit:'NTU',mcl:'1.0',method:'EPA 180.1',required:true,validate:true,help:'',section:'Physical Parameters'},
 ];
 
+var newTmplFields = [];
+var newTmplExpanded = false;
+var newTmplAddingIdx = 0;
+var newTmplAddTimer = null;
+
+var DEMO_FIELD_SETS = [
+ {section:'General Information',fields:[
+  {name:'Facility Name',type:'Text',req:true,desc:'Name of the water treatment facility'},
+  {name:'PWS ID',type:'Text',req:true,desc:'Public Water System identification number'},
+  {name:'Report Period',type:'Date Range',req:true,desc:'Month and year of the report'},
+  {name:'Operator Name',type:'Text',req:true,desc:'Certified operator on record'},
+  {name:'Operator Certification #',type:'Text',req:true,desc:'State certification number'}
+ ]},
+ {section:'Inorganic Contaminants',fields:[
+  {name:'Lead (Pb)',type:'Numeric',req:true,desc:'MCL: 0.015 mg/L · EPA 200.8'},
+  {name:'Copper (Cu)',type:'Numeric',req:true,desc:'MCL: 1.3 mg/L · EPA 200.8'},
+  {name:'Arsenic (As)',type:'Numeric',req:true,desc:'MCL: 0.010 mg/L · EPA 200.8'},
+  {name:'Barium (Ba)',type:'Numeric',req:true,desc:'MCL: 2.0 mg/L · EPA 200.7'},
+  {name:'Nitrate (NO3)',type:'Numeric',req:true,desc:'MCL: 10.0 mg/L · EPA 300.0'},
+  {name:'Fluoride (F)',type:'Numeric',req:true,desc:'MCL: 4.0 mg/L · EPA 300.0'}
+ ]},
+ {section:'Disinfection Byproducts',fields:[
+  {name:'Total Trihalomethanes (TTHM)',type:'Numeric',req:true,desc:'MCL: 80.0 ug/L · EPA 524.2'},
+  {name:'Haloacetic Acids (HAA5)',type:'Numeric',req:true,desc:'MCL: 60.0 ug/L · EPA 552.2'}
+ ]},
+ {section:'Microbiological',fields:[
+  {name:'Total Coliform',type:'Presence/Absence',req:true,desc:'MCL: Present · SM 9223B'},
+  {name:'E. coli',type:'Presence/Absence',req:true,desc:'MCL: Present · SM 9223B'}
+ ]},
+ {section:'Physical Parameters',fields:[
+  {name:'Chlorine Residual',type:'Numeric',req:true,desc:'MCL: 4.0 mg/L · SM 4500-Cl'},
+  {name:'pH',type:'Numeric',req:true,desc:'Range: 6.5–8.5 SU · SM 4500-H'},
+  {name:'Turbidity',type:'Numeric',req:true,desc:'MCL: 1.0 NTU · EPA 180.1'}
+ ]}
+];
+
+function flattenDemoFields() {
+ var all = [];
+ DEMO_FIELD_SETS.forEach(function(sec) {
+  sec.fields.forEach(function(f) {
+   all.push({section:sec.section, name:f.name, type:f.type, req:f.req, desc:f.desc});
+  });
+ });
+ return all;
+}
+
+function addDemoFields() {
+ var allFields = flattenDemoFields();
+ newTmplAddingIdx = 0;
+ newTmplExpanded = false;
+ if(newTmplAddTimer) clearInterval(newTmplAddTimer);
+ newTmplAddTimer = setInterval(function() {
+  if(newTmplAddingIdx >= allFields.length) {
+   clearInterval(newTmplAddTimer);
+   newTmplAddTimer = null;
+   return;
+  }
+  newTmplFields.push(allFields[newTmplAddingIdx]);
+  newTmplAddingIdx++;
+  renderNewTemplateFields();
+ }, 120);
+}
+
+function renderNewTemplateFields() {
+ var el = document.getElementById('tmpl-fields-list');
+ var sh = document.getElementById('tmpl-section-headers');
+ if(newTmplFields.length === 0) {
+  sh.innerHTML = '';
+  el.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text-hint);border:2px dashed var(--border);border-radius:var(--radius-lg)"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-bottom:8px"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><div style="font-size:14px;font-weight:600;color:var(--text)">No fields yet</div><div style="font-size:13px">Click "Add Fields" to start building your template.</div></div>';
+  document.getElementById('tmpl-field-count').textContent = '(0 fields)';
+  return;
+ }
+ document.getElementById('tmpl-field-count').textContent = '('+newTmplFields.length+' fields)';
+ var COLLAPSED_LIMIT = 6;
+ var showAll = newTmplExpanded || newTmplFields.length <= COLLAPSED_LIMIT;
+ var displayFields = showAll ? newTmplFields : newTmplFields.slice(0, COLLAPSED_LIMIT);
+ var hiddenCount = newTmplFields.length - COLLAPSED_LIMIT;
+ var h = '';
+ var lastSection = '';
+ displayFields.forEach(function(f,i) {
+  if(f.section !== lastSection) {
+   lastSection = f.section;
+   h += '<div style="'+(i>0?'margin-top:16px;':'')+'margin-bottom:8px;padding:8px 12px;background:var(--bg);border-radius:var(--radius);font-size:11px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.4px">'+f.section+'</div>';
+  }
+  h += '<div class="tmpl-field-card" style="animation:fadeIn .2s ease">';
+  h += '<div class="tmpl-field-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="var(--accent)" stroke-width="2"/></svg></div>';
+  h += '<div class="tmpl-field-info"><div class="tmpl-field-name">'+f.name+'</div>';
+  h += '<div class="tmpl-field-meta">'+f.desc+'</div>';
+  h += '<div class="tmpl-field-badges"><span class="tmpl-field-badge type">'+f.type+'</span>';
+  h += '<span class="tmpl-field-badge '+(f.req?'req':'opt')+'">'+(f.req?'Required':'Optional')+'</span></div>';
+  h += '</div>';
+  h += '<div style="display:flex;gap:4px">';
+  h += '<button style="width:28px;height:28px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint)" title="Edit field"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" stroke-width="2"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2"/></svg></button>';
+  h += '<button style="width:28px;height:28px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint)" title="Remove field" onclick="removeNewField('+i+')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke="currentColor" stroke-width="2"/></svg></button>';
+  h += '</div></div>';
+ });
+ // View more / View less button
+ if(newTmplFields.length > COLLAPSED_LIMIT) {
+  if(!showAll) {
+   h += '<div style="text-align:center;padding:16px 0"><button class="btn btn-sm btn-ghost" onclick="newTmplExpanded=true;renderNewTemplateFields()" style="color:var(--link)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> View '+hiddenCount+' more fields</button></div>';
+  } else {
+   h += '<div style="text-align:center;padding:16px 0"><button class="btn btn-sm btn-ghost" onclick="newTmplExpanded=false;renderNewTemplateFields()" style="color:var(--link)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 15l-6-6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Show less</button></div>';
+  }
+ }
+ sh.innerHTML = '';
+ el.innerHTML = h;
+}
+
+function removeNewField(idx) {
+ newTmplFields.splice(idx, 1);
+ renderNewTemplateFields();
+}
+
 function showTemplateCreator() {
- // Open the builder with empty state for new template
+ newTmplFields = [];
  document.getElementById('tmpl-builder-title').textContent = 'New Template';
  document.getElementById('tmpl-edit-name').textContent = 'New Report Template';
  document.getElementById('tmpl-edit-desc').textContent = 'Define the fields and sections for your new report template.';
  document.getElementById('tmpl-name-input').value = '';
  document.getElementById('tmpl-field-count').textContent = '(0 fields)';
- document.getElementById('tmpl-fields-list').innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text-hint);border:2px dashed var(--border);border-radius:var(--radius-lg)"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-bottom:8px"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><div style="font-size:14px;font-weight:600;color:var(--text)">No fields yet</div><div style="font-size:13px">Click "Add Field" to start building your template.</div></div>';
+ document.getElementById('tmpl-fields-list').innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text-hint);border:2px dashed var(--border);border-radius:var(--radius-lg)"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-bottom:8px"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><div style="font-size:14px;font-weight:600;color:var(--text)">No fields yet</div><div style="font-size:13px">Click "Add Fields" to start building your template.</div></div>';
+ document.getElementById('tmpl-section-headers').innerHTML = '';
  document.getElementById('tmpl-builder-overlay').classList.add('open');
 }
 
