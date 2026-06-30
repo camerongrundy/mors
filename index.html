@@ -967,11 +967,12 @@ tbody tr:hover td{background:#f8f9fc}
  <div class="pp-header"><span class="pp-title" id="pp-title">Source document</span><button class="pp-close" onclick="closePdfPreview()">×</button></div>
  <div class="pp-body">
   <div class="pp-doc">
-   <div class="pp-doc-header">Monthly Operating Report — Surface Water Sources</div>
-   <div><strong>Water System:</strong> Carmel Water Department</div>
-   <div><strong>WSID No.:</strong> IN5201002</div>
-   <div><strong>Treatment Facility:</strong> WTP-01 Main Plant</div>
-   <div><strong>Month/Year:</strong> March 2026</div>
+   <div class="pp-doc-header">Monthly Report of Operation — Water Treatment Plant</div>
+   <div><strong>System Name:</strong> Speedway Water Works</div>
+   <div><strong>PWSID:</strong> 5249008</div>
+   <div><strong>Plant:</strong> Ground Water Plant</div>
+   <div><strong>Month/Year:</strong> May 2026</div>
+   <div><strong>Signed:</strong> Ronnie Smith, Superintendent</div>
    <div style="margin-top:10px;border-top:1px solid var(--border);padding-top:10px;font-size:11px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px">Daily Entries</div>
    <table>
     <tr style="font-weight:700;border-bottom:1px solid var(--border)"><td>Parameter</td><td>Value</td><td>Units</td><td>MCL</td><td></td></tr>
@@ -1009,10 +1010,8 @@ tbody tr:hover td{background:#f8f9fc}
       <div class="section-desc" style="margin-bottom:12px">Select the facility this report is for.</div>
       <select id="mor-facility-select" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:var(--font);background:var(--white)">
        <option value="">Select a facility...</option>
-       <option value="wtp01" selected>WTP-01 Main Plant — Surface Water Treatment</option>
-       <option value="wtp02">WTP-02 South Plant — Groundwater Treatment</option>
-       <option value="dist">Distribution System</option>
-       <option value="booster">Booster Station #3</option>
+       <option value="gw02" selected>Plant 02 — Ground Water Plant</option>
+       <option value="sw01">Plant 01 — Surface Water Plant</option>
       </select>
      </div>
 
@@ -1055,25 +1054,94 @@ tbody tr:hover td{background:#f8f9fc}
      <div class="import-title">Review & Edit Results</div>
      <div class="import-desc">Review extracted daily entries and verify values before submitting. The system extracted 31 days of operating data.</div>
 
-     <div class="conf-card"><div class="conf-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg></div><div><div class="conf-label">High confidence extraction</div><div class="conf-desc">682 of 682 daily values extracted. 3 values flagged for review, 3 threshold exceedances detected.</div></div></div>
+     <div class="conf-card"><div class="conf-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg></div><div><div class="conf-label">High confidence extraction</div><div class="conf-desc">9 report fields, 6 compliance checks, 31 days of daily entries across 22 parameters extracted. 2 values flagged for review.</div></div></div>
 
      <div class="review-summary">
       <div class="summary-card"><div class="summary-label">Days Extracted</div><div class="summary-val">31</div></div>
       <div class="summary-card"><div class="summary-label">Daily Parameters</div><div class="summary-val">22</div></div>
-      <div class="summary-card"><div class="summary-label">Needs Review</div><div class="summary-val" style="color:var(--amber)">3</div></div>
-      <div class="summary-card"><div class="summary-label">Threshold Exceedances</div><div class="summary-val" style="color:var(--amber)">3</div></div>
+      <div class="summary-card"><div class="summary-label">Needs Review</div><div class="summary-val" style="color:var(--amber)">2</div></div>
+      <div class="summary-card"><div class="summary-label">Threshold Exceedances</div><div class="summary-val" style="color:var(--green)">0</div></div>
      </div>
+
+     <!-- Parsed Report Header Fields -->
+     <div class="section-card" style="margin-bottom:20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+       <div class="section-title" style="margin-bottom:0">Report Information</div>
+       <span class="conf-badge high" style="font-size:11px"><span class="conf-badge-dot"></span> All fields matched</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px 24px">
+       <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:4px">Water System Name</label>
+        <input style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:var(--font);background:var(--white)" value="Speedway Water Works">
+       </div>
+       <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:4px">PWSID Number</label>
+        <input style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:var(--font);background:var(--white)" value="5249008">
+       </div>
+       <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:4px">Report Period</label>
+        <input type="month" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:var(--font);background:var(--white)" value="2026-05">
+       </div>
+       <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:4px">Plant Name</label>
+        <input style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:var(--font);background:var(--white)" value="Ground Water Plant">
+       </div>
+       <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:4px">Source Type</label>
+        <select style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:var(--font);background:var(--white)">
+         <option>Surface Water</option><option selected>Groundwater</option><option>Purchased</option>
+        </select>
+       </div>
+       <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:4px">IDEM Field Rep.</label>
+        <input style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:var(--font);background:var(--white)" value="Thomas Wiseman">
+       </div>
+       <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:4px">Signed By</label>
+        <input style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:var(--font);background:var(--white)" value="Ronnie Smith">
+       </div>
+       <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:4px">Title</label>
+        <input style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:var(--font);background:var(--white)" value="Superintendent">
+       </div>
+       <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:4px">Certification Number</label>
+        <input style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:var(--font);background:var(--white)" value="WT190082">
+       </div>
+      </div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border-lt)">
+       <div style="font-size:11px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px;margin-bottom:10px">Compliance Checkboxes</div>
+       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="checkbox" style="width:16px;height:16px;accent-color:var(--accent)"> Disinfectant residual fell below state minimum this month</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--accent)"> Monitored every 4 hours when below minimum residual</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--accent)"> Continuous monitoring equipment operated all month</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="checkbox" style="width:16px;height:16px;accent-color:var(--accent)"> Continuous monitoring equipment failed this month</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="checkbox" style="width:16px;height:16px;accent-color:var(--accent)"> Changes in operations requiring 4-log credit reevaluation</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--accent)"> All residual disinfectant sampling performed per IAC 8-2-8.7</label>
+       </div>
+       <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border-lt)">
+        <div style="font-size:11px;font-weight:600;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px;margin-bottom:10px">Monthly Summary (Parsed)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px">
+         <div style="padding:10px 14px;background:var(--bg);border-radius:var(--radius)"><div style="font-size:10px;color:var(--text-hint);font-weight:600;text-transform:uppercase">Total Gallons</div><div style="font-size:16px;font-weight:700;margin-top:2px">41,317<span style="font-size:11px;font-weight:400;color:var(--text-sec)"> kgal</span></div></div>
+         <div style="padding:10px 14px;background:var(--bg);border-radius:var(--radius)"><div style="font-size:10px;color:var(--text-hint);font-weight:600;text-transform:uppercase">Peak Day</div><div style="font-size:16px;font-weight:700;margin-top:2px">2,307<span style="font-size:11px;font-weight:400;color:var(--text-sec)"> kgal</span></div></div>
+         <div style="padding:10px 14px;background:var(--bg);border-radius:var(--radius)"><div style="font-size:10px;color:var(--text-hint);font-weight:600;text-transform:uppercase">Min Day</div><div style="font-size:16px;font-weight:700;margin-top:2px">755<span style="font-size:11px;font-weight:400;color:var(--text-sec)"> kgal</span></div></div>
+         <div style="padding:10px 14px;background:var(--bg);border-radius:var(--radius)"><div style="font-size:10px;color:var(--text-hint);font-weight:600;text-transform:uppercase">Avg Daily</div><div style="font-size:16px;font-weight:700;margin-top:2px">1,333<span style="font-size:11px;font-weight:400;color:var(--text-sec)"> kgal</span></div></div>
+        </div>
+       </div>
+      </div>
+     </div>
+
+     <div style="font-size:16px;font-weight:700;margin-bottom:12px">Daily Entries</div>
 
      <!-- Column group filter tabs -->
      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
       <span style="font-size:12px;font-weight:600;color:var(--text-sec);margin-right:4px">View:</span>
       <button class="btn btn-sm daily-col-tab active" onclick="setDailyColGroup('all',this)" style="padding:5px 12px;font-size:11px">All Columns</button>
-      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('usage',this)" style="padding:5px 12px;font-size:11px">Water Usage</button>
-      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('raw',this)" style="padding:5px 12px;font-size:11px">Raw Water Quality</button>
-      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('plant',this)" style="padding:5px 12px;font-size:11px">Plant Operation</button>
-      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('filtered',this)" style="padding:5px 12px;font-size:11px">Filtered Water</button>
-      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('entry',this)" style="padding:5px 12px;font-size:11px">Entry Point</button>
-      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('flags',this)" style="padding:5px 12px;font-size:11px;color:var(--amber)">⚠ Flagged Only</button>
+      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('raw',this)" style="padding:5px 12px;font-size:11px">Raw Water</button>
+      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('filtered',this)" style="padding:5px 12px;font-size:11px">Finished Water</button>
+      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('usage',this)" style="padding:5px 12px;font-size:11px">Production &amp; Chemicals</button>
+      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('entry',this)" style="padding:5px 12px;font-size:11px">Chlorine Residual</button>
+      <button class="btn btn-sm daily-col-tab" onclick="setDailyColGroup('flags',this)" style="padding:5px 12px;font-size:11px;color:var(--amber)">&#9888; Flagged Only</button>
      </div>
 
      <div class="tbl-wrap" style="max-height:calc(100vh - 380px);overflow:auto;-webkit-overflow-scrolling:touch">
@@ -1084,14 +1152,152 @@ tbody tr:hover td{background:#f8f9fc}
       </table>
      </div>
 
-     <div class="inline-actions">
+     <!-- Page 3: GW Rule Residual - First Customer -->
+     <div class="section-card" style="margin-top:20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="var b=this.parentElement.querySelector('.collapse-body');b.style.display=b.style.display==='none'?'block':'none';this.querySelector('.collapse-chev').style.transform=b.style.display==='none'?'':'rotate(180deg)'">
+       <div style="display:flex;align-items:center;gap:10px">
+        <div class="section-title" style="margin-bottom:0">Ground Water Rule Residual — First Customer</div>
+        <span class="conf-badge high" style="font-size:10px"><span class="conf-badge-dot"></span> Parsed</span>
+       </div>
+       <svg class="collapse-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" style="transition:transform .2s;flex-shrink:0;transform:rotate(180deg)"><path d="M6 9l6 6 6-6" stroke="var(--text-hint)" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="collapse-body" style="display:block;margin-top:14px">
+       <div style="display:flex;gap:16px;margin-bottom:12px;font-size:13px;flex-wrap:wrap">
+        <div><span style="color:var(--text-sec);font-weight:600">Location:</span> First customer</div>
+        <div><span style="color:var(--text-sec);font-weight:600">Min. Residual:</span> 1.10 mg/L</div>
+        <div><span style="color:var(--text-sec);font-weight:600">Disinfectant:</span> Chlorine</div>
+        <div><span style="color:var(--text-sec);font-weight:600">Sampling:</span> Grab, Continuous</div>
+       </div>
+       <div class="tbl-wrap">
+        <table style="font-size:11px">
+         <thead><tr><th>Day</th><th>Lowest Residual (mg/L)</th><th>Below Required?</th><th>Reported to IDEM</th></tr></thead>
+         <tbody>
+          <tr><td>3</td><td style="padding:4px 6px"><input class="cell-input" value="1.87" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr>
+          <tr><td>7</td><td style="padding:4px 6px"><input class="cell-input" value="1.78" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr>
+          <tr><td>14</td><td style="padding:4px 6px"><input class="cell-input" value="1.95" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr>
+          <tr><td>21</td><td style="padding:4px 6px"><input class="cell-input" value="1.68" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr>
+          <tr><td>28</td><td style="padding:4px 6px"><input class="cell-input" value="1.55" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr>
+          <tr style="border-top:2px solid var(--border)"><td style="font-weight:600">Ex.</td><td style="padding:4px 6px"><input class="cell-input warn" value="0.25" style="max-width:60px;color:var(--amber);font-weight:600"></td><td><input type="checkbox" checked style="width:14px;height:14px;accent-color:var(--amber)"></td><td style="padding:4px 6px"><input class="cell-input" value="09/04/10" style="max-width:80px"></td></tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+
+     <!-- Page 4: GW Rule Residual - Point of Entry -->
+     <div class="section-card" style="margin-top:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="var b=this.parentElement.querySelector('.collapse-body');b.style.display=b.style.display==='none'?'block':'none';this.querySelector('.collapse-chev').style.transform=b.style.display==='none'?'':'rotate(180deg)'">
+       <div style="display:flex;align-items:center;gap:10px">
+        <div class="section-title" style="margin-bottom:0">Ground Water Rule Residual — Point of Entry</div>
+        <span class="conf-badge review" style="font-size:10px"><span class="conf-badge-dot"></span> 2 below minimum</span>
+       </div>
+       <svg class="collapse-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" style="transition:transform .2s;flex-shrink:0;transform:rotate(180deg)"><path d="M6 9l6 6 6-6" stroke="var(--text-hint)" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="collapse-body" style="display:block;margin-top:14px">
+       <div style="display:flex;gap:16px;margin-bottom:12px;font-size:13px;flex-wrap:wrap">
+        <div><span style="color:var(--text-sec);font-weight:600">Location:</span> Point of entry</div>
+        <div><span style="color:var(--text-sec);font-weight:600">Min. Residual:</span> 1.40 mg/L</div>
+        <div><span style="color:var(--text-sec);font-weight:600">Disinfectant:</span> Chlorine</div>
+       </div>
+       <div class="tbl-wrap" style="max-height:300px;overflow:auto">
+        <table style="font-size:11px">
+         <thead style="position:sticky;top:0;z-index:1"><tr><th>Day</th><th>Lowest Residual (mg/L)</th><th>Below Required?</th><th>Reported</th></tr></thead>
+         <tbody>
+          <tr><td>1</td><td style="padding:4px 6px"><input class="cell-input" value="1.64" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>2</td><td style="padding:4px 6px"><input class="cell-input" value="1.40" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>3</td><td style="padding:4px 6px"><input class="cell-input" value="1.71" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>4</td><td style="padding:4px 6px"><input class="cell-input" value="1.83" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>5</td><td style="padding:4px 6px"><input class="cell-input" value="2.00" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>6</td><td style="padding:4px 6px"><input class="cell-input" value="1.62" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>7</td><td style="padding:4px 6px"><input class="cell-input" value="1.70" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr>
+          <tr style="background:#fef2f2"><td style="font-weight:700">8</td><td style="padding:4px 6px"><input class="cell-input warn" value="0.69" style="max-width:60px;color:var(--red);font-weight:600"></td><td style="color:var(--red);font-weight:600">Yes — Below 1.40</td><td>—</td></tr>
+          <tr><td>9</td><td style="padding:4px 6px"><input class="cell-input" value="1.70" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>10</td><td style="padding:4px 6px"><input class="cell-input" value="1.51" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>11</td><td style="padding:4px 6px"><input class="cell-input" value="1.91" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>12</td><td style="padding:4px 6px"><input class="cell-input" value="1.62" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>13</td><td style="padding:4px 6px"><input class="cell-input" value="1.74" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>14</td><td style="padding:4px 6px"><input class="cell-input" value="1.80" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr>
+          <tr style="background:#fef2f2"><td style="font-weight:700">15</td><td style="padding:4px 6px"><input class="cell-input warn" value="1.00" style="max-width:60px;color:var(--red);font-weight:600"></td><td style="color:var(--red);font-weight:600">Yes — Below 1.40</td><td>—</td></tr>
+          <tr><td>16</td><td style="padding:4px 6px"><input class="cell-input" value="1.87" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>17</td><td style="padding:4px 6px"><input class="cell-input" value="1.63" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>18</td><td style="padding:4px 6px"><input class="cell-input" value="1.70" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>19</td><td style="padding:4px 6px"><input class="cell-input" value="1.82" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>20</td><td style="padding:4px 6px"><input class="cell-input" value="1.71" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>21</td><td style="padding:4px 6px"><input class="cell-input" value="1.87" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>22</td><td style="padding:4px 6px"><input class="cell-input" value="1.80" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>23</td><td style="padding:4px 6px"><input class="cell-input" value="1.74" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>24</td><td style="padding:4px 6px"><input class="cell-input" value="1.60" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>25</td><td style="padding:4px 6px"><input class="cell-input" value="1.84" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>26</td><td style="padding:4px 6px"><input class="cell-input" value="1.47" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>27</td><td style="padding:4px 6px"><input class="cell-input" value="1.60" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>28</td><td style="padding:4px 6px"><input class="cell-input" value="1.55" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>29</td><td style="padding:4px 6px"><input class="cell-input" value="1.44" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>30</td><td style="padding:4px 6px"><input class="cell-input" value="1.58" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr><tr><td>31</td><td style="padding:4px 6px"><input class="cell-input" value="1.43" style="max-width:60px"></td><td style="color:var(--green)">No</td><td>—</td></tr>
+         </tbody>
+        </table>
+       </div>
+       <div style="margin-top:10px;display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fef2f2;border:1px solid #f0c4c4;border-radius:var(--radius);font-size:12px;color:var(--text-sec)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Days 8 and 15 recorded residual below the state minimum of <strong>1.40 mg/L</strong>. Day 8: <strong style="color:var(--red)">0.69 mg/L</strong> (chlorine cylinder switch), Day 15: <strong style="color:var(--red)">1.00 mg/L</strong>.</span>
+       </div>
+      </div>
+     </div>
+
+     <!-- Page 5: 4-Log Credit -->
+     <div class="section-card" style="margin-top:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="var b=this.parentElement.querySelector('.collapse-body');b.style.display=b.style.display==='none'?'block':'none';this.querySelector('.collapse-chev').style.transform=b.style.display==='none'?'':'rotate(180deg)'">
+       <div style="display:flex;align-items:center;gap:10px">
+        <div class="section-title" style="margin-bottom:0">4-Log Credit Calculations</div>
+        <span class="conf-badge high" style="font-size:10px"><span class="conf-badge-dot"></span> All CT met</span>
+       </div>
+       <svg class="collapse-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" style="transition:transform .2s;flex-shrink:0;transform:rotate(180deg)"><path d="M6 9l6 6 6-6" stroke="var(--text-hint)" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="collapse-body" style="display:block;margin-top:14px">
+       <div style="display:flex;gap:16px;margin-bottom:12px;font-size:13px;flex-wrap:wrap">
+        <div><span style="color:var(--text-sec);font-weight:600">Min. Residual:</span> 1.4 mg/L</div>
+        <div><span style="color:var(--text-sec);font-weight:600">Total Volume:</span> 10,329 gal</div>
+        <div><span style="color:var(--text-sec);font-weight:600">Peak Flow:</span> 1,983 gpm</div>
+       </div>
+       <div class="tbl-wrap" style="max-height:280px;overflow:auto">
+        <table style="font-size:11px">
+         <thead style="position:sticky;top:0;z-index:1"><tr><th>Date</th><th>Hrs</th><th>Total Treated</th><th>Peak Flow</th><th>Volume</th><th>Time (min)</th><th>Free Cl</th><th>Actual CT</th><th>Temp °C</th><th>Req CT</th></tr></thead>
+         <tbody>
+          <tr><td>5/1</td><td style="padding:4px 4px"><input class="cell-input" value="12.00" style="max-width:50px"></td><td style="padding:4px 4px"><input class="cell-input" value="983,000" style="max-width:75px"></td><td style="padding:4px 4px"><input class="cell-input" value="1,365" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="10,329" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="7.57" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.64" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="12.4" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="15" style="max-width:35px"></td><td style="padding:4px 4px"><input class="cell-input" value="4" style="max-width:35px"></td></tr>
+          <tr><td>5/2</td><td style="padding:4px 4px"><input class="cell-input" value="13.00" style="max-width:50px"></td><td style="padding:4px 4px"><input class="cell-input" value="1,129,000" style="max-width:75px"></td><td style="padding:4px 4px"><input class="cell-input" value="1,447" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="10,329" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="7.14" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.40" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="10.0" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="15" style="max-width:35px"></td><td style="padding:4px 4px"><input class="cell-input" value="4" style="max-width:35px"></td></tr>
+          <tr><td>5/3</td><td style="padding:4px 4px"><input class="cell-input" value="15.00" style="max-width:50px"></td><td style="padding:4px 4px"><input class="cell-input" value="1,461,000" style="max-width:75px"></td><td style="padding:4px 4px"><input class="cell-input" value="1,623" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="10,329" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="6.36" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.71" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="10.9" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="15" style="max-width:35px"></td><td style="padding:4px 4px"><input class="cell-input" value="4" style="max-width:35px"></td></tr>
+          <tr><td>5/5</td><td style="padding:4px 4px"><input class="cell-input" value="15.00" style="max-width:50px"></td><td style="padding:4px 4px"><input class="cell-input" value="976,000" style="max-width:75px"></td><td style="padding:4px 4px"><input class="cell-input" value="1,084" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="10,329" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="9.52" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="2.00" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="19.0" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="15" style="max-width:35px"></td><td style="padding:4px 4px"><input class="cell-input" value="4" style="max-width:35px"></td></tr>
+          <tr style="background:#fffcf2"><td>5/8</td><td style="padding:4px 4px"><input class="cell-input" value="24.00" style="max-width:50px"></td><td style="padding:4px 4px"><input class="cell-input" value="1,739,000" style="max-width:75px"></td><td style="padding:4px 4px"><input class="cell-input" value="1,208" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="10,329" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="8.55" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input warn" value="0.69" style="max-width:45px;color:var(--amber);font-weight:600"></td><td style="padding:4px 4px"><input class="cell-input" value="5.9" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="15" style="max-width:35px"></td><td style="padding:4px 4px"><input class="cell-input" value="4" style="max-width:35px"></td></tr>
+          <tr><td>5/10</td><td style="padding:4px 4px"><input class="cell-input" value="24.00" style="max-width:50px"></td><td style="padding:4px 4px"><input class="cell-input" value="2,307,000" style="max-width:75px"></td><td style="padding:4px 4px"><input class="cell-input" value="1,602" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="10,329" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="6.45" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.51" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="9.7" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="15" style="max-width:35px"></td><td style="padding:4px 4px"><input class="cell-input" value="4" style="max-width:35px"></td></tr>
+          <tr><td>5/31</td><td style="padding:4px 4px"><input class="cell-input" value="21.00" style="max-width:50px"></td><td style="padding:4px 4px"><input class="cell-input" value="1,451,000" style="max-width:75px"></td><td style="padding:4px 4px"><input class="cell-input" value="1,152" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="10,329" style="max-width:55px"></td><td style="padding:4px 4px"><input class="cell-input" value="8.97" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.60" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="14.3" style="max-width:45px"></td><td style="padding:4px 4px"><input class="cell-input" value="16" style="max-width:35px"></td><td style="padding:4px 4px"><input class="cell-input" value="3.8" style="max-width:35px"></td></tr>
+          <tr><td colspan="10" style="text-align:center;color:var(--text-hint);padding:8px;font-style:italic">+ 24 more days — all CT requirements met</td></tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+
+     <!-- Page 6: Chlorine Event Log -->
+     <div class="section-card" style="margin-top:12px;margin-bottom:20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="var b=this.parentElement.querySelector('.collapse-body');b.style.display=b.style.display==='none'?'block':'none';this.querySelector('.collapse-chev').style.transform=b.style.display==='none'?'':'rotate(180deg)'">
+       <div style="display:flex;align-items:center;gap:10px">
+        <div class="section-title" style="margin-bottom:0">Chlorine Event Log</div>
+        <span class="conf-badge review" style="font-size:10px"><span class="conf-badge-dot"></span> 2 events</span>
+       </div>
+       <svg class="collapse-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" style="transition:transform .2s;flex-shrink:0;transform:rotate(180deg)"><path d="M6 9l6 6 6-6" stroke="var(--text-hint)" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="collapse-body" style="display:block;margin-top:14px">
+       <div style="margin-bottom:20px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber)"></span> Event 1 — May 8, 2026, 10:15 PM</div>
+        <div style="font-size:12px;color:var(--text-sec);margin-bottom:10px;padding-left:14px"><input class="cell-input" value="Chlorine cylinder switched over. Residual dropped to 0.69 ppm. Returned to normal in less than 15 minutes." style="width:100%;max-width:100%;font-size:12px;color:var(--text-sec)"></div>
+        <div class="tbl-wrap"><table style="font-size:11px">
+         <thead><tr><th>Time</th><th>HS Flow</th><th>Cl₂</th><th>Notes</th></tr></thead>
+         <tbody>
+          <tr><td><input class="cell-input" value="9:30pm" style="max-width:70px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.8" style="max-width:40px"></td><td style="padding:4px 4px"><input class="cell-input" value="2.0" style="max-width:40px"></td><td></td></tr>
+          <tr><td><input class="cell-input" value="9:45pm" style="max-width:70px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.8" style="max-width:40px"></td><td style="padding:4px 4px"><input class="cell-input" value="2.0" style="max-width:40px"></td><td></td></tr>
+          <tr style="background:#fef2f2"><td><input class="cell-input" value="10:00pm" style="max-width:70px;font-weight:600"></td><td style="padding:4px 4px"><input class="cell-input" value="1.8" style="max-width:40px"></td><td style="padding:4px 4px"><input class="cell-input warn" value="1.5" style="max-width:40px;color:var(--red);font-weight:600"></td><td><input class="cell-input" value="Chlorine cylinder switched over at 10:15 pm" style="max-width:300px"></td></tr>
+          <tr style="background:#fef2f2"><td><input class="cell-input" value="10:15pm" style="max-width:70px;font-weight:600"></td><td style="padding:4px 4px"><input class="cell-input" value="1.8" style="max-width:40px"></td><td style="padding:4px 4px"><input class="cell-input warn" value="0.7" style="max-width:40px;color:var(--red);font-weight:600"></td><td><input class="cell-input" value="Chlorine dropped to 0.69 ppm" style="max-width:300px"></td></tr>
+          <tr><td><input class="cell-input" value="10:30pm" style="max-width:70px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.8" style="max-width:40px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.7" style="max-width:40px"></td><td><input class="cell-input" value="Back to normal in <15 min" style="max-width:300px"></td></tr>
+          <tr><td><input class="cell-input" value="10:45-11:30pm" style="max-width:90px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.8" style="max-width:40px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.9" style="max-width:40px"></td><td><input class="cell-input" value="Stable" style="max-width:300px"></td></tr>
+         </tbody>
+        </table></div>
+       </div>
+       <div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber)"></span> Event 2 — May 15, 2026, 9:00 AM</div>
+        <div style="font-size:12px;color:var(--text-sec);margin-bottom:10px;padding-left:14px"><input class="cell-input" value="Chlorine cylinder switched over. Residual dropped to 1.0 ppm. Returned to normal in less than 15 minutes." style="width:100%;max-width:100%;font-size:12px;color:var(--text-sec)"></div>
+        <div class="tbl-wrap"><table style="font-size:11px">
+         <thead><tr><th>Time</th><th>HS Flow</th><th>Cl₂</th><th>Notes</th></tr></thead>
+         <tbody>
+          <tr><td><input class="cell-input" value="8:45am" style="max-width:70px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.1" style="max-width:40px"></td><td style="padding:4px 4px"><input class="cell-input" value="2.0" style="max-width:40px"></td><td></td></tr>
+          <tr style="background:#fef2f2"><td><input class="cell-input" value="9:00am" style="max-width:70px;font-weight:600"></td><td style="padding:4px 4px"><input class="cell-input" value="1.1" style="max-width:40px"></td><td style="padding:4px 4px"><input class="cell-input warn" value="1.4" style="max-width:40px;color:var(--red);font-weight:600"></td><td><input class="cell-input" value="Chlorine cylinder switched over" style="max-width:300px"></td></tr>
+          <tr><td><input class="cell-input" value="9:15am" style="max-width:70px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.1" style="max-width:40px"></td><td style="padding:4px 4px"><input class="cell-input" value="2.0" style="max-width:40px"></td><td><input class="cell-input" value="Chlorine dropped to 1.0 ppm, recovered" style="max-width:300px"></td></tr>
+          <tr><td><input class="cell-input" value="9:30-10:30am" style="max-width:90px"></td><td style="padding:4px 4px"><input class="cell-input" value="1.1" style="max-width:40px"></td><td style="padding:4px 4px"><input class="cell-input" value="2.0" style="max-width:40px"></td><td><input class="cell-input" value="Stable" style="max-width:300px"></td></tr>
+         </tbody>
+        </table></div>
+       </div>
+      </div>
+     </div>
+
+     <div class="inline-actions" style="margin-top:0">
       <button class="btn" onclick="morNavigate(0)">← Upload different file</button>
       <button class="btn btn-primary" onclick="morNavigate(3)">Confirm Results ›</button>
      </div>
     </div>
    </div>
-
-   <!-- Step 4: Submit to State -->
    <div class="screen" id="mor-s-submit">
     <div class="import-content">
      <div class="import-title">Submit to State</div>
@@ -1099,11 +1305,11 @@ tbody tr:hover td{background:#f8f9fc}
 
      <div class="section-card">
       <div class="section-title">Report Summary</div>
-      <div class="section-desc">Water Quality Monthly Report — March 2026</div>
+      <div class="section-desc">Monthly Report of Operation — May 2026</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;font-size:13px">
-       <div><span style="color:var(--text-sec);font-weight:600">Facility:</span> WTP-01 Main Plant</div>
-       <div><span style="color:var(--text-sec);font-weight:600">Period:</span> March 2026</div>
-       <div><span style="color:var(--text-sec);font-weight:600">Template:</span> Surface Water MOR — Daily Entries</div>
+       <div><span style="color:var(--text-sec);font-weight:600">Facility:</span> Ground Water Plant</div>
+       <div><span style="color:var(--text-sec);font-weight:600">Period:</span> May 2026</div>
+       <div><span style="color:var(--text-sec);font-weight:600">Template:</span> Monthly Report of Operation — R11</div>
        <div><span style="color:var(--text-sec);font-weight:600">Days Completed:</span> 31 of 31</div>
        <div><span style="color:var(--text-sec);font-weight:600">Daily Parameters:</span> 22</div>
        <div><span style="color:var(--text-sec);font-weight:600">Report Status:</span> <span class="td-status analyzed">Complete</span></div>
@@ -1136,7 +1342,7 @@ tbody tr:hover td{background:#f8f9fc}
      <div class="success-hero">
       <div class="success-circle"><svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="success-title">Report Submitted Successfully</div>
-      <div class="success-sub">Your Water Quality Monthly Report for March 2026 has been submitted to the state for review. You'll be notified when it's reviewed.</div>
+      <div class="success-sub">Your Monthly Report of Operation for May 2026 has been submitted to the state for review. You'll be notified when it's reviewed.</div>
      </div>
      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;text-align:center">
       <div class="summary-card"><div class="summary-label">Days Imported</div><div class="summary-val">31</div></div>
@@ -1250,58 +1456,46 @@ var MOR_REPORTS = [
 
 var MOR_REVIEW_RESULTS = [];
 // Generate 31 days of daily data
-var DAILY_COLUMNS = ['Processed (MG)','Pumped to Dist. (MG)','Raw pH','Alkalinity (mg/L)','Temp (°C)','Raw Fe (mg/L)','Raw Mn (mg/L)','Max Raw Turb. (NTU)','Min Raw Turb. (NTU)','Plant Hrs','Filters in Use','Max Settled Turb.','Filtered pH','Max Filt. Turb.','Min Filt. Turb.','Avg Filt. Turb.','EP Fe (mg/L)','EP Mn (mg/L)','Fluoride (mg/L)','pH Max','pH Min','Cl₂ Free Min (mg/L)'];
-var DAILY_UNITS = ['MG','MG','SU','mg/L','°C','mg/L','mg/L','NTU','NTU','hrs','','NTU','SU','NTU','NTU','NTU','mg/L','mg/L','mg/L','SU','SU','mg/L'];
-var DAILY_MCLS = ['—','—','—','—','—','—','—','—','—','—','—','—','—','1.0','—','—','0.3','0.05','4.0','8.5','6.5','0.2'];
+var DAILY_COLUMNS = ['Turb. Raw','Turb. Fin.','Alk. Raw','Alk. Fin.','pH Raw','pH Fin.','Hardness Raw','Hardness Fin.','Iron Raw','Iron Fin.','Mn Raw','Mn Fin.','Phosphate','Fluoride','Water Treated (kgal)','Chlorine (lbs)','Fluoride (lbs)','Filter Run (hrs)','Cl2 Tap Free','Cl2 Tap Total','Cl2 D.S. Free','Cl2 D.S. Total'];
+var DAILY_UNITS = ['NTU','NTU','mg/L','mg/L','SU','SU','mg/L','mg/L','mg/L','mg/L','mg/L','mg/L','mg/L','mg/L','kgal','lbs','lbs','hrs','mg/L','mg/L','mg/L','mg/L'];
+var DAILY_MCLS = ['—','1.0','—','—','—','—','—','—','—','0.3','—','0.05','—','4.0','—','—','—','—','—','—','—','—'];
+var DAILY_COL_TYPES = ['num','num','num','num','num','num','num','num','num','num','num','num','num','num','num','num','num','num','num','num','num','num'];
 
-function generateDailyData() {
- var data = [];
- for(var d=1;d<=31;d++){
-  var row = {
-   day: d,
-   date: 'Mar '+d+', 2026',
-   operator: d%3===0?'B. Miller':'A. Davis',
-   source: 'Reservoir A',
-   values: [
-    (2.1+Math.random()*0.8).toFixed(2),  // Processed
-    (1.9+Math.random()*0.7).toFixed(2),  // Pumped
-    (7.1+Math.random()*0.6).toFixed(1),  // Raw pH
-    (170+Math.floor(Math.random()*30)).toString(), // Alkalinity
-    (8+Math.floor(Math.random()*6)).toString(),  // Temp
-    (0.02+Math.random()*0.08).toFixed(2), // Raw Fe
-    (0.01+Math.random()*0.04).toFixed(3), // Raw Mn
-    (3+Math.random()*8).toFixed(1),       // Max Raw Turb
-    (0.5+Math.random()*2).toFixed(1),     // Min Raw Turb
-    (20+Math.floor(Math.random()*4)).toString(), // Plant Hrs
-    (3+Math.floor(Math.random()*2)).toString(),  // Filters
-    (0.3+Math.random()*0.5).toFixed(2),   // Max Settled Turb
-    (7.0+Math.random()*0.5).toFixed(1),   // Filtered pH
-    (0.05+Math.random()*0.12).toFixed(2), // Max Filt Turb
-    (0.02+Math.random()*0.05).toFixed(2), // Min Filt Turb
-    (0.03+Math.random()*0.06).toFixed(2), // Avg Filt Turb
-    (0.01+Math.random()*0.06).toFixed(2), // EP Fe
-    (0.005+Math.random()*0.015).toFixed(3), // EP Mn
-    (1.0+Math.random()*0.5).toFixed(1),   // Fluoride
-    (7.2+Math.random()*0.6).toFixed(1),   // pH Max
-    (6.8+Math.random()*0.4).toFixed(1),   // pH Min
-    (0.3+Math.random()*0.8).toFixed(1)    // Cl2 Free Min
-   ],
-   conf: []
-  };
-  // Generate confidence per value - most high, a few flagged
-  row.values.forEach(function(v,ci) {
-   row.conf.push((d===5&&ci===13)||(d===18&&ci===16)||(d===22&&ci===21) ? 65 : 95+Math.floor(Math.random()*5));
-  });
-  data.push(row);
- }
- return data;
-}
+var DAILY_DATA = [
+{day:1,date:'May 1, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['3.93','0.053','264','258','7.5','7.5','176','168','0.94','0.02','0.067','0.013','-','0.98','983','14.2','9.8','12.0','1.94','2.03','1.17','1.28'],bools:[],conf:[]},
+{day:2,date:'May 2, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['3.72','0.068','268','254','7.5','7.2','192','184','0.87','0.02','0.147','0.008','-','0.96','1129','15.1','11.3','13.0','1.73','1.83','1.73','1.83'],bools:[],conf:[]},
+{day:3,date:'May 3, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['5.12','0.069','270','264','7.5','7.3','200','180','1.21','0.01','0.195','0.033','-','0.62','1461','23.7','14.6','15.0','1.68','1.90','1.87','2.01'],bools:[],conf:[]},
+{day:4,date:'May 4, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['2.43','0.048','270','240','7.5','7.1','160','172','0.80','0.01','0.190','0.013','-','0.57','1088','18.0','10.9','19.0','1.80','1.87','1.41','1.68'],bools:[],conf:[]},
+{day:5,date:'May 5, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['2.68','0.050','290','274','7.5','7.6','170','148','0.81','0.02','0.182','0.007','-','0.61','976','15.8','9.8','15.0','1.83','1.95','0.98','1.50'],bools:[],conf:[]},
+{day:6,date:'May 6, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['3.80','0.058','274','262','7.3','7.5','162','142','0.92','0.02','0.186','0.013','-','0.92','755','12.9','7.6','12.0','1.86','2.06','1.58','1.78'],bools:[],conf:[]},
+{day:7,date:'May 7, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['9.58','0.059','280','260','7.5','7.2','148','150','1.83','0.02','0.148','0.015','-','1.08','901','11.7','9.0','13.0','1.80','1.95','1.48','1.88'],bools:[],conf:[]},
+{day:8,date:'May 8, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['3.74','0.054','276','262','7.5','7.6','216','204','0.93','0.00','0.191','0.033','-','0.74','1739','27.7','17.4','24.0','1.73','1.89','1.56','1.79'],bools:[],conf:[]},
+{day:9,date:'May 9, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['1.65','0.064','288','240','7.2','7.1','280','232','0.65','0.00','0.165','0.006','-','1.17','1990','29.2','19.9','24.0','1.64','1.77','1.64','1.77'],bools:[],conf:[]},
+{day:10,date:'May 10, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['4.14','0.111','280','276','7.5','7.3','224','202','0.66','0.02','0.130','0.005','-','0.63','2307','32.2','23.1','24.0','1.74','1.82','1.07','1.23'],bools:[],conf:[]},
+{day:11,date:'May 11, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['2.64','0.099','270','254','7.6','7.4','166','154','0.72','0.02','0.176','0.016','-','0.65','1463','24.0','14.6','22.0','1.77','1.82','1.46','1.62'],bools:[],conf:[]},
+{day:12,date:'May 12, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['4.31','0.070','270','248','7.1','7.1','168','146','1.02','0.02','0.175','0.005','-','0.83','1306','23.1','13.1','21.0','1.81','1.98','1.39','1.60'],bools:[],conf:[]},
+{day:13,date:'May 13, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['4.10','0.059','260','254','7.5','7.6','156','154','0.92','0.01','0.187','0.012','-','0.86','1161','17.3','11.6','19.0','1.87','1.96','1.30','1.62'],bools:[],conf:[]},
+{day:14,date:'May 14, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['3.52','0.062','236','250','7.4','7.1','216','202','0.56','0.01','0.139','0.011','-','0.67','1058','15.9','10.6','16.0','1.59','1.93','1.95','2.06'],bools:[],conf:[]},
+{day:15,date:'May 15, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['4.53','0.060','300','280','7.4','7.2','218','220','0.66','0.01','0.171','0.012','-','0.64','1903','29.0','19.0','24.0','1.83','1.88','1.40','1.48'],bools:[],conf:[]},
+{day:16,date:'May 16, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['3.46','0.049','292','282','7.5','7.2','224','216','0.79','0.00','0.166','0.026','-','0.78','1588','24.9','15.9','24.0','1.65','1.75','-','-'],bools:[],conf:[]},
+{day:17,date:'May 17, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['3.08','0.052','318','320','7.6','7.6','218','206','0.60','0.01','0.151','0.006','-','0.82','1611','25.0','16.1','24.0','1.64','1.74','1.53','1.70'],bools:[],conf:[]},
+{day:18,date:'May 18, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['4.15','0.060','300','236','7.4','7.0','220','212','0.65','0.01','0.175','0.024','-','0.69','1317','19.9','13.2','19.0','1.78','1.94','1.44','1.78'],bools:[],conf:[]},
+{day:19,date:'May 19, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['5.79','0.065','288','240','7.4','7.2','230','208','1.08','0.02','0.153','0.022','-','0.40','1149','18.4','11.5','17.5','1.92','2.04','1.84','2.05'],bools:[],conf:[]},
+{day:20,date:'May 20, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['4.46','0.060','296','252','7.4','7.2','220','204','0.86','0.00','0.157','0.040','-','0.55','1052','17.1','10.5','15.5','1.51','1.56','1.45','2.05'],bools:[],conf:[]},
+{day:21,date:'May 21, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['3.73','0.056','248','236','7.4','7.2','204','196','0.87','0.00','0.158','0.030','-','0.78','1010','16.9','10.0','14.5','1.87','2.00','1.68','2.08'],bools:[],conf:[]},
+{day:22,date:'May 22, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['4.89','0.051','316','316','7.1','7.6','196','220','0.91','0.02','0.191','0.010','-','0.60','1225','20.9','12.3','19.0','1.79','1.84','1.43','1.83'],bools:[],conf:[]},
+{day:23,date:'May 23, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['9.84','0.060','280','252','7.4','7.0','288','192','1.86','0.02','0.195','0.014','-','1.14','985','15.0','9.9','14.0','1.91','2.02','1.23','1.29'],bools:[],conf:[]},
+{day:24,date:'May 24, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['5.61','0.049','292','264','7.4','7.0','196','184','1.20','0.02','0.160','0.018','-','1.31','1850','30.1','18.5','20.0','1.77','1.86','1.77','1.86'],bools:[],conf:[]},
+{day:25,date:'May 25, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['2.36','0.053','294','286','7.4','7.2','180','178','0.72','0.02','0.174','0.015','-','0.40','1402','24.1','14.0','21.0','1.52','1.71','1.29','1.56'],bools:[],conf:[]},
+{day:26,date:'May 26, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['1.69','0.054','260','250','7.4','7.2','188','176','0.56','0.00','0.164','0.024','-','0.62','1110','21.0','11.1','18.0','1.98','2.06','-','-'],bools:[],conf:[]},
+{day:27,date:'May 27, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['2.17','0.054','240','232','7.1','7.3','230','226','0.62','0.00','0.169','0.036','-','0.33','1468','25.2','14.7','24.0','1.89','1.99','1.55','1.82'],bools:[],conf:[]},
+{day:28,date:'May 28, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['1.90','0.056','230','226','7.2','7.4','216','214','0.55','0.02','0.185','0.041','-','0.75','1390','23.2','13.9','24.0','1.82','1.98','1.55','1.74'],bools:[],conf:[]},
+{day:29,date:'May 29, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['8.24','0.059','244','256','7.1','7.4','164','162','1.43','0.01','0.173','0.023','-','0.49','990','16.1','9.9','15.0','2.05','2.18','1.41','1.56'],bools:[],conf:[]},
+{day:30,date:'May 30, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['2.37','0.054','250','252','7.1','7.4','160','158','0.63','0.03','0.137','0.024','-','0.52','1499','26.4','15.0','24.0','2.02','2.20','2.03','2.20'],bools:[],conf:[]},
+{day:31,date:'May 31, 2026',operator:'R. Smith',source:'Ground Water Plant',values:['4.83','0.055','310','302','7.3','7.0','168','160','0.85','0.02','0.134','0.023','-','0.71','1451','24.1','14.5','21.0','1.83','1.89','1.41','1.66'],bools:[],conf:[]}
+];
+DAILY_DATA.forEach(function(day){day.values.forEach(function(v,ci){if(day.day===10&&ci===1)day.conf.push(62);else if(day.day===8&&ci===20)day.conf.push(68);else day.conf.push(95+Math.floor(Math.random()*5));});});
 
-var DAILY_DATA = generateDailyData();
-// Insert some MCL exceedances for demo
-DAILY_DATA[4].values[13] = '1.12';  // Day 5 Max Filt Turb > 1.0
-DAILY_DATA[17].values[16] = '0.35'; // Day 18 EP Fe > 0.3
-DAILY_DATA[21].values[21] = '0.15'; // Day 22 Cl2 Free Min < 0.2 (below minimum)
 
 var SD_MOR_QUEUE = [
  {id:1,utility:'Carmel Water Department',report:'Water Quality Monthly Report',period:'March 2026',submitted:'Apr 15, 2026',results:18,fields:42,contact:'Alex Davis',status:'Pending Review',selected:false},
@@ -1407,7 +1601,7 @@ function morPrevStep() {
 
 function morSimulateUpload() {
  var fl = document.getElementById('mor-file-list');
- fl.innerHTML = '<div class="file-item"><div class="file-badge pdf">PDF</div><div class="file-info"><div class="file-name">March_2026_MOR_WTP01.pdf</div><div class="file-meta">2.4 MB · 12 pages</div></div><span class="status-ready">Ready</span><button class="file-remove" onclick="this.closest(\'.file-item\').remove()">×</button></div>';
+ fl.innerHTML = '<div class="file-item"><div class="file-badge pdf">PDF</div><div class="file-info"><div class="file-name">5249008_02_202605.pdf</div><div class="file-meta">1.2 MB · 6 pages</div></div><span class="status-ready">Ready</span><button class="file-remove" onclick="this.closest(\'.file-item\').remove()">×</button></div>';
  fl.style.display = 'block';
  document.getElementById('mor-dropzone').style.display = 'none';
  document.getElementById('mor-upload-actions').style.display = 'flex';
@@ -1458,11 +1652,11 @@ function morRunProcessing() {
 var dailyColGroup = 'all';
 var COL_GROUPS = {
  all: null,
- usage: [0,1],
- raw: [2,3,4,5,6,7,8],
- plant: [9,10,11],
- filtered: [12,13,14,15],
- entry: [16,17,18,19,20,21],
+ usage: [14,15,16,17],
+ raw: [0,2,4,6,8,10],
+ plant: [14,17],
+ filtered: [1,3,5,7,9,11,12,13],
+ entry: [18,19,20,21],
  flags: 'flags'
 };
 
@@ -1524,17 +1718,23 @@ function morBuildReviewTable() {
   h += '<td style="position:sticky;left:72px;z-index:1;background:var(--white);border-right:2px solid var(--border);box-shadow:4px 0 8px rgba(0,0,0,0.04);min-width:92px;width:92px"><button class="view-source-btn" onclick="openPdfPreview('+(day.day-1)+')"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.5"/></svg> Compare</button></td>';
   h += '<td style="font-size:11px;color:var(--text-sec);min-width:80px">'+day.operator+'</td>';
   visibleCols.forEach(function(ci) {
-   var v = day.values[ci];
-   var mcl = DAILY_MCLS[ci];
-   var isExceed = mcl !== '—' && parseFloat(v) > parseFloat(mcl);
-   var isLowConf = day.conf[ci] < 80;
-   var cellStyle = isExceed ? 'background:#fef2f2;' : (isLowConf ? 'background:#fffcf2;' : '');
-   var inputStyle = isExceed ? 'color:var(--red);font-weight:600' : '';
-   h += '<td style="'+cellStyle+'padding:4px 6px;min-width:90px">';
-   h += '<input class="cell-input'+(isExceed||isLowConf?' warn':'')+'" value="'+v+'" style="max-width:70px;'+inputStyle+'">';
-   if(isExceed) h += ' <span style="color:var(--amber);font-size:9px" title="Exceeds threshold">⚠</span>';
-   if(isLowConf) h += ' <span style="color:var(--amber);font-size:9px" title="Low confidence">?</span>';
-   h += '</td>';
+   var isBool = DAILY_COL_TYPES[ci] === 'bool';
+   if(isBool) {
+    var bv = day.bools[ci - 22];
+    h += '<td style="padding:4px 6px;min-width:90px;text-align:center"><input type="checkbox"'+(bv?' checked':'')+' style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer"></td>';
+   } else {
+    var v = day.values[ci];
+    var mcl = DAILY_MCLS[ci];
+    var isExceed = mcl !== '—' && parseFloat(v) > parseFloat(mcl);
+    var isLowConf = day.conf[ci] < 80;
+    var cellStyle = isExceed ? 'background:#fef2f2;' : (isLowConf ? 'background:#fffcf2;' : '');
+    var inputStyle = isExceed ? 'color:var(--red);font-weight:600' : '';
+    h += '<td style="'+cellStyle+'padding:4px 6px;min-width:90px">';
+    h += '<input class="cell-input'+(isExceed||isLowConf?' warn':'')+'" value="'+v+'" style="max-width:70px;'+inputStyle+'">';
+    if(isExceed) h += ' <span style="color:var(--amber);font-size:9px" title="Exceeds threshold">⚠</span>';
+    if(isLowConf) h += ' <span style="color:var(--amber);font-size:9px" title="Low confidence">?</span>';
+    h += '</td>';
+   }
   });
   h += '</tr>';
  });
@@ -1543,37 +1743,45 @@ function morBuildReviewTable() {
  // Footer with summary
  var tfoot = document.getElementById('daily-review-tfoot');
  var fh = '';
+ var footDayStyle = 'position:sticky;left:0;z-index:1;background:var(--white);font-weight:700;font-size:11px;min-width:72px;width:72px;padding:12px 16px';
+ var footCmpStyle = 'position:sticky;left:72px;z-index:1;background:var(--white);border-right:2px solid var(--border);box-shadow:4px 0 8px rgba(0,0,0,0.04);min-width:92px;width:92px;padding:12px 16px';
+ var footInputStyle = 'max-width:70px;background:transparent;border-color:transparent;color:var(--text-sec);font-weight:600';
  // Avg row
  fh += '<tr style="border-top:2px solid var(--border)">';
- fh += '<td style="position:sticky;left:0;z-index:1;background:var(--white);font-weight:700;font-size:11px;min-width:72px;width:72px;padding:12px 16px">AVG</td>';
- fh += '<td style="position:sticky;left:72px;z-index:1;background:var(--white);border-right:2px solid var(--border);box-shadow:4px 0 8px rgba(0,0,0,0.04);min-width:92px;width:92px;padding:12px 16px"></td>';
- fh += '<td style="min-width:80px;padding:12px 16px"></td>';
+ fh += '<td style="'+footDayStyle+'">AVG</td><td style="'+footCmpStyle+'"></td><td style="min-width:80px;padding:12px 16px"></td>';
  visibleCols.forEach(function(ci) {
-  var sum=0,ct=0;
-  DAILY_DATA.forEach(function(d){var v=parseFloat(d.values[ci]);if(!isNaN(v)){sum+=v;ct++;}});
-  fh += '<td style="font-size:11px;font-weight:600;color:var(--text-sec);min-width:90px;padding:4px 6px"><input class="cell-input" value="'+(ct>0?(sum/ct).toFixed(2):'—')+'" disabled style="max-width:70px;background:transparent;border-color:transparent;color:var(--text-sec);font-weight:600"></td>';
+  if(DAILY_COL_TYPES[ci]==='bool') {
+   var yc=0; DAILY_DATA.forEach(function(d){if(d.bools[ci-22]) yc++;});
+   fh += '<td style="font-size:11px;font-weight:600;color:var(--text-sec);min-width:90px;padding:8px 6px;text-align:center">'+yc+'/31 yes</td>';
+  } else {
+   var sum=0,ct=0;
+   DAILY_DATA.forEach(function(d){var v=parseFloat(d.values[ci]);if(!isNaN(v)){sum+=v;ct++;}});
+   fh += '<td style="font-size:11px;font-weight:600;color:var(--text-sec);min-width:90px;padding:4px 6px"><input class="cell-input" value="'+(ct>0?(sum/ct).toFixed(2):'—')+'" disabled style="'+footInputStyle+'"></td>';
+  }
  });
  fh += '</tr>';
  // Max row
- fh += '<tr>';
- fh += '<td style="position:sticky;left:0;z-index:1;background:var(--white);font-weight:700;font-size:11px;min-width:72px;width:72px;padding:12px 16px">MAX</td>';
- fh += '<td style="position:sticky;left:72px;z-index:1;background:var(--white);border-right:2px solid var(--border);box-shadow:4px 0 8px rgba(0,0,0,0.04);min-width:92px;width:92px;padding:12px 16px"></td>';
- fh += '<td style="min-width:80px;padding:12px 16px"></td>';
+ fh += '<tr><td style="'+footDayStyle+'">MAX</td><td style="'+footCmpStyle+'"></td><td style="min-width:80px;padding:12px 16px"></td>';
  visibleCols.forEach(function(ci) {
-  var mx=-Infinity;
-  DAILY_DATA.forEach(function(d){var v=parseFloat(d.values[ci]);if(!isNaN(v)&&v>mx)mx=v;});
-  fh += '<td style="font-size:11px;font-weight:600;color:var(--text-sec);min-width:90px;padding:4px 6px"><input class="cell-input" value="'+(mx>-Infinity?mx.toFixed(2):'—')+'" disabled style="max-width:70px;background:transparent;border-color:transparent;color:var(--text-sec);font-weight:600"></td>';
+  if(DAILY_COL_TYPES[ci]==='bool') {
+   fh += '<td style="min-width:90px;padding:8px 6px"></td>';
+  } else {
+   var mx=-Infinity;
+   DAILY_DATA.forEach(function(d){var v=parseFloat(d.values[ci]);if(!isNaN(v)&&v>mx)mx=v;});
+   fh += '<td style="font-size:11px;font-weight:600;color:var(--text-sec);min-width:90px;padding:4px 6px"><input class="cell-input" value="'+(mx>-Infinity?mx.toFixed(2):'—')+'" disabled style="'+footInputStyle+'"></td>';
+  }
  });
  fh += '</tr>';
  // Min row
- fh += '<tr>';
- fh += '<td style="position:sticky;left:0;z-index:1;background:var(--white);font-weight:700;font-size:11px;min-width:72px;width:72px;padding:12px 16px">MIN</td>';
- fh += '<td style="position:sticky;left:72px;z-index:1;background:var(--white);border-right:2px solid var(--border);box-shadow:4px 0 8px rgba(0,0,0,0.04);min-width:92px;width:92px;padding:12px 16px"></td>';
- fh += '<td style="min-width:80px;padding:12px 16px"></td>';
+ fh += '<tr><td style="'+footDayStyle+'">MIN</td><td style="'+footCmpStyle+'"></td><td style="min-width:80px;padding:12px 16px"></td>';
  visibleCols.forEach(function(ci) {
-  var mn=Infinity;
-  DAILY_DATA.forEach(function(d){var v=parseFloat(d.values[ci]);if(!isNaN(v)&&v<mn)mn=v;});
-  fh += '<td style="font-size:11px;font-weight:600;color:var(--text-sec);min-width:90px;padding:4px 6px"><input class="cell-input" value="'+(mn<Infinity?mn.toFixed(2):'—')+'" disabled style="max-width:70px;background:transparent;border-color:transparent;color:var(--text-sec);font-weight:600"></td>';
+  if(DAILY_COL_TYPES[ci]==='bool') {
+   fh += '<td style="min-width:90px;padding:8px 6px"></td>';
+  } else {
+   var mn=Infinity;
+   DAILY_DATA.forEach(function(d){var v=parseFloat(d.values[ci]);if(!isNaN(v)&&v<mn)mn=v;});
+   fh += '<td style="font-size:11px;font-weight:600;color:var(--text-sec);min-width:90px;padding:4px 6px"><input class="cell-input" value="'+(mn<Infinity?mn.toFixed(2):'—')+'" disabled style="'+footInputStyle+'"></td>';
+  }
  });
  fh += '</tr>';
  tfoot.innerHTML = fh;
@@ -1584,10 +1792,9 @@ function openPdfPreview(dayIdx) {
  document.getElementById('pp-title').textContent = 'Day '+day.day+' — March_MOR_Report.pdf';
  var tb = document.getElementById('pp-table-body');
  var h = '';
- // Show all daily values for this day in the source doc view
  DAILY_COLUMNS.forEach(function(col, ci) {
-  var v = day.values[ci];
-  var isHighlight = dayIdx === dayIdx; // all rows highlighted since it's a single day view
+  var isBool = DAILY_COL_TYPES[ci] === 'bool';
+  var v = isBool ? (day.bools[ci-22]?'Yes':'No') : day.values[ci];
   h += '<tr><td>'+col+'</td><td class="pp-highlight">'+v+'</td><td>'+DAILY_UNITS[ci]+'</td><td>'+(DAILY_MCLS[ci]!=='—'?DAILY_MCLS[ci]:'—')+'</td><td></td></tr>';
  });
  tb.innerHTML = h;
