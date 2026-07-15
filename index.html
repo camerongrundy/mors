@@ -2282,7 +2282,7 @@ var FIELD_TYPES = [
  {id:'checkboxes',label:'Checkboxes',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><path d="M5 7l1.5 1.5L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M14 5h7M14 12h7M14 19h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="3" y="10" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg>'}
 ];
 
-var feSelectedType = 'text';
+var feSelectedType = 'text';expandedTableCols=false;
 var feTableCols = [];
 var feCheckboxOpts = [];
 
@@ -2350,7 +2350,11 @@ function renderBuilderFields() {
    h += '<div style="margin-bottom:16px"><label class="fb-label">Field Type</label><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px" id="fe-type-grid"></div></div>';
    h += '<div style="margin-bottom:14px"><label class="fb-label">Label</label><input id="fe-label" class="fb-input" placeholder="e.g. Turbidity Raw, Operator Name..." onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();saveFieldFromEditor();}"></div>';
    h += '<div style="margin-bottom:14px"><label class="fb-label">Help Text <span style="font-weight:400;color:var(--text-hint)">(optional)</span></label><input id="fe-help" class="fb-input" placeholder="e.g. MCL: 1.0 NTU, James Madison"></div>';
-   h += '<div id="fe-table-config" style="display:none;margin-bottom:14px"><label class="fb-label">Table Columns</label><div style="font-size:11px;color:var(--text-hint);margin-bottom:6px">Define columns. Press Enter to add more.</div><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:10px"><div style="display:flex;gap:8px;padding-bottom:6px;border-bottom:1px solid var(--border);margin-bottom:4px;font-size:10px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px"><div style="flex:1">Column Name</div><div style="width:100px">Type</div><div style="width:28px"></div></div><div id="fe-table-cols"></div><button class="btn btn-sm" onclick="addTableColumn()" style="margin-top:6px;width:100%;justify-content:center;border-style:dashed"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Add Column</button></div></div>';
+   h += '<div id="fe-table-config" style="display:none;margin-bottom:14px"><label class="fb-label">Table Columns</label><div style="font-size:11px;color:var(--text-hint);margin-bottom:8px">Define the columns operators will fill in. Press Enter to add.</div>';
+   h += '<div style="display:flex;gap:8px;margin-bottom:8px"><input id="tc-input-name" class="fb-input" placeholder="Column name, e.g. Turbidity, pH..." style="flex:1" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addTableColumnFromInput();}"><select id="tc-input-type" class="fb-input" style="width:110px;background:var(--white)"><option value="text">Text</option><option value="number">Number</option><option value="date">Date</option><option value="checkbox">Checkbox</option></select></div>';
+   h += '<div style="text-align:center;margin-bottom:12px"><button class="btn btn-sm" onclick="addTableColumnFromInput()" style="min-width:180px;border-style:dashed"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Add Column</button></div>';
+   h += '<div id="fe-table-cols"></div>';
+   h += '</div>';
    h += '<div id="fe-checkbox-config" style="display:none;margin-bottom:14px"></div>';
    h += '<div style="text-align:center"><button class="btn btn-primary" id="fe-save-btn" onclick="saveFieldFromEditor()" style="min-width:200px">Save & Add Another</button></div>';
    h += '</div>';
@@ -2428,9 +2432,10 @@ function openFormForSection(sec) {
  activeFormSection = sec;
  builderEditIdx = -1;
  fieldsAddedCount = 0;
- feSelectedType = 'text';
- feTableCols = [{name:'',type:'text'}];
+ feSelectedType = 'text';expandedTableCols=false;
+ feTableCols = [];
  feCheckboxOpts = [''];
+ expandedTableCols = false;
  renderBuilderFields();
  setTimeout(function(){
   var lbl = document.getElementById('fe-label');
@@ -2490,19 +2495,45 @@ function updateFieldTypeConfig() {
 }
 
 function addTableColumn(){feTableCols.push({name:'',type:'text'});renderTableCols();}
+function addTableColumnFromInput(){
+ var nameEl=document.getElementById('tc-input-name');
+ var typeEl=document.getElementById('tc-input-type');
+ if(!nameEl)return;
+ var name=nameEl.value.trim();
+ if(!name){nameEl.style.borderColor='var(--red)';nameEl.focus();return;}
+ nameEl.style.borderColor='';
+ feTableCols.push({name:name,type:typeEl?typeEl.value:'text'});
+ nameEl.value='';
+ nameEl.focus();
+ renderTableCols();
+}
 function removeTableCol(i){feTableCols.splice(i,1);renderTableCols();}
+var expandedTableCols = false;
+function toggleTableColsExpand(){expandedTableCols=!expandedTableCols;renderTableCols();}
 function renderTableCols(){
- var el=document.getElementById('fe-table-cols');if(!el)return;var h='';
- feTableCols.forEach(function(c,i){
-  h+='<div class="fb-col-row" style="border-bottom:'+(i<feTableCols.length-1?'1px solid var(--border-lt)':'none')+'">';
-  h+='<input class="fb-input" id="tc-name-'+i+'" value="'+c.name+'" placeholder="e.g. Turbidity, pH..." style="flex:1;font-size:13px" onchange="feTableCols['+i+'].name=this.value" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addTableColumn();}">';
-  h+='<select class="fb-input" style="width:100px;background:var(--white);font-size:12px" onchange="feTableCols['+i+'].type=this.value.toLowerCase()">';
-  ['Text','Number','Date','Checkbox'].forEach(function(t){h+='<option value="'+t.toLowerCase()+'"'+(c.type===t.toLowerCase()?' selected':'')+'>'+t+'</option>';});
-  h+='</select>';
-  h+='<button style="width:24px;height:24px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint);flex-shrink:0" onclick="removeTableCol('+i+')"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>';
+ var el=document.getElementById('fe-table-cols');if(!el)return;
+ var cols=feTableCols.filter(function(c){return c.name.trim();});
+ if(!cols.length){el.innerHTML='';return;}
+ var LIMIT=5;
+ var showAll=cols.length<=LIMIT||expandedTableCols;
+ var display=showAll?cols:cols.slice(0,LIMIT);
+ var h='';
+ display.forEach(function(c,i){
+  var gi=feTableCols.indexOf(c);
+  h+='<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:4px;background:var(--white)">';
+  h+='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint)"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  h+='<div style="flex:1;font-size:13px;font-weight:600">'+c.name+'</div>';
+  h+='<span style="font-size:11px;color:var(--text-hint);padding:2px 8px;background:var(--bg);border-radius:4px">'+c.type+'</span>';
+  h+='<button style="width:20px;height:20px;border:none;background:none;cursor:pointer;color:var(--text-hint);flex-shrink:0" onclick="removeTableCol('+gi+')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
+  h+='</div>';
  });
+ if(!showAll){
+  var rem=cols.length-LIMIT;
+  h+='<div style="text-align:center;padding:8px 0"><a style="font-size:12px;color:var(--link);cursor:pointer;font-weight:600" onclick="toggleTableColsExpand()">+ '+rem+' more</a></div>';
+ } else if(cols.length>LIMIT){
+  h+='<div style="text-align:center;padding:8px 0"><a style="font-size:12px;color:var(--link);cursor:pointer;font-weight:600" onclick="toggleTableColsExpand()">Show less</a></div>';
+ }
  el.innerHTML=h;
- var last=feTableCols.length-1;if(last>=0&&!feTableCols[last].name){var inp=document.getElementById('tc-name-'+last);if(inp)setTimeout(function(){inp.focus();},50);}
 }
 
 function addCheckboxOption(){feCheckboxOpts.push('');renderCheckboxOpts();}
@@ -2534,8 +2565,8 @@ function saveFieldFromEditor() {
   fieldsAddedCount++;
  }
  // Reset form but keep it open
- feSelectedType = 'text';
- feTableCols = [{name:'',type:'text'}];
+ feSelectedType = 'text';expandedTableCols=false;
+ feTableCols = [];
  feCheckboxOpts = [''];
  renderBuilderFields();
  triggerAutosave();
@@ -2556,8 +2587,8 @@ function addBuilderSection() {
  activeFormSection = name;
  fieldsAddedCount = 0;
  builderEditIdx = -1;
- feSelectedType = 'text';
- feTableCols = [{name:'',type:'text'}];
+ feSelectedType = 'text';expandedTableCols=false;
+ feTableCols = [];
  feCheckboxOpts = [''];
  renderBuilderFields();
  triggerAutosave();
