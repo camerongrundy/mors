@@ -298,6 +298,21 @@ tbody tr:hover td{background:#f8f9fc}
 .exceedance-link{color:var(--amber);font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-size:13px}
 .exceedance-link:hover{text-decoration:underline}
 .no-exceedance{color:var(--green);font-weight:500;font-size:13px;display:inline-flex;align-items:center;gap:4px}
+/* Form builder */
+.fb-label{font-size:12px;font-weight:600;color:var(--text-sec);display:block;margin-bottom:4px}
+.fb-input{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:var(--font)}
+.fb-input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px rgba(41,64,136,0.08)}
+.fb-type-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border:2px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .12s;font-size:11px;font-weight:600;color:var(--text-sec)}
+.fb-type-card:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+.fb-type-card.selected{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+.fb-field-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:8px;transition:border-color .12s}
+.fb-field-item:hover{border-color:var(--accent)}
+.fb-section-bar{padding:10px 14px;background:var(--bg);border-radius:var(--radius);font-size:11px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;margin-top:16px;display:flex;align-items:center;justify-content:space-between}
+.fb-section-bar:first-child{margin-top:0}
+.fb-col-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border-lt)}
+.fb-col-row:last-child{border-bottom:none}
+.fb-empty{text-align:center;padding:48px 20px;color:var(--text-hint);border:2px dashed var(--border);border-radius:var(--radius-lg)}
+
 /* Toast */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1e2a3a;color:#fff;padding:14px 24px;border-radius:var(--radius-lg);font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,0.2);z-index:400;transition:transform .3s ease,opacity .3s ease;opacity:0;pointer-events:none;max-width:500px}
 .toast.visible{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
@@ -698,7 +713,50 @@ tbody tr:hover td{background:#f8f9fc}
   </div>
  </div>
 
-</div>
+ <!-- ===== UTILITY DETAIL SUB-VIEW ===== -->
+ <div id="sd-utility-detail" style="display:none">
+  <div style="margin-bottom:20px"><a style="font-size:13px;color:var(--link);cursor:pointer;display:inline-flex;align-items:center;gap:4px" onclick="showSDView('landing')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5m0 0l7 7m-7-7l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Back to Dashboard</a></div>
+
+  <!-- Utility Header -->
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:24px">
+   <div>
+    <div class="page-title" id="ud-name" style="margin-bottom:4px">Utility Name</div>
+    <div style="display:flex;align-items:center;gap:16px;font-size:13px;color:var(--text-sec);flex-wrap:wrap" id="ud-meta"></div>
+   </div>
+   <div style="display:flex;gap:8px;flex-shrink:0" id="ud-actions"></div>
+  </div>
+
+  <!-- Status Cards -->
+  <div class="stat-row" style="margin-bottom:24px" id="ud-stats"></div>
+
+  <!-- Due/Overdue Alert -->
+  <div id="ud-alert" style="margin-bottom:20px"></div>
+
+  <!-- Two-column: Recent Activity + Facility Info -->
+  <div class="chart-row" style="margin-bottom:24px">
+   <div class="chart-card" style="flex:1">
+    <div class="chart-title">Recent Activity</div>
+    <div id="ud-activity" style="display:flex;flex-direction:column;gap:0"></div>
+   </div>
+   <div class="chart-card" style="flex:1">
+    <div class="chart-title">Facilities</div>
+    <div id="ud-facilities"></div>
+   </div>
+  </div>
+
+  <!-- Submissions Table -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+   <div style="font-size:16px;font-weight:700">Submission History</div>
+  </div>
+  <div class="tbl-wrap">
+   <table style="font-size:13px">
+    <thead><tr><th>Report</th><th>Period</th><th>Submitted</th><th>Results</th><th>Exceedances</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody id="ud-submissions-tbody"></tbody>
+   </table>
+  </div>
+ </div>
+
+</div><!-- end sd-content-area -->
 <div class="footer"><div style="margin-bottom:8px;opacity:.35"><svg width="100" height="24" viewBox="0 0 120 28" fill="none"><circle cx="14" cy="14" r="12" fill="#8d99a8"/><path d="M14 6c-1.5 3-4.5 5.5-4.5 9a4.5 4.5 0 009 0c0-3.5-3-6-4.5-9z" fill="#fff"/><text x="34" y="19" font-family="sans-serif" font-size="14" font-weight="700" fill="#8d99a8">120Water</text></svg></div><div>© 2026 120Water™ · Terms and Conditions · Privacy Policy</div></div>
 </div><!-- end view-state-dash -->
 
@@ -1417,40 +1475,53 @@ tbody tr:hover td{background:#f8f9fc}
    <a onclick="closeTemplateBuilder()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M19 12H5m0 0l7 7m-7-7l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
    <a onclick="closeTemplateBuilder()">Back to Templates</a>
   </div>
-  <div class="import-nav-center" id="tmpl-builder-title">Edit Template</div>
+  <div class="import-nav-center" id="tmpl-builder-title">New Template</div>
+  <div style="display:flex;align-items:center;gap:10px">
+   <span id="tmpl-autosave" style="font-size:11px;color:var(--text-hint);display:none"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="vertical-align:middle"><path d="M20 6L9 17l-5-5" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round"/></svg> Draft saved</span>
+  </div>
  </div>
- <div class="tmpl-body">
-  <div class="tmpl-content">
-   <div class="import-title" id="tmpl-edit-name">Water Quality Monthly Report</div>
-   <div class="import-desc" id="tmpl-edit-desc">Standard monthly report for water quality parameters required by the state.</div>
+ <div class="import-body">
+  <!-- Sidebar -->
+  <div class="import-sidebar" id="tb-sidebar">
+   <div class="sidebar-label">Template builder</div>
+   <div class="sidebar-item active" onclick="document.getElementById('tb-main').scrollTop=0"><span class="si-num">1</span>Template Details</div>
+   <div class="sidebar-label" style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">Sections <a onclick="addBuilderSection()" style="font-size:11px;font-weight:600;color:var(--link);cursor:pointer;text-transform:none;letter-spacing:0">+ Add</a></div>
+   <div id="tb-sidebar-sections"></div>
+  </div>
+  <!-- Main -->
+  <div class="import-main" id="tb-main">
+   <div class="import-content" style="max-width:720px">
+    <div class="import-title">Template Builder</div>
+    <div class="import-desc">Define the sections and fields that operators will fill in when submitting reports.</div>
 
-   <div class="section-card" style="margin-bottom:20px">
-    <div class="section-title">Template Details</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px">
-     <div><label style="font-size:12px;font-weight:600;color:var(--text-sec);display:block;margin-bottom:4px">Template Name</label><input id="tmpl-name-input" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:var(--font)" value="Water Quality Monthly Report"></div>
-     <div><label style="font-size:12px;font-weight:600;color:var(--text-sec);display:block;margin-bottom:4px">Status</label><select style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:var(--font);background:var(--white)"><option selected>Active</option><option>Draft</option></select></div>
+    <div class="section-card" style="margin-bottom:24px">
+     <div class="section-title">Template Details</div>
+     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px">
+      <div><label class="fb-label">Template Name</label><input id="tmpl-name-input" class="fb-input" placeholder="e.g. Water Quality Monthly Report"></div>
+      <div><label class="fb-label">Status</label><select id="tmpl-status-input" class="fb-input" style="background:var(--white)"><option>Draft</option><option>Active</option></select></div>
+     </div>
+     <div style="margin-top:12px"><label class="fb-label">Description</label><textarea id="tmpl-desc-input" class="fb-input" style="min-height:56px;resize:vertical" placeholder="Describe what this template is used for..."></textarea></div>
     </div>
-    <div style="margin-top:12px"><label style="font-size:12px;font-weight:600;color:var(--text-sec);display:block;margin-bottom:4px">Description</label><textarea style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:var(--font);min-height:60px;resize:vertical">Standard monthly report for water quality parameters required by the state.</textarea></div>
-   </div>
 
-   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-    <div style="font-size:16px;font-weight:700">Fields <span style="font-size:13px;font-weight:400;color:var(--text-sec)" id="tmpl-field-count">(0 fields)</span></div>
-    <button class="btn btn-sm btn-primary" onclick="addDemoFields()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-7-7h14" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Add Fields</button>
-   </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+     <div style="font-size:16px;font-weight:700">Sections & Fields <span style="font-size:13px;font-weight:400;color:var(--text-sec)" id="tmpl-field-count">(0 fields)</span></div>
+    </div>
 
-   <div id="tmpl-section-headers"></div>
-   <div id="tmpl-fields-list"></div>
+    <div id="tmpl-builder-fields"></div>
 
-   <div class="inline-actions" style="margin-top:32px">
-    <button class="btn" onclick="closeTemplateBuilder()">Cancel</button>
-    <button class="btn btn-primary" onclick="var ct=newTmplFields.length||0;closeTemplateBuilder();showToast('Template saved successfully — '+ct+' fields')">Save Template</button>
+    <button class="btn btn-sm" id="tb-add-section-bottom" onclick="addBuilderSection()" style="width:100%;justify-content:center;border-style:dashed;padding:14px;margin-top:4px;color:var(--accent)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Add New Section</button>
+
    </div>
+  </div>
+  <!-- Bottom Bar -->
+  <div class="import-bottom">
+   <div class="import-bottom-left"><button class="btn btn-sm" onclick="closeTemplateBuilder()">‹ Back to Templates</button></div>
+   <div class="import-bottom-right"><button class="btn btn-primary btn-sm" onclick="saveTemplate()">Save & Complete</button></div>
   </div>
  </div>
 </div>
 
 <script>
-// ========== DATA ==========
 var MOR_REPORTS = [
  {period:'April 2026',name:'Water Quality Monthly Report',facility:'WTP-01 Main Plant',template:'Water Quality Monthly',results:0,exceedances:0,status:'Draft',submitted:'—',statusCls:'draft'},
  {period:'April 2026',name:'Lead & Copper Compliance',facility:'Distribution System',template:'Lead & Copper Compliance',results:0,exceedances:0,status:'Draft',submitted:'—',statusCls:'draft'},
@@ -1949,26 +2020,20 @@ function showSDView(view) {
  var templates = document.getElementById('sd-templates-content');
  var review = document.getElementById('sd-review-content');
  var submissions = document.getElementById('sd-submissions-content');
+ var utilityDetail = document.getElementById('sd-utility-detail');
  var navLinks = document.querySelectorAll('.nav-sd .nav-link');
- // Hide all
  landing.style.display = 'none';
  templates.style.display = 'none';
  review.style.display = 'none';
  submissions.style.display = 'none';
- // Always keep MOR nav active
+ utilityDetail.style.display = 'none';
  navLinks.forEach(function(l){l.classList.remove('active');});
  navLinks[3].classList.add('active');
- if(view === 'landing') {
-  landing.style.display = 'block';
- } else if(view === 'templates') {
-  templates.style.display = 'block';
- } else if(view === 'review') {
-  review.style.display = 'block';
-  buildSDQueue();
- } else if(view === 'submissions') {
-  submissions.style.display = 'block';
-  buildSubmissionsTable();
- }
+ if(view === 'landing') { landing.style.display = 'block'; }
+ else if(view === 'templates') { templates.style.display = 'block'; }
+ else if(view === 'review') { review.style.display = 'block'; buildSDQueue(); }
+ else if(view === 'submissions') { submissions.style.display = 'block'; buildSubmissionsTable(); }
+ else if(view === 'utility') { utilityDetail.style.display = 'block'; }
  window.scrollTo(0,0);
 }
 
@@ -2194,301 +2259,370 @@ var STARTER_FIELDS = [
  {name:'Turbidity',type:'number',unit:'NTU',mcl:'1.0',method:'EPA 180.1',required:true,validate:true,help:'',section:'Physical Parameters'},
 ];
 
-var newTmplFields = [];
-var newTmplExpanded = false;
-var newTmplAddingIdx = 0;
-var newTmplAddTimer = null;
+// ========== FORM BUILDER ==========
+var builderFields = [];
+var builderSections = [];
+var builderEditIdx = -1;
+var builderAutosaveTimer = null;
+var activeFormSection = null;
+var fieldsAddedCount = 0;
+var expandedSections = {};
 
-var DEMO_FIELD_SETS = [
- {section:'General Information',fields:[
-  {name:'Facility Name',type:'Text',req:true,desc:'Name of the water treatment facility'},
-  {name:'PWS ID',type:'Text',req:true,desc:'Public Water System identification number'},
-  {name:'Report Period',type:'Date Range',req:true,desc:'Month and year of the report'},
-  {name:'Operator Name',type:'Text',req:true,desc:'Certified operator on record'},
-  {name:'Operator Certification #',type:'Text',req:true,desc:'State certification number'}
- ]},
- {section:'Inorganic Contaminants',fields:[
-  {name:'Lead (Pb)',type:'Numeric',req:true,desc:'MCL: 0.015 mg/L · EPA 200.8'},
-  {name:'Copper (Cu)',type:'Numeric',req:true,desc:'MCL: 1.3 mg/L · EPA 200.8'},
-  {name:'Arsenic (As)',type:'Numeric',req:true,desc:'MCL: 0.010 mg/L · EPA 200.8'},
-  {name:'Barium (Ba)',type:'Numeric',req:true,desc:'MCL: 2.0 mg/L · EPA 200.7'},
-  {name:'Nitrate (NO3)',type:'Numeric',req:true,desc:'MCL: 10.0 mg/L · EPA 300.0'},
-  {name:'Fluoride (F)',type:'Numeric',req:true,desc:'MCL: 4.0 mg/L · EPA 300.0'}
- ]},
- {section:'Disinfection Byproducts',fields:[
-  {name:'Total Trihalomethanes (TTHM)',type:'Numeric',req:true,desc:'MCL: 80.0 ug/L · EPA 524.2'},
-  {name:'Haloacetic Acids (HAA5)',type:'Numeric',req:true,desc:'MCL: 60.0 ug/L · EPA 552.2'}
- ]},
- {section:'Microbiological',fields:[
-  {name:'Total Coliform',type:'Presence/Absence',req:true,desc:'MCL: Present · SM 9223B'},
-  {name:'E. coli',type:'Presence/Absence',req:true,desc:'MCL: Present · SM 9223B'}
- ]},
- {section:'Physical Parameters',fields:[
-  {name:'Chlorine Residual',type:'Numeric',req:true,desc:'MCL: 4.0 mg/L · SM 4500-Cl'},
-  {name:'pH',type:'Numeric',req:true,desc:'Range: 6.5–8.5 SU · SM 4500-H'},
-  {name:'Turbidity',type:'Numeric',req:true,desc:'MCL: 1.0 NTU · EPA 180.1'}
- ]}
+function toggleSectionExpand(si) {
+ expandedSections[si] = !expandedSections[si];
+ renderBuilderFields();
+}
+
+var FIELD_TYPES = [
+ {id:'text',label:'Text',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7V4h16v3M9 20h6M12 4v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'},
+ {id:'number',label:'Number',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 10h6m4 0h6M7 4l-3 16m13-16l-3 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'},
+ {id:'date',label:'Date',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'},
+ {id:'summary',label:'Summary Card',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'},
+ {id:'table',label:'Table',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18" stroke="currentColor" stroke-width="2"/></svg>'},
+ {id:'checkboxes',label:'Checkboxes',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><path d="M5 7l1.5 1.5L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M14 5h7M14 12h7M14 19h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="3" y="10" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg>'}
 ];
 
-function flattenDemoFields() {
- var all = [];
- DEMO_FIELD_SETS.forEach(function(sec) {
-  sec.fields.forEach(function(f) {
-   all.push({section:sec.section, name:f.name, type:f.type, req:f.req, desc:f.desc});
-  });
+var feSelectedType = 'text';
+var feTableCols = [];
+var feCheckboxOpts = [];
+
+function triggerAutosave() {
+ var el = document.getElementById('tmpl-autosave');
+ if(builderAutosaveTimer) clearTimeout(builderAutosaveTimer);
+ builderAutosaveTimer = setTimeout(function(){ el.style.display='inline'; setTimeout(function(){el.style.display='none';},2500); },1500);
+}
+
+function buildSidebar() {
+ var sb = document.getElementById('tb-sidebar-sections');
+ var h = '';
+ builderSections.forEach(function(sec,si) {
+  var secFields = builderFields.filter(function(f){return f.section===sec;});
+  var isActive = activeFormSection === sec;
+  h += '<div class="sidebar-item'+(isActive?' active':'')+'" onclick="scrollToSection('+si+')">';
+  h += '<span class="si-num" style="font-size:10px">'+(si+1)+'</span>';
+  h += '<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+sec+'</span>';
+  h += '<span style="font-size:10px;color:var(--text-hint)">'+secFields.length+'</span>';
+  h += '</div>';
  });
- return all;
+ if(!builderSections.length) h = '<div style="padding:12px 24px;font-size:12px;color:var(--text-hint);font-style:italic">No sections yet</div>';
+ sb.innerHTML = h;
 }
 
-function addDemoFields() {
- var allFields = flattenDemoFields();
- newTmplAddingIdx = 0;
- newTmplExpanded = false;
- if(newTmplAddTimer) clearInterval(newTmplAddTimer);
- newTmplAddTimer = setInterval(function() {
-  if(newTmplAddingIdx >= allFields.length) {
-   clearInterval(newTmplAddTimer);
-   newTmplAddTimer = null;
-   return;
-  }
-  newTmplFields.push(allFields[newTmplAddingIdx]);
-  newTmplAddingIdx++;
-  renderNewTemplateFields();
- }, 120);
+function scrollToSection(si) {
+ var el = document.getElementById('tb-section-'+si);
+ if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function renderNewTemplateFields() {
- var el = document.getElementById('tmpl-fields-list');
- var sh = document.getElementById('tmpl-section-headers');
- if(newTmplFields.length === 0) {
-  sh.innerHTML = '';
-  el.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text-hint);border:2px dashed var(--border);border-radius:var(--radius-lg)"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-bottom:8px"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><div style="font-size:14px;font-weight:600;color:var(--text)">No fields yet</div><div style="font-size:13px">Click "Add Fields" to start building your template.</div></div>';
-  document.getElementById('tmpl-field-count').textContent = '(0 fields)';
+function getTypeIcon(type){var t=FIELD_TYPES.find(function(f){return f.id===type;});return t?t.icon:'';}
+function getTypeLabel(type){var t=FIELD_TYPES.find(function(f){return f.id===type;});return t?t.label:type;}
+
+function renderBuilderFields() {
+ var el = document.getElementById('tmpl-builder-fields');
+ var total = builderFields.length;
+ document.getElementById('tmpl-field-count').textContent = '('+total+' field'+(total!==1?'s':'')+')';
+
+ if(!builderSections.length) {
+  el.innerHTML = '<div class="fb-empty"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-bottom:8px"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><div style="font-size:14px;font-weight:600;color:var(--text)">No sections yet</div><div style="font-size:13px">Click "Add New Section" below to start building your template.</div></div>';
+  buildSidebar();
   return;
  }
- document.getElementById('tmpl-field-count').textContent = '('+newTmplFields.length+' fields)';
- var COLLAPSED_LIMIT = 6;
- var showAll = newTmplExpanded || newTmplFields.length <= COLLAPSED_LIMIT;
- var displayFields = showAll ? newTmplFields : newTmplFields.slice(0, COLLAPSED_LIMIT);
- var hiddenCount = newTmplFields.length - COLLAPSED_LIMIT;
+
  var h = '';
- var lastSection = '';
- displayFields.forEach(function(f,i) {
-  if(f.section !== lastSection) {
-   lastSection = f.section;
-   h += '<div style="'+(i>0?'margin-top:16px;':'')+'margin-bottom:8px;padding:8px 12px;background:var(--bg);border-radius:var(--radius);font-size:11px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.4px">'+f.section+'</div>';
-  }
-  h += '<div class="tmpl-field-card" style="animation:fadeIn .2s ease">';
-  h += '<div class="tmpl-field-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="var(--accent)" stroke-width="2"/></svg></div>';
-  h += '<div class="tmpl-field-info"><div class="tmpl-field-name">'+f.name+'</div>';
-  h += '<div class="tmpl-field-meta">'+f.desc+'</div>';
-  h += '<div class="tmpl-field-badges"><span class="tmpl-field-badge type">'+f.type+'</span>';
-  h += '<span class="tmpl-field-badge '+(f.req?'req':'opt')+'">'+(f.req?'Required':'Optional')+'</span></div>';
-  h += '</div>';
-  h += '<div style="display:flex;gap:4px">';
-  h += '<button style="width:28px;height:28px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint)" title="Edit field"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" stroke-width="2"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2"/></svg></button>';
-  h += '<button style="width:28px;height:28px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint)" title="Remove field" onclick="removeNewField('+i+')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke="currentColor" stroke-width="2"/></svg></button>';
-  h += '</div></div>';
- });
- // View more / View less button
- if(newTmplFields.length > COLLAPSED_LIMIT) {
-  if(!showAll) {
-   h += '<div style="text-align:center;padding:16px 0"><button class="btn btn-sm btn-ghost" onclick="newTmplExpanded=true;renderNewTemplateFields()" style="color:var(--link)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> View '+hiddenCount+' more fields</button></div>';
+ builderSections.forEach(function(sec, si) {
+  var secFields = builderFields.filter(function(f){return f.section===sec;});
+  var isFormOpen = activeFormSection === sec;
+
+  // Section container with left accent border
+  h += '<div id="tb-section-'+si+'" style="border-radius:var(--radius-lg);background:var(--white);border:1px solid var(--border);margin-bottom:12px;overflow:hidden">';
+
+  if(isFormOpen) {
+   // ===== ACTIVE SECTION: full form + fields =====
+   h += '<div style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--border)">';
+   h += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint)"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+   h += '<input class="fb-input" value="'+sec+'" style="font-size:15px;font-weight:700;border:1px solid transparent;padding:4px 8px;border-radius:var(--radius);font-family:\'Proxima Nova\',\'Open Sans\',sans-serif;background:transparent" onfocus="this.style.borderColor=\'var(--accent)\';this.style.background=\'var(--white)\'" onblur="this.style.borderColor=\'transparent\';this.style.background=\'transparent\';renameSection('+si+',this.value)">';
+   h += '<span style="font-size:12px;color:var(--text-hint);white-space:nowrap">'+secFields.length+' field'+(secFields.length!==1?'s':'')+'</span>';
+   h += '<button style="margin-left:auto;width:28px;height:28px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint);flex-shrink:0" title="Delete section" onclick="deleteSection('+si+')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke="currentColor" stroke-width="2"/></svg></button>';
+   h += '</div>';
+
+   h += '<div style="padding:16px">';
+   // Form
+   h += '<div id="tb-field-form-'+si+'" style="margin-bottom:16px">';
+   h += '<div style="margin-bottom:16px"><label class="fb-label">Field Type</label><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px" id="fe-type-grid"></div></div>';
+   h += '<div style="margin-bottom:14px"><label class="fb-label">Label</label><input id="fe-label" class="fb-input" placeholder="e.g. Turbidity Raw, Operator Name..." onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();saveFieldFromEditor();}"></div>';
+   h += '<div style="margin-bottom:14px"><label class="fb-label">Help Text <span style="font-weight:400;color:var(--text-hint)">(optional)</span></label><input id="fe-help" class="fb-input" placeholder="e.g. MCL: 1.0 NTU, James Madison"></div>';
+   h += '<div id="fe-table-config" style="display:none;margin-bottom:14px"><label class="fb-label">Table Columns</label><div style="font-size:11px;color:var(--text-hint);margin-bottom:6px">Define columns. Press Enter to add more.</div><div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:10px"><div style="display:flex;gap:8px;padding-bottom:6px;border-bottom:1px solid var(--border);margin-bottom:4px;font-size:10px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.3px"><div style="flex:1">Column Name</div><div style="width:100px">Type</div><div style="width:28px"></div></div><div id="fe-table-cols"></div><button class="btn btn-sm" onclick="addTableColumn()" style="margin-top:6px;width:100%;justify-content:center;border-style:dashed"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Add Column</button></div></div>';
+   h += '<div id="fe-checkbox-config" style="display:none;margin-bottom:14px"></div>';
+   h += '<div style="text-align:center"><button class="btn btn-primary" id="fe-save-btn" onclick="saveFieldFromEditor()" style="min-width:200px">Save & Add Another</button></div>';
+   h += '</div>';
+
+   // Fields below form
+   if(secFields.length) {
+    var VISIBLE_LIMIT = 5;
+    var showAll = secFields.length <= VISIBLE_LIMIT || expandedSections[si];
+    var displayFields = showAll ? secFields : secFields.slice(0, VISIBLE_LIMIT);
+    displayFields.forEach(function(f) {
+     var gi = builderFields.indexOf(f);
+     h += '<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:6px;background:var(--white)">';
+     h += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint);cursor:grab"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+     h += '<div style="width:24px;height:24px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">'+getTypeIcon(f.type).replace(/width="18"/g,'width="12"').replace(/height="18"/g,'height="12"').replace(/stroke-width="2"/g,'stroke-width="2.5"')+'</div>';
+     h += '<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">'+f.name+'</div>';
+     if(f.desc) h += '<div style="font-size:11px;color:var(--text-sec)">'+f.desc+'</div>';
+     h += '</div>';
+     h += '<button style="width:24px;height:24px;border:none;background:none;cursor:pointer;color:var(--text-hint);flex-shrink:0" onclick="deleteBuilderField('+gi+')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
+     h += '</div>';
+    });
+    if(!showAll) {
+     var remaining = secFields.length - VISIBLE_LIMIT;
+     h += '<div style="text-align:center;padding:10px 0"><a style="font-size:13px;color:var(--link);cursor:pointer;font-weight:600" onclick="toggleSectionExpand('+si+')">+ '+remaining+' more</a></div>';
+    } else if(secFields.length > VISIBLE_LIMIT) {
+     h += '<div style="text-align:center;padding:10px 0"><a style="font-size:13px;color:var(--link);cursor:pointer;font-weight:600" onclick="toggleSectionExpand('+si+')">Show less</a></div>';
+    }
+   }
+   h += '</div>';
+
   } else {
-   h += '<div style="text-align:center;padding:16px 0"><button class="btn btn-sm btn-ghost" onclick="newTmplExpanded=false;renderNewTemplateFields()" style="color:var(--link)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 15l-6-6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Show less</button></div>';
+   // ===== COLLAPSED SECTION: expandable card =====
+   var isExpanded = expandedSections[si];
+   h += '<div style="display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer" onclick="toggleSectionExpand('+si+')">';
+   h += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint)"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+   h += '<div style="flex:1"><div style="font-size:15px;font-weight:700;font-family:\'Proxima Nova\',\'Open Sans\',sans-serif">'+sec+'</div></div>';
+   h += '<span style="font-size:12px;color:var(--text-hint);white-space:nowrap">'+secFields.length+' field'+(secFields.length!==1?'s':'')+'</span>';
+   h += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint);transition:transform .2s;transform:rotate('+(isExpanded?'180':'0')+'deg)"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+   h += '</div>';
+
+   if(isExpanded) {
+    h += '<div style="padding:0 16px 16px;border-top:1px solid var(--border-lt)">';
+    if(secFields.length) {
+     secFields.forEach(function(f) {
+      var gi = builderFields.indexOf(f);
+      h += '<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius);margin-top:8px;background:var(--white)">';
+      h += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint)"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+      h += '<div style="width:24px;height:24px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">'+getTypeIcon(f.type).replace(/width="18"/g,'width="12"').replace(/height="18"/g,'height="12"').replace(/stroke-width="2"/g,'stroke-width="2.5"')+'</div>';
+      h += '<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">'+f.name+'</div>';
+      if(f.desc) h += '<div style="font-size:11px;color:var(--text-sec)">'+f.desc+'</div>';
+      h += '</div>';
+      h += '<button style="width:24px;height:24px;border:none;background:none;cursor:pointer;color:var(--text-hint);flex-shrink:0" onclick="event.stopPropagation();deleteBuilderField('+gi+')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
+      h += '</div>';
+     });
+    } else {
+     h += '<div style="text-align:center;padding:16px;color:var(--text-hint);font-size:13px;margin-top:8px">No fields yet</div>';
+    }
+    h += '<button class="btn btn-sm" onclick="event.stopPropagation();openFormForSection(\''+sec.replace(/'/g,"\\'")+'\')" style="width:100%;justify-content:center;border-style:dashed;color:var(--accent);padding:10px;margin-top:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Add Field</button>';
+    h += '</div>';
+   }
   }
- }
- sh.innerHTML = '';
+
+  h += '</div>';
+ });
+
  el.innerHTML = h;
+ buildSidebar();
+
+ // If form is open, initialize the type grid and focus
+ if(activeFormSection) {
+  initFieldForm();
+ }
 }
 
-function removeNewField(idx) {
- newTmplFields.splice(idx, 1);
- renderNewTemplateFields();
+function openFormForSection(sec) {
+ activeFormSection = sec;
+ builderEditIdx = -1;
+ fieldsAddedCount = 0;
+ feSelectedType = 'text';
+ feTableCols = [{name:'',type:'text'}];
+ feCheckboxOpts = [''];
+ renderBuilderFields();
+ setTimeout(function(){
+  var lbl = document.getElementById('fe-label');
+  if(lbl) lbl.focus();
+ }, 100);
+}
+
+function initFieldForm() {
+ var tg = document.getElementById('fe-type-grid');
+ if(!tg) return;
+ var th = '';
+ FIELD_TYPES.forEach(function(t){
+  th += '<div class="fb-type-card'+(t.id===feSelectedType?' selected':'')+'" onclick="selectFieldType(\''+t.id+'\')">'+t.icon+'<span>'+t.label+'</span></div>';
+ });
+ tg.innerHTML = th;
+ updateFieldTypeConfig();
+ renderTableCols();
+ renderCheckboxOpts();
+ if(builderEditIdx >= 0) {
+  var f = builderFields[builderEditIdx];
+  document.getElementById('fe-label').value = f.name;
+  
+  document.getElementById('fe-help').value = f.desc || '';
+  document.getElementById('tb-ff-title').textContent = 'Edit Field \u2014 ' + f.name;
+  document.getElementById('fe-save-btn').innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Save Changes';
+ }
+}
+
+function editFieldInSection(idx, sec) {
+ activeFormSection = sec;
+ builderEditIdx = idx;
+ var f = builderFields[idx];
+ feSelectedType = f.type;
+ feTableCols = f.columns ? JSON.parse(JSON.stringify(f.columns)) : [{name:'',type:'text'}];
+ feCheckboxOpts = f.options ? f.options.slice() : [''];
+ renderBuilderFields();
+ setTimeout(function(){
+  var form = document.getElementById('tb-field-form-'+builderSections.indexOf(sec));
+  if(form) form.scrollIntoView({behavior:'smooth',block:'center'});
+ }, 100);
+}
+
+function selectFieldType(id) {
+ feSelectedType = id;
+ document.querySelectorAll('#fe-type-grid .fb-type-card').forEach(function(c){c.classList.remove('selected');});
+ var idx = FIELD_TYPES.findIndex(function(t){return t.id===id;});
+ var card = document.querySelector('#fe-type-grid .fb-type-card:nth-child('+(idx+1)+')');
+ if(card) card.classList.add('selected');
+ updateFieldTypeConfig();
+}
+
+function updateFieldTypeConfig() {
+ var tc = document.getElementById('fe-table-config');
+ var cc = document.getElementById('fe-checkbox-config');
+ if(tc) tc.style.display = feSelectedType==='table'?'block':'none';
+ if(cc) cc.style.display = feSelectedType==='__never__'?'block':'none';
+}
+
+function addTableColumn(){feTableCols.push({name:'',type:'text'});renderTableCols();}
+function removeTableCol(i){feTableCols.splice(i,1);renderTableCols();}
+function renderTableCols(){
+ var el=document.getElementById('fe-table-cols');if(!el)return;var h='';
+ feTableCols.forEach(function(c,i){
+  h+='<div class="fb-col-row" style="border-bottom:'+(i<feTableCols.length-1?'1px solid var(--border-lt)':'none')+'">';
+  h+='<input class="fb-input" id="tc-name-'+i+'" value="'+c.name+'" placeholder="e.g. Turbidity, pH..." style="flex:1;font-size:13px" onchange="feTableCols['+i+'].name=this.value" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addTableColumn();}">';
+  h+='<select class="fb-input" style="width:100px;background:var(--white);font-size:12px" onchange="feTableCols['+i+'].type=this.value.toLowerCase()">';
+  ['Text','Number','Date','Checkbox'].forEach(function(t){h+='<option value="'+t.toLowerCase()+'"'+(c.type===t.toLowerCase()?' selected':'')+'>'+t+'</option>';});
+  h+='</select>';
+  h+='<button style="width:24px;height:24px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint);flex-shrink:0" onclick="removeTableCol('+i+')"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>';
+ });
+ el.innerHTML=h;
+ var last=feTableCols.length-1;if(last>=0&&!feTableCols[last].name){var inp=document.getElementById('tc-name-'+last);if(inp)setTimeout(function(){inp.focus();},50);}
+}
+
+function addCheckboxOption(){feCheckboxOpts.push('');renderCheckboxOpts();}
+function removeCheckboxOpt(i){feCheckboxOpts.splice(i,1);renderCheckboxOpts();}
+function renderCheckboxOpts(){
+ var el=document.getElementById('fe-checkbox-opts');if(!el)return;var h='';
+ feCheckboxOpts.forEach(function(o,i){
+  h+='<div class="fb-col-row" style="border-bottom:'+(i<feCheckboxOpts.length-1?'1px solid var(--border-lt)':'none')+'">';
+  h+='<span style="color:var(--text-hint)"><input type="checkbox" disabled style="width:13px;height:13px"></span>';
+  h+='<input class="fb-input" id="co-name-'+i+'" value="'+o+'" placeholder="Option label..." style="flex:1;font-size:13px" onchange="feCheckboxOpts['+i+']=this.value" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addCheckboxOption();}">';
+  h+='<button style="width:24px;height:24px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint);flex-shrink:0" onclick="removeCheckboxOpt('+i+')"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>';
+ });
+ el.innerHTML=h;
+ var last=feCheckboxOpts.length-1;if(last>=0&&!feCheckboxOpts[last]){var inp=document.getElementById('co-name-'+last);if(inp)setTimeout(function(){inp.focus();},50);}
+}
+
+function saveFieldFromEditor() {
+ var name = document.getElementById('fe-label').value.trim();
+ if(!name){document.getElementById('fe-label').style.borderColor='var(--red)';document.getElementById('fe-label').focus();return;}
+ document.getElementById('fe-label').style.borderColor='';
+ var field = {name:name,type:feSelectedType,section:activeFormSection,req:true,desc:document.getElementById('fe-help').value.trim()};
+ if(feSelectedType==='table') field.columns = feTableCols.filter(function(c){return c.name.trim();});
+ 
+ if(builderEditIdx >= 0) {
+  builderFields[builderEditIdx] = field;
+  builderEditIdx = -1;
+ } else {
+  builderFields.push(field);
+  fieldsAddedCount++;
+ }
+ // Reset form but keep it open
+ feSelectedType = 'text';
+ feTableCols = [{name:'',type:'text'}];
+ feCheckboxOpts = [''];
+ renderBuilderFields();
+ triggerAutosave();
+ setTimeout(function(){var lbl=document.getElementById('fe-label');if(lbl){lbl.value='';lbl.focus();}},50);
+}
+
+function deleteBuilderField(idx) {
+ builderFields.splice(idx,1);
+ renderBuilderFields();
+ triggerAutosave();
+}
+
+function addBuilderSection() {
+ var name = 'New Section';
+ var count = builderSections.filter(function(s){return s.indexOf('New Section')===0;}).length;
+ if(count>0) name = 'New Section '+(count+1);
+ builderSections.push(name);
+ activeFormSection = name;
+ fieldsAddedCount = 0;
+ builderEditIdx = -1;
+ feSelectedType = 'text';
+ feTableCols = [{name:'',type:'text'}];
+ feCheckboxOpts = [''];
+ renderBuilderFields();
+ triggerAutosave();
+ // Scroll to the new section at the bottom after render completes
+ setTimeout(function(){
+  var idx = builderSections.length - 1;
+  var el = document.getElementById('tb-section-'+idx);
+  if(el) {
+   el.scrollIntoView({behavior:'smooth',block:'start'});
+   // Focus section name input after scroll
+   setTimeout(function(){
+    var inputs = el.querySelectorAll('input.fb-input');
+    if(inputs.length) { inputs[0].focus(); inputs[0].select(); }
+   }, 300);
+  }
+ }, 150);
+}
+
+function renameSection(idx,newName) {
+ var oldName=builderSections[idx];builderSections[idx]=newName;
+ builderFields.forEach(function(f){if(f.section===oldName)f.section=newName;});
+ if(activeFormSection===oldName) activeFormSection=newName;
+ buildSidebar();triggerAutosave();
+}
+
+function deleteSection(idx) {
+ var name=builderSections[idx];
+ builderFields=builderFields.filter(function(f){return f.section!==name;});
+ builderSections.splice(idx,1);
+ if(activeFormSection===name) activeFormSection=builderSections.length?builderSections[0]:null;
+ renderBuilderFields();triggerAutosave();
+}
+
+function saveTemplate() {
+ var name=document.getElementById('tmpl-name-input').value.trim()||'Untitled';
+ closeTemplateBuilder();
+ showToast('Template "'+name+'" saved \u2014 '+builderFields.length+' fields');
 }
 
 function showTemplateCreator() {
- newTmplFields = [];
- document.getElementById('tmpl-builder-title').textContent = 'New Template';
- document.getElementById('tmpl-edit-name').textContent = 'New Report Template';
- document.getElementById('tmpl-edit-desc').textContent = 'Define the fields and sections for your new report template.';
- document.getElementById('tmpl-name-input').value = '';
- document.getElementById('tmpl-field-count').textContent = '(0 fields)';
- document.getElementById('tmpl-fields-list').innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text-hint);border:2px dashed var(--border);border-radius:var(--radius-lg)"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-bottom:8px"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><div style="font-size:14px;font-weight:600;color:var(--text)">No fields yet</div><div style="font-size:13px">Click "Add Fields" to start building your template.</div></div>';
- document.getElementById('tmpl-section-headers').innerHTML = '';
+ builderFields=[];builderSections=[];builderEditIdx=-1;activeFormSection=null;fieldsAddedCount=0;
+ document.getElementById('tmpl-builder-title').textContent='New Template';
+ document.getElementById('tmpl-name-input').value='';
+ document.getElementById('tmpl-status-input').value='Draft';
+ document.getElementById('tmpl-desc-input').value='';
  document.getElementById('tmpl-builder-overlay').classList.add('open');
-}
-
-// ========== REPORT VIEWER ==========
-var PREV_REPORT_DATA = {
- 'March 2026': {results:[{f:'Lead',v:'0.012',u:'mg/L',mcl:'0.015',m:'EPA 200.8'},{f:'Copper',v:'0.87',u:'mg/L',mcl:'1.3',m:'EPA 200.8'},{f:'Nitrate',v:'4.2',u:'mg/L',mcl:'10.0',m:'EPA 300.0'},{f:'Fluoride',v:'1.8',u:'mg/L',mcl:'4.0',m:'EPA 300.0'},{f:'TTHM',v:'62.0',u:'ug/L',mcl:'80.0',m:'EPA 524.2'},{f:'HAA5',v:'48.3',u:'ug/L',mcl:'60.0',m:'EPA 552.2'},{f:'Total Coliform',v:'Absent',u:'P/A',mcl:'Present',m:'SM 9223B'},{f:'E. coli',v:'Absent',u:'P/A',mcl:'Present',m:'SM 9223B'},{f:'Chlorine Residual',v:'1.2',u:'mg/L',mcl:'4.0',m:'SM 4500-Cl'},{f:'pH',v:'7.4',u:'SU',mcl:'6.5–8.5',m:'SM 4500-H'},{f:'Turbidity',v:'0.15',u:'NTU',mcl:'1.0',m:'EPA 180.1'},{f:'Alkalinity',v:'180',u:'mg/L',mcl:'—',m:'SM 2320'}],submitted:'Apr 15, 2026',status:'Submitted'},
- 'February 2026': {results:[{f:'Lead',v:'0.010',u:'mg/L',mcl:'0.015',m:'EPA 200.8'},{f:'Copper',v:'0.92',u:'mg/L',mcl:'1.3',m:'EPA 200.8'},{f:'Nitrate',v:'3.8',u:'mg/L',mcl:'10.0',m:'EPA 300.0'},{f:'Fluoride',v:'1.7',u:'mg/L',mcl:'4.0',m:'EPA 300.0'},{f:'TTHM',v:'58.0',u:'ug/L',mcl:'80.0',m:'EPA 524.2'},{f:'HAA5',v:'44.1',u:'ug/L',mcl:'60.0',m:'EPA 552.2'},{f:'Total Coliform',v:'Absent',u:'P/A',mcl:'Present',m:'SM 9223B'},{f:'E. coli',v:'Absent',u:'P/A',mcl:'Present',m:'SM 9223B'},{f:'Chlorine Residual',v:'1.4',u:'mg/L',mcl:'4.0',m:'SM 4500-Cl'},{f:'pH',v:'7.3',u:'SU',mcl:'6.5–8.5',m:'SM 4500-H'},{f:'Turbidity',v:'0.12',u:'NTU',mcl:'1.0',m:'EPA 180.1'},{f:'Alkalinity',v:'175',u:'mg/L',mcl:'—',m:'SM 2320'}],submitted:'Mar 5, 2026',status:'Submitted'}
-};
-
-function openReportViewer(idx) {
- var r = MOR_REPORTS[idx];
- var period = r.period;
- var data = PREV_REPORT_DATA[period];
- document.getElementById('rv-title').textContent = r.name + ' — ' + period;
- var h = '';
- h += '<div class="rd-section"><div class="rd-section-title">Report Details</div>';
- h += '<div class="rd-field-row"><span class="rd-field-label">Report</span><span class="rd-field-value">'+r.name+'</span></div>';
- h += '<div class="rd-field-row"><span class="rd-field-label">Period</span><span class="rd-field-value">'+period+'</span></div>';
- h += '<div class="rd-field-row"><span class="rd-field-label">Template</span><span class="rd-field-value">'+r.template+'</span></div>';
- h += '<div class="rd-field-row"><span class="rd-field-label">Status</span><span class="rd-field-value"><span class="td-status '+r.statusCls+'">'+r.status+'</span></span></div>';
- if(data) {
-  h += '<div class="rd-field-row"><span class="rd-field-label">Submitted</span><span class="rd-field-value">'+data.submitted+'</span></div>';
- }
- h += '</div>';
- if(data) {
-  h += '<div class="rd-section"><div class="rd-section-title">Submitted Results ('+data.results.length+' fields)</div>';
-  h += '<div class="tbl-wrap"><table style="font-size:12px"><thead><tr><th>Analyte</th><th>Result</th><th>Unit</th><th>MCL</th><th>Method</th></tr></thead><tbody>';
-  data.results.forEach(function(row) {
-   h += '<tr><td style="font-weight:500">'+row.f+'</td><td>'+row.v+'</td><td>'+row.u+'</td><td>'+row.mcl+'</td><td>'+row.m+'</td></tr>';
-  });
-  h += '</tbody></table></div></div>';
- } else {
-  h += '<div class="rd-section" style="text-align:center;padding:48px 20px">';
-  h += '<div style="width:64px;height:64px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="var(--text-hint)" stroke-width="1.5"/><path d="M14 2v6h6" stroke="var(--text-hint)" stroke-width="1.5"/></svg></div>';
-  h += '<div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:4px">No results yet</div>';
-  h += '<div style="font-size:13px;color:var(--text-sec);max-width:300px;margin:0 auto 20px">This report hasn\'t been populated with results. Upload your lab results to get started.</div>';
-  h += '<button class="btn btn-primary" onclick="closeReportViewer();openMORImport()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Upload Results</button>';
-  h += '</div>';
- }
- document.getElementById('rv-body').innerHTML = h;
- document.getElementById('report-viewer-overlay').classList.add('open');
-}
-
-function closeReportViewer() {
- document.getElementById('report-viewer-overlay').classList.remove('open');
-}
-
-
-// ========== TOAST ==========
-function showToast(msg) {
- var t = document.getElementById('toast');
- document.getElementById('toast-msg').textContent = msg;
- t.classList.add('visible');
- setTimeout(function(){ t.classList.remove('visible'); }, 3500);
-}
-
-// ========== SEND REMINDERS ==========
-function sendReminders() {
- showToast('Reminders sent — 8 utilities have been notified via email');
-}
-function sendReminder(name) {
- showToast('Reminder sent to ' + name);
-}
-
-// ========== TEMPLATE DATA ==========
-var TEMPLATE_DATA = [
- {name:'Water Quality Monthly Report',desc:'Standard monthly report for water quality parameters required by the state.',fields:42,utilities:127,updated:'Mar 15, 2026',status:'Active',
-  sections:[
-   {title:'General Information',fields:[
-    {name:'Facility Name',type:'Text',req:true,desc:'Name of the water treatment facility'},
-    {name:'PWS ID',type:'Text',req:true,desc:'Public Water System identification number'},
-    {name:'Report Period',type:'Date Range',req:true,desc:'Month and year of the report'},
-    {name:'Operator Name',type:'Text',req:true,desc:'Certified operator on record'},
-    {name:'Operator Certification #',type:'Text',req:true,desc:'State certification number'},
-    {name:'Population Served',type:'Number',req:false,desc:'Estimated population served'}
-   ]},
-   {title:'Inorganic Contaminants',fields:[
-    {name:'Lead (Pb)',type:'Numeric',req:true,desc:'MCL: 0.015 mg/L · EPA 200.8'},
-    {name:'Copper (Cu)',type:'Numeric',req:true,desc:'MCL: 1.3 mg/L · EPA 200.8'},
-    {name:'Arsenic (As)',type:'Numeric',req:true,desc:'MCL: 0.010 mg/L · EPA 200.8'},
-    {name:'Barium (Ba)',type:'Numeric',req:true,desc:'MCL: 2.0 mg/L · EPA 200.7'},
-    {name:'Chromium (Cr)',type:'Numeric',req:true,desc:'MCL: 0.1 mg/L · EPA 200.8'},
-    {name:'Fluoride (F)',type:'Numeric',req:true,desc:'MCL: 4.0 mg/L · EPA 300.0'},
-    {name:'Nitrate (NO3)',type:'Numeric',req:true,desc:'MCL: 10.0 mg/L · EPA 300.0'},
-    {name:'Iron (Fe)',type:'Numeric',req:false,desc:'SMCL: 0.3 mg/L · EPA 200.7'},
-    {name:'Manganese (Mn)',type:'Numeric',req:false,desc:'SMCL: 0.05 mg/L · EPA 200.8'}
-   ]},
-   {title:'Disinfection Byproducts',fields:[
-    {name:'Total Trihalomethanes (TTHM)',type:'Numeric',req:true,desc:'MCL: 80.0 ug/L · EPA 524.2'},
-    {name:'Haloacetic Acids (HAA5)',type:'Numeric',req:true,desc:'MCL: 60.0 ug/L · EPA 552.2'}
-   ]},
-   {title:'Microbiological',fields:[
-    {name:'Total Coliform',type:'Presence/Absence',req:true,desc:'MCL: Present · SM 9223B'},
-    {name:'E. coli',type:'Presence/Absence',req:true,desc:'MCL: Present · SM 9223B'}
-   ]},
-   {title:'Physical Parameters',fields:[
-    {name:'Chlorine Residual',type:'Numeric',req:true,desc:'MCL: 4.0 mg/L · SM 4500-Cl'},
-    {name:'pH',type:'Numeric',req:true,desc:'Range: 6.5–8.5 SU · SM 4500-H'},
-    {name:'Turbidity',type:'Numeric',req:true,desc:'MCL: 1.0 NTU · EPA 180.1'},
-    {name:'Alkalinity',type:'Numeric',req:false,desc:'No MCL · SM 2320'},
-    {name:'Hardness',type:'Numeric',req:false,desc:'No MCL · SM 2340'}
-   ]}
-  ]},
- {name:'Disinfection Byproduct Report',desc:'Quarterly disinfection byproduct monitoring report.',fields:28,utilities:89,updated:'Feb 20, 2026',status:'Active',sections:[]},
- {name:'Lead & Copper Compliance',desc:'Lead and copper rule compliance monitoring report.',fields:35,utilities:127,updated:'Jan 10, 2026',status:'Active',sections:[]},
- {name:'Nutrient Monitoring (Draft)',desc:'Nutrient monitoring report template — in development.',fields:18,utilities:0,updated:'Apr 2, 2026',status:'Draft',sections:[]}
-];
-
-function openTemplateViewer(idx) {
- var t = TEMPLATE_DATA[idx];
- document.getElementById('rv-title').textContent = t.name;
- var h = '';
- h += '<div class="rd-section"><div class="rd-section-title">Template Details</div>';
- h += '<div class="rd-field-row"><span class="rd-field-label">Template</span><span class="rd-field-value">'+t.name+'</span></div>';
- h += '<div class="rd-field-row"><span class="rd-field-label">Description</span><span class="rd-field-value">'+t.desc+'</span></div>';
- h += '<div class="rd-field-row"><span class="rd-field-label">Fields</span><span class="rd-field-value">'+t.fields+'</span></div>';
- h += '<div class="rd-field-row"><span class="rd-field-label">Utilities Using</span><span class="rd-field-value">'+t.utilities+'</span></div>';
- h += '<div class="rd-field-row"><span class="rd-field-label">Last Updated</span><span class="rd-field-value">'+t.updated+'</span></div>';
- h += '<div class="rd-field-row"><span class="rd-field-label">Status</span><span class="rd-field-value"><span class="td-status '+(t.status==='Active'?'approved':'draft')+'">'+t.status+'</span></span></div>';
- h += '</div>';
- if(t.sections.length > 0) {
-  t.sections.forEach(function(sec) {
-   h += '<div class="rd-section"><div class="rd-section-title">'+sec.title+' ('+sec.fields.length+')</div>';
-   sec.fields.forEach(function(f) {
-    h += '<div class="tmpl-field-card">';
-    h += '<div class="tmpl-field-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="var(--accent)" stroke-width="2"/></svg></div>';
-    h += '<div class="tmpl-field-info"><div class="tmpl-field-name">'+f.name+'</div>';
-    h += '<div class="tmpl-field-meta">'+f.desc+'</div>';
-    h += '<div class="tmpl-field-badges"><span class="tmpl-field-badge type">'+f.type+'</span>';
-    h += '<span class="tmpl-field-badge '+(f.req?'req':'opt')+'">'+(f.req?'Required':'Optional')+'</span></div>';
-    h += '</div></div>';
-   });
-   h += '</div>';
-  });
- } else {
-  h += '<div class="rd-section" style="text-align:center;padding:32px 20px;color:var(--text-hint)"><div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">Template preview not available</div><div style="font-size:13px">Click Edit to view and modify the template fields.</div></div>';
- }
- h += '<div style="padding:16px 0;text-align:center"><button class="btn btn-primary" onclick="closeReportViewer();editTemplate('+idx+')">Edit Template</button></div>';
- document.getElementById('rv-body').innerHTML = h;
- document.getElementById('report-viewer-overlay').classList.add('open');
+ renderBuilderFields();
 }
 
 function editTemplate(idx) {
- var t = TEMPLATE_DATA[idx];
- document.getElementById('tmpl-builder-title').textContent = 'Edit Template';
- document.getElementById('tmpl-edit-name').textContent = t.name;
- document.getElementById('tmpl-edit-desc').textContent = t.desc;
- document.getElementById('tmpl-name-input').value = t.name;
- document.getElementById('tmpl-field-count').textContent = '('+t.fields+' fields)';
- var el = document.getElementById('tmpl-fields-list');
- var h = '';
- if(t.sections.length > 0) {
-  t.sections.forEach(function(sec,si) {
-   if(si > 0) h += '<div style="margin-top:16px;margin-bottom:8px;padding:8px 12px;background:var(--bg);border-radius:var(--radius);font-size:11px;font-weight:700;color:var(--text-hint);text-transform:uppercase;letter-spacing:.4px">'+sec.title+'</div>';
-   sec.fields.forEach(function(f) {
-    h += '<div class="tmpl-field-card">';
-    h += '<div class="tmpl-field-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="var(--accent)" stroke-width="2"/></svg></div>';
-    h += '<div class="tmpl-field-info"><div class="tmpl-field-name">'+f.name+'</div>';
-    h += '<div class="tmpl-field-meta">'+f.desc+'</div>';
-    h += '<div class="tmpl-field-badges"><span class="tmpl-field-badge type">'+f.type+'</span>';
-    h += '<span class="tmpl-field-badge '+(f.req?'req':'opt')+'">'+(f.req?'Required':'Optional')+'</span></div>';
-    h += '</div>';
-    h += '<div style="display:flex;gap:4px">';
-    h += '<button style="width:28px;height:28px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint)" title="Edit field"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" stroke-width="2"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2"/></svg></button>';
-    h += '<button style="width:28px;height:28px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint)" title="Delete field"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke="currentColor" stroke-width="2"/></svg></button>';
-    h += '</div></div>';
-   });
+ var t=TEMPLATE_DATA[idx];
+ document.getElementById('tmpl-builder-title').textContent='Edit Template';
+ document.getElementById('tmpl-name-input').value=t.name;
+ document.getElementById('tmpl-status-input').value=t.status;
+ document.getElementById('tmpl-desc-input').value=t.desc;
+ builderFields=[];builderSections=[];
+ if(t.sections&&t.sections.length){
+  t.sections.forEach(function(sec){
+   if(builderSections.indexOf(sec.title)===-1)builderSections.push(sec.title);
+   sec.fields.forEach(function(f){builderFields.push({name:f.name,type:f.type.toLowerCase().replace('/','_').replace(' ','_'),section:sec.title,req:f.req,desc:f.desc});});
   });
- } else {
-  h += '<div style="text-align:center;padding:40px 20px;color:var(--text-hint)"><div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">No fields defined yet</div><div style="font-size:13px">Add fields to define what utilities need to report.</div></div>';
  }
- el.innerHTML = h;
+ activeFormSection=null;fieldsAddedCount=0;builderEditIdx=-1;
  document.getElementById('tmpl-builder-overlay').classList.add('open');
+ renderBuilderFields();
 }
 
 function closeTemplateBuilder() {
@@ -2542,7 +2676,7 @@ function filterUFTable() {
  filtered.forEach(function(r) {
   var statusCls = r.status==='Submitted'?'submitted':r.status==='Not Submitted'?'rejected':'scheduled';
   h += '<tr>';
-  h += '<td style="font-weight:500">'+r.utility+'</td>';
+  h += '<td style="font-weight:500;color:var(--link);cursor:pointer" onclick="showUtilityDetail(\''+r.utility.replace(/'/g,"\\'")+'\')">'+r.utility+'</td>';
   h += '<td style="font-size:12px;color:var(--text-sec)">'+r.facility+'</td>';
   h += '<td style="font-size:12px">'+r.contact+'</td>';
   h += '<td style="font-size:12px">'+r.template+'</td>';
@@ -2672,7 +2806,7 @@ function filterSubmissionsTable() {
  filtered.forEach(function(s,fi) {
   var statusCls = s.status==='Reviewed'?'approved':s.status==='Rejected'?'rejected':s.status==='Submitted'?'submitted':'pending';
   h += '<tr>';
-  h += '<td style="font-weight:500">'+s.utility+'</td>';
+  h += '<td style="font-weight:500;color:var(--link);cursor:pointer" onclick="showUtilityDetail(\''+s.utility.replace(/'/g,"\\'")+'\')">'+s.utility+'</td>';
   h += '<td style="font-size:13px">'+s.report+'</td>';
   h += '<td style="font-size:13px">'+s.period+'</td>';
   h += '<td style="font-size:13px;color:var(--text-sec)">'+s.submitted+'</td>';
@@ -2911,6 +3045,150 @@ function openSubmissionViewer(utility, report, period) {
  h += '</tbody></table></div></div>';
  document.getElementById('rv-body').innerHTML = h;
  document.getElementById('report-viewer-overlay').classList.add('open');
+}
+
+// ========== UTILITY DETAIL ==========
+var UTILITY_DETAILS = {
+ 'Avon Utilities': {pwsid:'IN5218001',contact:'D. Ramirez',email:'d.ramirez@avonutilities.gov',phone:'(317) 272-0948',pop:15200,status:'Compliant',facilities:['WTP-01 Main Plant','Distribution System'],templates:['Water Quality Monthly','Lead & Copper Compliance'],
+  submissions:[
+   {report:'Lead & Copper Compliance',period:'March 2026',submitted:'Apr 11, 2026',results:14,exc:0,status:'Reviewed'},
+   {report:'Water Quality Monthly',period:'February 2026',submitted:'Mar 8, 2026',results:18,exc:0,status:'Reviewed'},
+   {report:'Water Quality Monthly',period:'January 2026',submitted:'Feb 5, 2026',results:18,exc:0,status:'Reviewed'},
+   {report:'Lead & Copper Compliance',period:'December 2025',submitted:'Jan 9, 2026',results:14,exc:0,status:'Reviewed'},
+   {report:'Water Quality Monthly',period:'December 2025',submitted:'Jan 7, 2026',results:18,exc:1,status:'Reviewed'}
+  ],
+  activity:[
+   {date:'Apr 11',text:'Lead & Copper Compliance report submitted for March 2026',type:'submit'},
+   {date:'Apr 11',text:'Report reviewed and accepted by state reviewer',type:'accept'},
+   {date:'Mar 8',text:'Water Quality Monthly report submitted for February 2026',type:'submit'},
+   {date:'Mar 9',text:'Report reviewed and accepted by state reviewer',type:'accept'},
+   {date:'Feb 5',text:'Water Quality Monthly report submitted for January 2026',type:'submit'}
+  ],
+  due:[],overdue:[]
+ },
+ 'Brownsburg Water': {pwsid:'IN5232001',contact:'P. Anderson',email:'p.anderson@brownsburg.org',phone:'(317) 858-4190',pop:28400,status:'Compliant',facilities:['WTP-02 South Plant','Booster Station #3'],templates:['Water Quality Monthly','Lead & Copper Compliance'],
+  submissions:[
+   {report:'Water Quality Monthly',period:'March 2026',submitted:'Apr 8, 2026',results:18,exc:0,status:'Reviewed'},
+   {report:'Lead & Copper Compliance',period:'February 2026',submitted:'Mar 7, 2026',results:12,exc:0,status:'Reviewed'},
+   {report:'Water Quality Monthly',period:'February 2026',submitted:'Mar 5, 2026',results:18,exc:0,status:'Reviewed'},
+   {report:'Water Quality Monthly',period:'January 2026',submitted:'Feb 6, 2026',results:18,exc:0,status:'Reviewed'}
+  ],
+  activity:[
+   {date:'Apr 8',text:'Water Quality Monthly report submitted for March 2026',type:'submit'},
+   {date:'Apr 9',text:'Report reviewed and accepted',type:'accept'},
+   {date:'Mar 7',text:'Lead & Copper Compliance submitted for February 2026',type:'submit'},
+   {date:'Mar 7',text:'Report reviewed and accepted',type:'accept'}
+  ],
+  due:[],overdue:[]
+ },
+ 'Anderson Water Authority': {pwsid:'IN5248006',contact:'J. Morris',email:'j.morris@andersonwater.gov',phone:'(765) 648-6097',pop:54100,status:'Overdue',facilities:['WTP-01 Main Plant','Well House #4'],templates:['Water Quality Monthly'],
+  submissions:[
+   {report:'Water Quality Monthly',period:'February 2026',submitted:'Mar 12, 2026',results:16,exc:0,status:'Reviewed'},
+   {report:'Water Quality Monthly',period:'January 2026',submitted:'Feb 10, 2026',results:16,exc:1,status:'Reviewed'},
+   {report:'Water Quality Monthly',period:'December 2025',submitted:'Jan 14, 2026',results:16,exc:0,status:'Reviewed'}
+  ],
+  activity:[
+   {date:'Apr 16',text:'Reminder sent — March 2026 report overdue',type:'remind'},
+   {date:'Mar 12',text:'Water Quality Monthly submitted for February 2026',type:'submit'},
+   {date:'Mar 13',text:'Report reviewed and accepted',type:'accept'},
+   {date:'Feb 10',text:'Water Quality Monthly submitted for January 2026',type:'submit'}
+  ],
+  due:[],overdue:['Water Quality Monthly — March 2026 (due Apr 15)']
+ }
+};
+// Make Westfield, Zionsville, Lebanon reference Avon-like data
+['Westfield Water Works','Zionsville Water','Lebanon Utilities'].forEach(function(n){
+ if(!UTILITY_DETAILS[n]) UTILITY_DETAILS[n] = JSON.parse(JSON.stringify(UTILITY_DETAILS['Avon Utilities']));
+ UTILITY_DETAILS[n].contact = n==='Westfield Water Works'?'Tom Harris':n==='Zionsville Water'?'L. Franklin':'S. Nguyen';
+ UTILITY_DETAILS[n].pwsid = n==='Westfield Water Works'?'IN5229013':n==='Zionsville Water'?'IN5206001':'IN5206002';
+ UTILITY_DETAILS[n].pop = n==='Westfield Water Works'?46000:n==='Zionsville Water'?31000:16500;
+});
+
+function showUtilityDetail(name) {
+ var u = UTILITY_DETAILS[name];
+ if(!u) { u = JSON.parse(JSON.stringify(UTILITY_DETAILS['Avon Utilities'])); u.contact='—'; u.pwsid='—'; u.pop=0; }
+
+ // Header
+ document.getElementById('ud-name').textContent = name;
+ var meta = '<span>PWSID: <strong>'+u.pwsid+'</strong></span>';
+ meta += '<span style="color:var(--border)">|</span>';
+ meta += '<span>Contact: <strong>'+u.contact+'</strong></span>';
+ meta += '<span style="color:var(--border)">|</span>';
+ meta += '<span>Population Served: <strong>'+u.pop.toLocaleString()+'</strong></span>';
+ document.getElementById('ud-meta').innerHTML = meta;
+
+ // Actions
+ var actH = '';
+ if(u.overdue && u.overdue.length) {
+  actH += '<button class="btn btn-sm" onclick="sendReminder(\''+name.replace(/'/g,"\\'")+'\')">Send Reminder</button>';
+ }
+ document.getElementById('ud-actions').innerHTML = actH;
+
+ // Stats
+ var totalSub = u.submissions.length;
+ var reviewed = u.submissions.filter(function(s){return s.status==='Reviewed';}).length;
+ var totalExc = 0; u.submissions.forEach(function(s){totalExc+=s.exc;});
+ var sh = '';
+ sh += '<div class="stat-card"><div class="stat-label">Total Submissions</div><div class="stat-val">'+totalSub+'</div></div>';
+ sh += '<div class="stat-card"><div class="stat-label">Reviewed</div><div class="stat-val" style="color:var(--green)">'+reviewed+'</div></div>';
+ sh += '<div class="stat-card"><div class="stat-label">Exceedances (All Time)</div><div class="stat-val" style="color:'+(totalExc>0?'var(--amber)':'var(--green)')+'">'+totalExc+'</div></div>';
+ sh += '<div class="stat-card"><div class="stat-label">Compliance Status</div><div class="stat-val" style="font-size:16px;color:'+(u.status==='Compliant'?'var(--green)':'var(--red)')+'">'+u.status+'</div></div>';
+ document.getElementById('ud-stats').innerHTML = sh;
+
+ // Alert
+ var ah = '';
+ if(u.overdue && u.overdue.length) {
+  ah += '<div style="display:flex;align-items:center;gap:12px;padding:14px 20px;border:1px solid #f0c4c4;border-radius:var(--radius-lg);margin-bottom:4px">';
+  ah += '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="var(--red)" stroke-width="2"/><path d="M12 8v4m0 4h.01" stroke="var(--red)" stroke-width="2" stroke-linecap="round"/></svg>';
+  ah += '<div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--red)">'+u.overdue.length+' report'+(u.overdue.length>1?'s':'')+' overdue</div>';
+  u.overdue.forEach(function(o){ ah += '<div style="font-size:12px;color:var(--text-sec);margin-top:2px">'+o+'</div>'; });
+  ah += '</div></div>';
+ }
+ document.getElementById('ud-alert').innerHTML = ah;
+
+ // Activity
+ var acH = '';
+ u.activity.forEach(function(a){
+  var icon = a.type==='submit'?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="var(--accent)" stroke-width="2"/></svg>':a.type==='accept'?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="var(--green)" stroke-width="2" stroke-linecap="round"/></svg>':'<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13m11-11l-7 20-4-9-9-4 20-7z" stroke="var(--amber)" stroke-width="2"/></svg>';
+  acH += '<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-lt)">';
+  acH += '<div style="width:28px;height:28px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">'+icon+'</div>';
+  acH += '<div style="flex:1"><div style="font-size:13px">'+a.text+'</div><div style="font-size:11px;color:var(--text-hint);margin-top:2px">'+a.date+', 2026</div></div>';
+  acH += '</div>';
+ });
+ document.getElementById('ud-activity').innerHTML = acH;
+
+ // Facilities
+ var fH = '';
+ u.facilities.forEach(function(f,i){
+  fH += '<div style="display:flex;align-items:center;gap:10px;padding:12px 0;'+(i<u.facilities.length-1?'border-bottom:1px solid var(--border-lt)':'')+'">';
+  fH += '<div style="width:32px;height:32px;border-radius:var(--radius);background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V7l8-4v18m0-18l6 4v14" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+  fH += '<div><div style="font-size:13px;font-weight:600">'+f+'</div><div style="font-size:12px;color:var(--text-sec)">'+u.templates[i%u.templates.length]+'</div></div>';
+  fH += '</div>';
+ });
+ fH += '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-lt);font-size:12px;color:var(--text-sec)">';
+ fH += '<div><strong>Email:</strong> '+(u.email||'—')+'</div>';
+ fH += '<div><strong>Phone:</strong> '+(u.phone||'—')+'</div>';
+ fH += '</div>';
+ document.getElementById('ud-facilities').innerHTML = fH;
+
+ // Submissions table
+ var tH = '';
+ u.submissions.forEach(function(s){
+  var statusCls = s.status==='Reviewed'?'approved':s.status==='Rejected'?'rejected':'pending';
+  tH += '<tr>';
+  tH += '<td style="font-weight:500">'+s.report+'</td>';
+  tH += '<td>'+s.period+'</td>';
+  tH += '<td style="color:var(--text-sec)">'+s.submitted+'</td>';
+  tH += '<td>'+s.results+'</td>';
+  if(s.exc>0) { tH += '<td><span class="exceedance-link" style="cursor:default"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> '+s.exc+'</span></td>'; }
+  else { tH += '<td><span class="no-exceedance"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> None</span></td>'; }
+  tH += '<td><span class="td-status '+statusCls+'">'+s.status+'</span></td>';
+  tH += '<td><button class="tbl-action-btn">View</button></td>';
+  tH += '</tr>';
+ });
+ document.getElementById('ud-submissions-tbody').innerHTML = tH;
+
+ showSDView('utility');
 }
 
 // ========== INIT ==========
