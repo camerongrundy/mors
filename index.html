@@ -1364,39 +1364,29 @@ tbody tr:hover td{background:#f8f9fc}
     </div>
    </div>
    <div class="screen" id="mor-s-submit">
-    <div class="import-content">
-     <div class="import-title">Submit to State</div>
-     <div class="import-desc">Review your completed report before submitting to the state for review.</div>
+    <div class="import-content" style="max-width:680px">
+     <div style="text-align:center;margin-bottom:36px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1.5px;font-weight:700;color:var(--text)">SUBMIT TO STATE</div>
+      <div style="font-size:15px;color:var(--text-sec);margin-top:6px">Review your completed report before submitting to the state for review</div>
+     </div>
 
-     <div class="section-card">
-      <div class="section-title">Report Summary</div>
-      <div class="section-desc">Monthly Report of Operation — May 2026</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;font-size:13px">
-       <div><span style="color:var(--text-sec);font-weight:600">Facility:</span> Ground Water Plant</div>
-       <div><span style="color:var(--text-sec);font-weight:600">Period:</span> May 2026</div>
-       <div><span style="color:var(--text-sec);font-weight:600">Template:</span> Monthly Report of Operation — R11</div>
-       <div><span style="color:var(--text-sec);font-weight:600">Days Completed:</span> 31 of 31</div>
-       <div><span style="color:var(--text-sec);font-weight:600">Daily Parameters:</span> 22</div>
-       <div><span style="color:var(--text-sec);font-weight:600">Report Status:</span> <span class="td-status analyzed">Complete</span></div>
+     <div class="section-card" style="max-width:580px;margin:0 auto;padding:28px 32px">
+      <div style="font-size:18px;font-weight:700;margin-bottom:4px">Report Summary</div>
+      <div style="font-size:14px;color:var(--text-sec);margin-bottom:16px">Water Quality Report - May 2026</div>
+      <div style="border-top:2px solid var(--accent);margin-bottom:20px"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px 32px;font-size:14px">
+       <div><span style="font-weight:700">Facility:</span> Ground Water Plant</div>
+       <div><span style="font-weight:700">Period:</span> May 2026</div>
+       <div><span style="font-weight:700">Template:</span> Monthly Report of Operation — R11</div>
+       <div><span style="font-weight:700">Days Completed:</span> 31 of 31</div>
+       <div><span style="font-weight:700">Daily Parameters:</span> 22</div>
+       <div style="display:flex;align-items:center;gap:8px"><span style="font-weight:700">Report Status:</span> <span style="padding:4px 14px;background:#e8f5e9;color:var(--green);border-radius:16px;font-size:13px;font-weight:600">Complete</span></div>
       </div>
      </div>
 
-     <div class="alert alert-info" style="margin-top:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><div>Once submitted, this report will be sent to the state for review. You will be notified when it's reviewed or if changes are requested.</div></div>
-
-     <!-- Legal Attestation -->
-     <div class="section-card" style="margin-top:16px;border:2px solid var(--border)">
-      <div style="display:flex;align-items:flex-start;gap:12px">
-       <input type="checkbox" id="attest-checkbox" onclick="toggleSubmitBtn()" style="width:20px;height:20px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;margin-top:2px">
-       <label for="attest-checkbox" style="cursor:pointer">
-        <div style="font-size:14px;font-weight:600;margin-bottom:6px">Certification & Attestation</div>
-        <div style="font-size:13px;color:var(--text-sec);line-height:1.6">I certify that the information contained in this report is accurate and complete to the best of my knowledge. I understand that this report is being submitted to the state regulatory agency and that knowingly submitting false information may result in penalties under applicable state and federal law. I am authorized to submit this report on behalf of the water system identified above.</div>
-       </label>
-      </div>
-     </div>
-
-     <div class="inline-actions">
-      <button class="btn" onclick="morNavigate(2)">← Back to Review</button>
-      <button class="btn btn-primary" id="submit-to-state-btn" onclick="morNavigate(4)" disabled style="opacity:0.5;cursor:not-allowed"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13m11-11l-7 20-4-9-9-4 20-7z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Submit to State</button>
+     <div style="display:flex;justify-content:center;gap:12px;margin-top:32px">
+      <button class="btn" onclick="morNavigate(2)" style="min-width:160px">Back to Review</button>
+      <button class="btn btn-primary" onclick="morNavigate(4)" style="min-width:160px">Submit to State</button>
      </div>
     </div>
    </div>
@@ -1484,13 +1474,16 @@ tbody tr:hover td{background:#f8f9fc}
   <!-- Sidebar -->
   <div class="import-sidebar" id="tb-sidebar">
    <div class="sidebar-label">Template builder</div>
-   <div class="sidebar-item active" onclick="document.getElementById('tb-main').scrollTop=0"><span class="si-num">1</span>Template Details</div>
+   <div class="sidebar-item active" id="tb-step-details" onclick="document.getElementById('tb-main').scrollTop=0;setBuilderStep('build')"><span class="si-num">1</span>Template Details</div>
    <div class="sidebar-label" style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">Sections <a onclick="addBuilderSection()" style="font-size:11px;font-weight:600;color:var(--link);cursor:pointer;text-transform:none;letter-spacing:0">+ Add</a></div>
    <div id="tb-sidebar-sections"></div>
+   <div class="sidebar-label" style="margin-top:20px">Steps</div>
+   <div class="sidebar-item" id="tb-step-assign" onclick="setBuilderStep('assign')"><span class="si-num">2</span>Assign Utilities</div>
+   <div class="sidebar-item" id="tb-step-review" onclick="setBuilderStep('review')"><span class="si-num">3</span>Review & Create</div>
   </div>
   <!-- Main -->
   <div class="import-main" id="tb-main">
-   <div class="import-content" style="max-width:720px">
+   <div id="tb-screen-build" class="import-content" style="max-width:720px">
     <div class="import-title">Template Builder</div>
     <div class="import-desc">Define the sections and fields that operators will fill in when submitting reports.</div>
 
@@ -1509,14 +1502,53 @@ tbody tr:hover td{background:#f8f9fc}
 
     <div id="tmpl-builder-fields"></div>
 
-    <button class="btn btn-sm" id="tb-add-section-bottom" onclick="addBuilderSection()" style="width:100%;justify-content:center;border-style:dashed;padding:14px;margin-top:4px;color:var(--accent)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Add New Section</button>
+    <div style="border:1px dashed var(--border);border-radius:var(--radius-lg);padding:20px;text-align:center;margin-top:4px;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='var(--accent)';this.style.background='var(--accent-bg)'" onmouseout="this.style.borderColor='var(--border)';this.style.background=''" onclick="addBuilderSection()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="margin-bottom:4px"><path d="M12 5v14m-7-7h14" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/></svg><div style="font-size:14px;font-weight:600;color:var(--accent)">Add New Section</div></div>
 
+    <div style="margin-top:24px;text-align:center"><button class="btn btn-primary" onclick="setBuilderStep('assign')">Next: Assign Utilities →</button></div>
+
+   </div>
+
+   <!-- ASSIGN UTILITIES SCREEN -->
+   <div id="tb-screen-assign" class="import-content" style="display:none;max-width:720px">
+    <div style="text-align:center;margin-bottom:32px">
+     <div class="import-title" style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px">ASSIGN THIS REPORT TO UTILITIES</div>
+     <div class="import-desc">Select all facilities that will use this report template.</div>
+    </div>
+
+    <div class="section-card" style="max-width:560px;margin:0 auto">
+     <div style="font-size:15px;font-weight:700;margin-bottom:4px">Which utilities will use this report template?</div>
+     <div style="font-size:13px;color:var(--text-sec);margin-bottom:16px">Select all facilities that will use this report</div>
+
+     <div style="position:relative;margin-bottom:16px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-hint)"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="tb-utility-search" class="fb-input" placeholder="Search for utilities" style="padding-left:36px" onfocus="document.getElementById('tb-utility-dropdown').style.display='block'" oninput="filterUtilityDropdown(this.value)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-hint);cursor:pointer" onclick="document.getElementById('tb-utility-dropdown').style.display=document.getElementById('tb-utility-dropdown').style.display==='block'?'none':'block'"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <div id="tb-utility-dropdown" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-top:4px;max-height:240px;overflow-y:auto;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.08)"></div>
+     </div>
+     <div style="margin-bottom:12px"><a style="font-size:13px;color:var(--link);cursor:pointer;font-weight:600" onclick="assignAllUtilities()">Select all</a></div>
+
+     <div id="tb-assigned-list"></div>
+    </div>
+
+    <div style="margin-top:24px;text-align:center"><button class="btn btn-primary" onclick="setBuilderStep('review')">Save & Continue →</button></div>
+   </div>
+
+   <!-- REVIEW & CREATE SCREEN -->
+   <div id="tb-screen-review" class="import-content" style="display:none;max-width:720px">
+    <div style="text-align:center;margin-bottom:32px">
+     <div class="import-title" style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px">TEMPLATE SUMMARY</div>
+     <div class="import-desc">Review your template before creating it.</div>
+    </div>
+
+    <div id="tb-review-content"></div>
+
+    <div style="margin-top:32px;text-align:center"><button class="btn btn-primary" onclick="saveTemplate()" style="min-width:220px;padding:12px 32px;font-size:15px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:6px"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg> Create Template</button></div>
    </div>
   </div>
   <!-- Bottom Bar -->
-  <div class="import-bottom">
+  <div class="import-bottom" id="tb-bottom-bar">
    <div class="import-bottom-left"><button class="btn btn-sm" onclick="closeTemplateBuilder()">‹ Back to Templates</button></div>
-   <div class="import-bottom-right"><button class="btn btn-primary btn-sm" onclick="saveTemplate()">Save & Complete</button></div>
+   <div class="import-bottom-right"><button class="btn btn-primary btn-sm" id="tb-bottom-next" onclick="advanceBuilderStep()">Save & Complete</button></div>
   </div>
  </div>
 </div>
@@ -2278,13 +2310,19 @@ var FIELD_TYPES = [
  {id:'number',label:'Number',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 10h6m4 0h6M7 4l-3 16m13-16l-3 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'},
  {id:'date',label:'Date',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'},
  {id:'summary',label:'Summary Card',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'},
+ {id:'dropdown',label:'Dropdown',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/></svg>'},
  {id:'table',label:'Table',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18" stroke="currentColor" stroke-width="2"/></svg>'},
  {id:'checkboxes',label:'Checkboxes',icon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><path d="M5 7l1.5 1.5L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M14 5h7M14 12h7M14 19h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="3" y="10" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg>'}
 ];
 
-var feSelectedType = 'text';expandedTableCols=false;
+var feSelectedType = 'text';
+var expandedTableCols = false;
+var expandedTableRows = false;
 var feTableCols = [];
+var feTableRows = [];
 var feCheckboxOpts = [];
+var feDropdownOpts = [];
+var expandedDropdownOpts = false;
 
 function triggerAutosave() {
  var el = document.getElementById('tmpl-autosave');
@@ -2337,26 +2375,41 @@ function renderBuilderFields() {
 
   if(isFormOpen) {
    // ===== ACTIVE SECTION: full form + fields =====
-   h += '<div style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--border)">';
+   h += '<div style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--bg)">';
    h += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint)"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
    h += '<input class="fb-input" value="'+sec+'" style="font-size:15px;font-weight:700;border:1px solid transparent;padding:4px 8px;border-radius:var(--radius);font-family:\'Proxima Nova\',\'Open Sans\',sans-serif;background:transparent" onfocus="this.style.borderColor=\'var(--accent)\';this.style.background=\'var(--white)\'" onblur="this.style.borderColor=\'transparent\';this.style.background=\'transparent\';renameSection('+si+',this.value)">';
    h += '<span style="font-size:12px;color:var(--text-hint);white-space:nowrap">'+secFields.length+' field'+(secFields.length!==1?'s':'')+'</span>';
    h += '<button style="margin-left:auto;width:28px;height:28px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint);flex-shrink:0" title="Delete section" onclick="deleteSection('+si+')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke="currentColor" stroke-width="2"/></svg></button>';
    h += '</div>';
 
-   h += '<div style="padding:16px">';
+   h += '<div style="padding:20px">';
    // Form
    h += '<div id="tb-field-form-'+si+'" style="margin-bottom:16px">';
    h += '<div style="margin-bottom:16px"><label class="fb-label">Field Type</label><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px" id="fe-type-grid"></div></div>';
-   h += '<div style="margin-bottom:14px"><label class="fb-label">Label</label><input id="fe-label" class="fb-input" placeholder="e.g. Turbidity Raw, Operator Name..." onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();saveFieldFromEditor();}"></div>';
+   h += '<div style="margin-bottom:14px"><label class="fb-label" id="fe-label-label">Label</label><input id="fe-label" class="fb-input" placeholder="e.g. Turbidity Raw, Operator Name..." onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();saveFieldFromEditor();}"></div>';
    h += '<div style="margin-bottom:14px"><label class="fb-label">Help Text <span style="font-weight:400;color:var(--text-hint)">(optional)</span></label><input id="fe-help" class="fb-input" placeholder="e.g. MCL: 1.0 NTU, James Madison"></div>';
-   h += '<div id="fe-table-config" style="display:none;margin-bottom:14px"><label class="fb-label">Table Columns</label><div style="font-size:11px;color:var(--text-hint);margin-bottom:8px">Define the columns operators will fill in. Press Enter to add.</div>';
-   h += '<div style="display:flex;gap:8px;margin-bottom:8px"><input id="tc-input-name" class="fb-input" placeholder="Column name, e.g. Turbidity, pH..." style="flex:1" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addTableColumnFromInput();}"><select id="tc-input-type" class="fb-input" style="width:110px;background:var(--white)"><option value="text">Text</option><option value="number">Number</option><option value="date">Date</option><option value="checkbox">Checkbox</option></select></div>';
-   h += '<div style="text-align:center;margin-bottom:12px"><button class="btn btn-sm" onclick="addTableColumnFromInput()" style="min-width:180px;border-style:dashed"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Add Column</button></div>';
+   h += '<div id="fe-table-config" style="display:none">';
+   // Table Rows section
+   h += '<div style="margin:14px -20px 0;padding:20px;background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">';
+   h += '<label class="fb-label">Table Rows</label><div style="font-size:11px;color:var(--text-hint);margin-bottom:10px">Define the columns operators will fill in. Press Enter to add.</div>';
+   h += '<div style="display:flex;gap:8px;margin-bottom:12px"><input id="tr-input-name" class="fb-input" placeholder="Row name eg. Day 1, 2, etc" style="flex:1;background:var(--white)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addTableRowFromInput();}"><button class="btn btn-sm" onclick="addTableRowFromInput()" style="white-space:nowrap;background:var(--white)">+ Add Column</button></div>';
+   h += '<div id="fe-table-rows"></div>';
+   h += '</div>';
+   // Table Columns section
+   h += '<div style="margin:0 -20px 14px;padding:20px;background:var(--bg);border-bottom:1px solid var(--border)">';
+   h += '<label class="fb-label">Table Columns</label><div style="font-size:11px;color:var(--text-hint);margin-bottom:10px">Define the columns operators will fill in. Press Enter to add.</div>';
+   h += '<div style="display:flex;gap:8px;margin-bottom:12px"><input id="tc-input-name" class="fb-input" placeholder="Column name, e.g Turbidity, PH, etc" style="flex:1;background:var(--white)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addTableColumnFromInput();}"><button class="btn btn-sm" onclick="addTableColumnFromInput()" style="white-space:nowrap;background:var(--white)">+ Add Column</button></div>';
    h += '<div id="fe-table-cols"></div>';
    h += '</div>';
+   h += '</div>';
    h += '<div id="fe-checkbox-config" style="display:none;margin-bottom:14px"></div>';
-   h += '<div style="text-align:center"><button class="btn btn-primary" id="fe-save-btn" onclick="saveFieldFromEditor()" style="min-width:200px">Save & Add Another</button></div>';
+   h += '<div id="fe-dropdown-config" style="display:none;margin:14px -20px 14px;padding:20px;background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">';
+   h += '<label class="fb-label">Dropdown Options</label><div style="font-size:11px;color:var(--text-hint);margin-bottom:10px">Define the options in the dropdown. Press Enter to add.</div>';
+   h += '<div style="display:flex;gap:8px;margin-bottom:10px"><input id="dd-input-name" class="fb-input" placeholder="Option label, e.g. Chlorine, Ozone..." style="flex:1;background:var(--white)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addDropdownOption();}"></div>';
+   h += '<div style="text-align:center;margin-bottom:12px"><button class="btn btn-sm" onclick="addDropdownOption()" style="min-width:180px;border-style:dashed;background:var(--white)">+ Add Option</button></div>';
+   h += '<div id="fe-dropdown-opts"></div>';
+   h += '</div>';
+   h += '<div style="text-align:center"><button class="btn" id="fe-save-btn" onclick="saveFieldFromEditor()" style="min-width:200px">+ Add to Section</button></div>';
    h += '</div>';
 
    // Fields below form
@@ -2370,7 +2423,7 @@ function renderBuilderFields() {
      h += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint);cursor:grab"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
      h += '<div style="width:24px;height:24px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">'+getTypeIcon(f.type).replace(/width="18"/g,'width="12"').replace(/height="18"/g,'height="12"').replace(/stroke-width="2"/g,'stroke-width="2.5"')+'</div>';
      h += '<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">'+f.name+'</div>';
-     if(f.desc) h += '<div style="font-size:11px;color:var(--text-sec)">'+f.desc+'</div>';
+     h += '<div style="font-size:11px;color:var(--text-hint)">'+getTypeLabel(f.type)+(f.desc?' · '+f.desc:'')+'</div>';
      h += '</div>';
      h += '<button style="width:24px;height:24px;border:none;background:none;cursor:pointer;color:var(--text-hint);flex-shrink:0" onclick="deleteBuilderField('+gi+')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
      h += '</div>';
@@ -2382,12 +2435,13 @@ function renderBuilderFields() {
      h += '<div style="text-align:center;padding:10px 0"><a style="font-size:13px;color:var(--link);cursor:pointer;font-weight:600" onclick="toggleSectionExpand('+si+')">Show less</a></div>';
     }
    }
+   if(secFields.length) { h += '<div style="text-align:center;margin-top:16px"><button class="btn btn-primary" onclick="saveSectionDetails('+si+')" style="min-width:220px">Save & Finish Section</button></div>'; }
    h += '</div>';
 
   } else {
    // ===== COLLAPSED SECTION: expandable card =====
    var isExpanded = expandedSections[si];
-   h += '<div style="display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer" onclick="toggleSectionExpand('+si+')">';
+   h += '<div style="display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;background:var(--bg);border-radius:var(--radius-lg)" onclick="toggleSectionExpand('+si+')">';
    h += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint)"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
    h += '<div style="flex:1"><div style="font-size:15px;font-weight:700;font-family:\'Proxima Nova\',\'Open Sans\',sans-serif">'+sec+'</div></div>';
    h += '<span style="font-size:12px;color:var(--text-hint);white-space:nowrap">'+secFields.length+' field'+(secFields.length!==1?'s':'')+'</span>';
@@ -2403,7 +2457,7 @@ function renderBuilderFields() {
       h += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint)"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
       h += '<div style="width:24px;height:24px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0">'+getTypeIcon(f.type).replace(/width="18"/g,'width="12"').replace(/height="18"/g,'height="12"').replace(/stroke-width="2"/g,'stroke-width="2.5"')+'</div>';
       h += '<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">'+f.name+'</div>';
-      if(f.desc) h += '<div style="font-size:11px;color:var(--text-sec)">'+f.desc+'</div>';
+      h += '<div style="font-size:11px;color:var(--text-hint)">'+getTypeLabel(f.type)+(f.desc?' \u00b7 '+f.desc:'')+'</div>';
       h += '</div>';
       h += '<button style="width:24px;height:24px;border:none;background:none;cursor:pointer;color:var(--text-hint);flex-shrink:0" onclick="event.stopPropagation();deleteBuilderField('+gi+')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
       h += '</div>';
@@ -2433,7 +2487,7 @@ function openFormForSection(sec) {
  builderEditIdx = -1;
  fieldsAddedCount = 0;
  feSelectedType = 'text';expandedTableCols=false;
- feTableCols = [];
+ feTableCols=[];feTableRows=[];expandedTableCols=false;expandedTableRows=false;feDropdownOpts=[];expandedDropdownOpts=false;
  feCheckboxOpts = [''];
  expandedTableCols = false;
  renderBuilderFields();
@@ -2453,6 +2507,7 @@ function initFieldForm() {
  tg.innerHTML = th;
  updateFieldTypeConfig();
  renderTableCols();
+ renderTableRows();
  renderCheckboxOpts();
  if(builderEditIdx >= 0) {
   var f = builderFields[builderEditIdx];
@@ -2485,27 +2540,61 @@ function selectFieldType(id) {
  var card = document.querySelector('#fe-type-grid .fb-type-card:nth-child('+(idx+1)+')');
  if(card) card.classList.add('selected');
  updateFieldTypeConfig();
+ var lbl = document.getElementById('fe-label-label');
+ if(lbl) lbl.textContent = id==='table' ? 'Table Name' : 'Label';
 }
 
 function updateFieldTypeConfig() {
  var tc = document.getElementById('fe-table-config');
  var cc = document.getElementById('fe-checkbox-config');
+ var dc = document.getElementById('fe-dropdown-config');
  if(tc) tc.style.display = feSelectedType==='table'?'block':'none';
  if(cc) cc.style.display = feSelectedType==='__never__'?'block':'none';
+ if(dc) dc.style.display = feSelectedType==='dropdown'?'block':'none';
 }
 
 function addTableColumn(){feTableCols.push({name:'',type:'text'});renderTableCols();}
 function addTableColumnFromInput(){
  var nameEl=document.getElementById('tc-input-name');
- var typeEl=document.getElementById('tc-input-type');
  if(!nameEl)return;
  var name=nameEl.value.trim();
  if(!name){nameEl.style.borderColor='var(--red)';nameEl.focus();return;}
  nameEl.style.borderColor='';
- feTableCols.push({name:name,type:typeEl?typeEl.value:'text'});
- nameEl.value='';
- nameEl.focus();
+ feTableCols.push({name:name,type:'number'});
+ nameEl.value='';nameEl.focus();
  renderTableCols();
+}
+
+function addTableRowFromInput(){
+ var nameEl=document.getElementById('tr-input-name');
+ if(!nameEl)return;
+ var name=nameEl.value.trim();
+ if(!name){nameEl.style.borderColor='var(--red)';nameEl.focus();return;}
+ nameEl.style.borderColor='';
+ feTableRows.push({name:name,type:'text'});
+ nameEl.value='';nameEl.focus();
+ renderTableRows();
+}
+function removeTableRow(i){feTableRows.splice(i,1);renderTableRows();}
+function toggleTableRowsExpand(){expandedTableRows=!expandedTableRows;renderTableRows();}
+function renderTableRows(){
+ var el=document.getElementById('fe-table-rows');if(!el)return;
+ if(!feTableRows.length){el.innerHTML='';return;}
+ var LIMIT=5;
+ var showAll=feTableRows.length<=LIMIT||expandedTableRows;
+ var display=showAll?feTableRows:feTableRows.slice(0,LIMIT);
+ var h='';
+ display.forEach(function(r,i){
+  h+='<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:4px;background:var(--white)">';
+  h+='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint)"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  h+='<div style="width:22px;height:22px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/></svg></div>';
+  h+='<div style="flex:1"><div style="font-size:13px;font-weight:600">'+r.name+'</div><div style="font-size:11px;color:var(--text-hint)">'+r.type.charAt(0).toUpperCase()+r.type.slice(1)+'</div></div>';
+  h+='<button style="width:20px;height:20px;border:none;background:none;cursor:pointer;color:var(--text-hint);flex-shrink:0" onclick="removeTableRow('+i+')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
+  h+='</div>';
+ });
+ if(!showAll){h+='<div style="text-align:center;padding:8px 0"><a style="font-size:12px;color:var(--link);cursor:pointer;font-weight:600" onclick="toggleTableRowsExpand()">+ '+(feTableRows.length-LIMIT)+' more</a></div>';}
+ else if(feTableRows.length>LIMIT){h+='<div style="text-align:center;padding:8px 0"><a style="font-size:12px;color:var(--link);cursor:pointer;font-weight:600" onclick="toggleTableRowsExpand()">Show less</a></div>';}
+ el.innerHTML=h;
 }
 function removeTableCol(i){feTableCols.splice(i,1);renderTableCols();}
 var expandedTableCols = false;
@@ -2538,16 +2627,40 @@ function renderTableCols(){
 
 function addCheckboxOption(){feCheckboxOpts.push('');renderCheckboxOpts();}
 function removeCheckboxOpt(i){feCheckboxOpts.splice(i,1);renderCheckboxOpts();}
-function renderCheckboxOpts(){
- var el=document.getElementById('fe-checkbox-opts');if(!el)return;var h='';
- feCheckboxOpts.forEach(function(o,i){
-  h+='<div class="fb-col-row" style="border-bottom:'+(i<feCheckboxOpts.length-1?'1px solid var(--border-lt)':'none')+'">';
-  h+='<span style="color:var(--text-hint)"><input type="checkbox" disabled style="width:13px;height:13px"></span>';
-  h+='<input class="fb-input" id="co-name-'+i+'" value="'+o+'" placeholder="Option label..." style="flex:1;font-size:13px" onchange="feCheckboxOpts['+i+']=this.value" onkeydown="if(event.key===\'Enter\'){event.preventDefault();addCheckboxOption();}">';
-  h+='<button style="width:24px;height:24px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-hint);flex-shrink:0" onclick="removeCheckboxOpt('+i+')"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>';
+function renderCheckboxOpts(){}
+
+function addDropdownOption(){
+ var inp=document.getElementById('dd-input-name');
+ if(!inp)return;
+ var name=inp.value.trim();
+ if(!name){inp.style.borderColor='var(--red)';inp.focus();return;}
+ inp.style.borderColor='';
+ feDropdownOpts.push(name);
+ inp.value='';inp.focus();
+ renderDropdownOpts();
+}
+function removeDropdownOpt(i){feDropdownOpts.splice(i,1);renderDropdownOpts();}
+function toggleDropdownExpand(){expandedDropdownOpts=!expandedDropdownOpts;renderDropdownOpts();}
+function renderDropdownOpts(){
+ var el=document.getElementById('fe-dropdown-opts');if(!el)return;
+ if(!feDropdownOpts.length){el.innerHTML='';return;}
+ var LIMIT=5;
+ var showAll=feDropdownOpts.length<=LIMIT||expandedDropdownOpts;
+ var display=showAll?feDropdownOpts:feDropdownOpts.slice(0,LIMIT);
+ var h='';
+ display.forEach(function(o,i){
+  h+='<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:4px;background:var(--white)">';
+  h+='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint)"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  h+='<div style="flex:1;font-size:13px;font-weight:500">'+o+'</div>';
+  h+='<button style="width:20px;height:20px;border:none;background:none;cursor:pointer;color:var(--text-hint);flex-shrink:0" onclick="removeDropdownOpt('+i+')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
+  h+='</div>';
  });
+ if(!showAll){
+  h+='<div style="text-align:center;padding:8px 0"><a style="font-size:12px;color:var(--link);cursor:pointer;font-weight:600" onclick="toggleDropdownExpand()">+ '+(feDropdownOpts.length-LIMIT)+' more</a></div>';
+ } else if(feDropdownOpts.length>LIMIT){
+  h+='<div style="text-align:center;padding:8px 0"><a style="font-size:12px;color:var(--link);cursor:pointer;font-weight:600" onclick="toggleDropdownExpand()">Show less</a></div>';
+ }
  el.innerHTML=h;
- var last=feCheckboxOpts.length-1;if(last>=0&&!feCheckboxOpts[last]){var inp=document.getElementById('co-name-'+last);if(inp)setTimeout(function(){inp.focus();},50);}
 }
 
 function saveFieldFromEditor() {
@@ -2555,7 +2668,8 @@ function saveFieldFromEditor() {
  if(!name){document.getElementById('fe-label').style.borderColor='var(--red)';document.getElementById('fe-label').focus();return;}
  document.getElementById('fe-label').style.borderColor='';
  var field = {name:name,type:feSelectedType,section:activeFormSection,req:true,desc:document.getElementById('fe-help').value.trim()};
- if(feSelectedType==='table') field.columns = feTableCols.filter(function(c){return c.name.trim();});
+ if(feSelectedType==='table') { field.columns = feTableCols.filter(function(c){return c.name.trim();}); field.rows = feTableRows.filter(function(r){return r.name.trim();}); }
+ if(feSelectedType==='dropdown') field.options = feDropdownOpts.slice();
  
  if(builderEditIdx >= 0) {
   builderFields[builderEditIdx] = field;
@@ -2566,7 +2680,7 @@ function saveFieldFromEditor() {
  }
  // Reset form but keep it open
  feSelectedType = 'text';expandedTableCols=false;
- feTableCols = [];
+ feTableCols=[];feTableRows=[];expandedTableCols=false;expandedTableRows=false;feDropdownOpts=[];expandedDropdownOpts=false;
  feCheckboxOpts = [''];
  renderBuilderFields();
  triggerAutosave();
@@ -2579,6 +2693,15 @@ function deleteBuilderField(idx) {
  triggerAutosave();
 }
 
+function saveSectionDetails(si) {
+ var sec = builderSections[si];
+ var count = builderFields.filter(function(f){return f.section===sec;}).length;
+ activeFormSection = null;
+ renderBuilderFields();
+ triggerAutosave();
+ showToast(sec + ' saved — ' + count + ' field' + (count!==1?'s':''));
+}
+
 function addBuilderSection() {
  var name = 'New Section';
  var count = builderSections.filter(function(s){return s.indexOf('New Section')===0;}).length;
@@ -2588,7 +2711,7 @@ function addBuilderSection() {
  fieldsAddedCount = 0;
  builderEditIdx = -1;
  feSelectedType = 'text';expandedTableCols=false;
- feTableCols = [];
+ feTableCols=[];feTableRows=[];expandedTableCols=false;expandedTableRows=false;feDropdownOpts=[];expandedDropdownOpts=false;
  feCheckboxOpts = [''];
  renderBuilderFields();
  triggerAutosave();
@@ -2630,11 +2753,13 @@ function saveTemplate() {
 
 function showTemplateCreator() {
  builderFields=[];builderSections=[];builderEditIdx=-1;activeFormSection=null;fieldsAddedCount=0;
+ assignedUtilities=[];expandedAssigned=false;builderStep='build';
  document.getElementById('tmpl-builder-title').textContent='New Template';
  document.getElementById('tmpl-name-input').value='';
  document.getElementById('tmpl-status-input').value='Draft';
  document.getElementById('tmpl-desc-input').value='';
  document.getElementById('tmpl-builder-overlay').classList.add('open');
+ setBuilderStep('build');
  renderBuilderFields();
 }
 
@@ -2654,6 +2779,151 @@ function editTemplate(idx) {
  activeFormSection=null;fieldsAddedCount=0;builderEditIdx=-1;
  document.getElementById('tmpl-builder-overlay').classList.add('open');
  renderBuilderFields();
+}
+
+var builderStep = 'build'; // build, assign, review
+var assignedUtilities = [];
+var AVAILABLE_UTILITIES = [
+ 'Avon Utilities — Plant 01','Avon Utilities — Plant 02','Brownsburg Water — WTP-02 South Plant','Brownsburg Water — Booster Station #3',
+ 'Westfield Water Works — Main Plant','Westfield Water Works — Well House #2','Zionsville Water — WTP-01','Lebanon Utilities — Main Plant',
+ 'Anderson Water Authority — WTP-01','Anderson Water Authority — Well House #4','Speedway Water Works — Ground Water Plant','Speedway Water Works — Surface Water Plant',
+ 'Carmel Water — WTP-01 Main Plant','Carmel Water — Distribution System','Fishers Utilities — Plant 01','Noblesville Water — Treatment Plant',
+ 'Greenfield Municipal — WTP-01','Pendleton Water — Main Plant','McCordsville Water — Plant 01','Fortville Utilities — Main Plant'
+];
+
+function setBuilderStep(step) {
+ builderStep = step;
+ document.getElementById('tb-screen-build').style.display = step==='build'?'block':'none';
+ document.getElementById('tb-screen-assign').style.display = step==='assign'?'block':'none';
+ document.getElementById('tb-screen-review').style.display = step==='review'?'block':'none';
+ document.getElementById('tb-step-details').className = 'sidebar-item'+(step==='build'?' active':'');
+ document.getElementById('tb-step-assign').className = 'sidebar-item'+(step==='assign'?' active':'');
+ document.getElementById('tb-step-review').className = 'sidebar-item'+(step==='review'?' active':'');
+ // Update bottom bar button
+ var btn = document.getElementById('tb-bottom-next');
+ if(step==='build') btn.textContent = 'Next: Assign Utilities';
+ else if(step==='assign') btn.textContent = 'Next: Review';
+ else btn.textContent = 'Create Template';
+ document.getElementById('tb-main').scrollTop = 0;
+ if(step==='assign') { renderAssignedUtilities(); filterUtilityDropdown(''); }
+ if(step==='review') renderReviewSummary();
+}
+
+function advanceBuilderStep() {
+ if(builderStep==='build') setBuilderStep('assign');
+ else if(builderStep==='assign') setBuilderStep('review');
+ else saveTemplate();
+}
+
+function filterUtilityDropdown(query) {
+ var dd = document.getElementById('tb-utility-dropdown');
+ var q = query.toLowerCase();
+ var matches = AVAILABLE_UTILITIES.filter(function(u){
+  return u.toLowerCase().indexOf(q) >= 0 && assignedUtilities.indexOf(u) === -1;
+ });
+ if(!matches.length) { dd.innerHTML = '<div style="padding:12px 16px;font-size:13px;color:var(--text-hint)">No matching utilities</div>'; return; }
+ var h = '';
+ matches.forEach(function(u) {
+  h += '<div style="padding:10px 16px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border-lt)" onmouseover="this.style.background=\'var(--bg)\'" onmouseout="this.style.background=\'\'" onclick="assignUtility(\''+u.replace(/'/g,"\\'")+'\')">';
+  h += '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--accent)"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v8m-4-4h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  h += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint)"><path d="M3 21h18M5 21V7l8-4v18m0-18l6 4v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  h += '<span>'+u+'</span></div>';
+ });
+ dd.innerHTML = h;
+ dd.style.display = 'block';
+}
+
+function assignUtility(name) {
+ if(assignedUtilities.indexOf(name) === -1) assignedUtilities.push(name);
+ document.getElementById('tb-utility-search').value = '';
+ document.getElementById('tb-utility-dropdown').style.display = 'none';
+ renderAssignedUtilities();
+}
+
+function assignAllUtilities() {
+ AVAILABLE_UTILITIES.forEach(function(u) {
+  if(assignedUtilities.indexOf(u) === -1) assignedUtilities.push(u);
+ });
+ renderAssignedUtilities();
+}
+
+function removeAssignedUtility(i) {
+ assignedUtilities.splice(i, 1);
+ renderAssignedUtilities();
+}
+
+var expandedAssigned = false;
+function renderAssignedUtilities() {
+ var el = document.getElementById('tb-assigned-list');
+ if(!assignedUtilities.length) { el.innerHTML = ''; return; }
+ var LIMIT = 5;
+ var showAll = assignedUtilities.length <= LIMIT || expandedAssigned;
+ var display = showAll ? assignedUtilities : assignedUtilities.slice(0, LIMIT);
+ var h = '';
+ display.forEach(function(u, i) {
+  h += '<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:6px;background:var(--white)">';
+  h += '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;color:var(--text-hint)"><path d="M3 21h18M5 21V7l8-4v18m0-18l6 4v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  h += '<div style="flex:1;font-size:13px;font-weight:500">'+u+'</div>';
+  h += '<button style="width:24px;height:24px;border:none;background:none;cursor:pointer;color:var(--text-hint);flex-shrink:0" onclick="removeAssignedUtility('+i+')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
+  h += '</div>';
+ });
+ if(!showAll) {
+  h += '<div style="text-align:center;padding:10px 0"><a style="font-size:13px;color:var(--link);cursor:pointer;font-weight:600" onclick="expandedAssigned=true;renderAssignedUtilities()">+ '+(assignedUtilities.length-LIMIT)+' more</a></div>';
+ } else if(assignedUtilities.length > LIMIT) {
+  h += '<div style="text-align:center;padding:10px 0"><a style="font-size:13px;color:var(--link);cursor:pointer;font-weight:600" onclick="expandedAssigned=false;renderAssignedUtilities()">Show less</a></div>';
+ }
+ el.innerHTML = h;
+}
+
+function renderReviewSummary() {
+ var el = document.getElementById('tb-review-content');
+ var name = document.getElementById('tmpl-name-input').value.trim() || 'Untitled Template';
+ var desc = document.getElementById('tmpl-desc-input').value.trim();
+ var status = document.getElementById('tmpl-status-input').value;
+ var h = '';
+ // Template info
+ h += '<div class="section-card" style="margin-bottom:16px">';
+ h += '<div class="section-title">Template Details</div>';
+ h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;margin-top:8px">';
+ h += '<div><span style="color:var(--text-sec);font-weight:600">Name:</span> '+name+'</div>';
+ h += '<div><span style="color:var(--text-sec);font-weight:600">Status:</span> '+status+'</div>';
+ if(desc) h += '<div style="grid-column:span 2"><span style="color:var(--text-sec);font-weight:600">Description:</span> '+desc+'</div>';
+ h += '</div></div>';
+ // Sections & fields
+ h += '<div class="section-card" style="margin-bottom:16px">';
+ h += '<div class="section-title">Sections & Fields</div>';
+ h += '<div style="margin-top:8px">';
+ if(!builderSections.length) { h += '<div style="color:var(--text-hint);font-size:13px">No sections created</div>'; }
+ builderSections.forEach(function(sec) {
+  var secFields = builderFields.filter(function(f){return f.section===sec;});
+  h += '<div style="padding:10px 0;border-bottom:1px solid var(--border-lt)">';
+  h += '<div style="font-size:14px;font-weight:700;font-family:\'Proxima Nova\',\'Open Sans\',sans-serif">'+sec+' <span style="font-weight:400;color:var(--text-hint);font-size:12px">— '+secFields.length+' field'+(secFields.length!==1?'s':'')+'</span></div>';
+  secFields.forEach(function(f){
+   h += '<div style="display:flex;align-items:center;gap:8px;padding:4px 0 4px 16px;font-size:12px;color:var(--text-sec)">';
+   h += '<span style="padding:1px 6px;background:var(--bg);border-radius:3px;font-size:10px;font-weight:600">'+getTypeLabel(f.type)+'</span> '+f.name;
+   if(f.columns && f.columns.length) h += ' <span style="color:var(--text-hint)">('+f.columns.length+' columns)</span>';
+   if(f.options && f.options.length) h += ' <span style="color:var(--text-hint)">('+f.options.length+' options)</span>';
+   h += '</div>';
+  });
+  h += '</div>';
+ });
+ h += '</div></div>';
+ // Assigned utilities
+ h += '<div class="section-card">';
+ h += '<div class="section-title">Assigned Utilities <span style="font-size:13px;font-weight:400;color:var(--text-hint)">(' + assignedUtilities.length + ')</span></div>';
+ h += '<div style="margin-top:8px;font-size:13px">';
+ if(!assignedUtilities.length) { h += '<div style="color:var(--text-hint)">No utilities assigned</div>'; }
+ var REVIEW_LIMIT = 20;
+ var reviewUtils = assignedUtilities.length <= REVIEW_LIMIT ? assignedUtilities : assignedUtilities.slice(0, REVIEW_LIMIT);
+ reviewUtils.forEach(function(u){
+  h += '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border-lt)">';
+  h += '<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V7l8-4v18m0-18l6 4v14" stroke="var(--text-hint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> '+u+'</div>';
+ });
+ if(assignedUtilities.length > REVIEW_LIMIT) {
+  h += '<div style="text-align:center;padding:10px 0"><span style="font-size:13px;color:var(--text-hint)">+ '+(assignedUtilities.length - REVIEW_LIMIT)+' more utilities</span></div>';
+ }
+ h += '</div></div>';
+ el.innerHTML = h;
 }
 
 function closeTemplateBuilder() {
