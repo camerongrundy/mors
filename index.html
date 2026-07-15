@@ -2558,8 +2558,7 @@ function addTableColumnFromInput(){
  var nameEl=document.getElementById('tc-input-name');
  if(!nameEl)return;
  var name=nameEl.value.trim();
- if(!name){nameEl.style.borderColor='var(--red)';nameEl.focus();return;}
- nameEl.style.borderColor='';
+ if(!name) name='Column '+(feTableCols.length+1);
  feTableCols.push({name:name,type:'number'});
  nameEl.value='';nameEl.focus();
  renderTableCols();
@@ -2569,8 +2568,7 @@ function addTableRowFromInput(){
  var nameEl=document.getElementById('tr-input-name');
  if(!nameEl)return;
  var name=nameEl.value.trim();
- if(!name){nameEl.style.borderColor='var(--red)';nameEl.focus();return;}
- nameEl.style.borderColor='';
+ if(!name) name='Row '+(feTableRows.length+1);
  feTableRows.push({name:name,type:'text'});
  nameEl.value='';nameEl.focus();
  renderTableRows();
@@ -2633,8 +2631,7 @@ function addDropdownOption(){
  var inp=document.getElementById('dd-input-name');
  if(!inp)return;
  var name=inp.value.trim();
- if(!name){inp.style.borderColor='var(--red)';inp.focus();return;}
- inp.style.borderColor='';
+ if(!name) name='Option '+(feDropdownOpts.length+1);
  feDropdownOpts.push(name);
  inp.value='';inp.focus();
  renderDropdownOpts();
@@ -2665,8 +2662,11 @@ function renderDropdownOpts(){
 
 function saveFieldFromEditor() {
  var name = document.getElementById('fe-label').value.trim();
- if(!name){document.getElementById('fe-label').style.borderColor='var(--red)';document.getElementById('fe-label').focus();return;}
- document.getElementById('fe-label').style.borderColor='';
+ if(!name) {
+  var typeLabel = getTypeLabel(feSelectedType);
+  var count = builderFields.filter(function(f){return f.section===activeFormSection;}).length + 1;
+  name = feSelectedType==='table' ? 'Table ' + count : typeLabel + ' Field ' + count;
+ }
  var field = {name:name,type:feSelectedType,section:activeFormSection,req:true,desc:document.getElementById('fe-help').value.trim()};
  if(feSelectedType==='table') { field.columns = feTableCols.filter(function(c){return c.name.trim();}); field.rows = feTableRows.filter(function(r){return r.name.trim();}); }
  if(feSelectedType==='dropdown') field.options = feDropdownOpts.slice();
