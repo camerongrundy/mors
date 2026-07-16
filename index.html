@@ -1473,17 +1473,47 @@ tbody tr:hover td{background:#f8f9fc}
  <div class="import-body">
   <!-- Sidebar -->
   <div class="import-sidebar" id="tb-sidebar">
-   <div class="sidebar-label">Template builder</div>
-   <div class="sidebar-item active" id="tb-step-details" onclick="document.getElementById('tb-main').scrollTop=0;setBuilderStep('build')"><span class="si-num">1</span>Template Details</div>
-   <div class="sidebar-label" style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">Sections <a onclick="addBuilderSection()" style="font-size:11px;font-weight:600;color:var(--link);cursor:pointer;text-transform:none;letter-spacing:0">+ Add</a></div>
-   <div id="tb-sidebar-sections"></div>
-   <div class="sidebar-label" style="margin-top:20px">Steps</div>
-   <div class="sidebar-item" id="tb-step-assign" onclick="setBuilderStep('assign')"><span class="si-num">2</span>Assign Utilities</div>
-   <div class="sidebar-item" id="tb-step-review" onclick="setBuilderStep('review')"><span class="si-num">3</span>Review & Create</div>
+   <div class="sidebar-label">IMPORT PROGRESS</div>
+   <div class="sidebar-item active" id="tb-step-upload" onclick="setBuilderStep('upload')"><span class="si-num">1</span>Upload Files</div>
+   <div class="sidebar-item" id="tb-step-build" onclick="setBuilderStep('build')"><span class="si-num">2</span>Review & Edit</div>
+   <div class="sidebar-item" id="tb-step-assign" onclick="setBuilderStep('assign')"><span class="si-num">3</span>Assign Utilities</div>
+   <div class="sidebar-item" id="tb-step-review" onclick="setBuilderStep('review')"><span class="si-num">4</span>Review & Create</div>
+   <div id="tb-sidebar-sections" style="display:none"></div>
   </div>
   <!-- Main -->
   <div class="import-main" id="tb-main">
-   <div id="tb-screen-build" class="import-content" style="max-width:720px">
+
+   <!-- UPLOAD SCREEN (Step 1) -->
+   <div id="tb-screen-upload" class="import-content" style="max-width:720px">
+    <div style="text-align:center;margin-bottom:32px">
+     <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1.5px;font-weight:700;color:var(--text)">CREATE NEW TEMPLATE</div>
+     <div style="font-size:15px;color:var(--text-sec);margin-top:6px;max-width:480px;margin-left:auto;margin-right:auto">Upload the report you send out to utilities to build out your form template, or start from scratch</div>
+    </div>
+
+    <div id="tb-upload-area" class="section-card" style="max-width:580px;margin:0 auto;padding:0">
+     <div class="dropzone" onclick="simulateTemplateUpload()" style="padding:48px 32px;cursor:pointer;text-align:center;border:2px dashed var(--border);border-radius:var(--radius-lg);margin:24px;transition:all .15s" onmouseover="this.style.borderColor='var(--accent)';this.style.background='var(--accent-bg)'" onmouseout="this.style.borderColor='var(--border)';this.style.background=''">
+      <div style="width:64px;height:64px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div style="font-size:15px;font-weight:700;color:var(--text)">Drag and drop lab result files</div>
+      <div style="font-size:14px;color:var(--text-sec);margin-top:4px">or <span style="color:var(--link);font-weight:600;text-decoration:underline">browse your computer</span></div>
+      <div style="font-size:12px;color:var(--text-hint);margin-top:8px">CSV, PDF, Excel (.xlsx, .xls) · Max 25 MB per file · Up to 10 files per upload</div>
+     </div>
+    </div>
+
+    <div id="tb-upload-processing" style="display:none;text-align:center;padding:48px;max-width:580px;margin:0 auto">
+     <div style="width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;margin:0 auto 12px;animation:spin 1s linear infinite"></div>
+     <div style="font-size:14px;font-weight:600" id="tb-upload-status">Analyzing form structure...</div>
+     <div style="font-size:12px;color:var(--text-hint);margin-top:4px" id="tb-upload-detail">Detecting sections and fields</div>
+    </div>
+
+    <div style="text-align:center;margin-top:24px;font-size:14px;font-weight:700;color:var(--text-sec)">OR</div>
+
+    <div style="text-align:center;margin-top:16px">
+     <button class="btn" onclick="startFromScratch()" style="min-width:240px">Create template from scratch</button>
+    </div>
+   </div>
+
+   <!-- BUILD SCREEN (Step 2) -->
+   <div id="tb-screen-build" class="import-content" style="display:none;max-width:720px">
     <div class="import-title">Template Builder</div>
     <div class="import-desc">Define the sections and fields that operators will fill in when submitting reports.</div>
 
@@ -1547,8 +1577,8 @@ tbody tr:hover td{background:#f8f9fc}
   </div>
   <!-- Bottom Bar -->
   <div class="import-bottom" id="tb-bottom-bar">
-   <div class="import-bottom-left"><button class="btn btn-sm" onclick="closeTemplateBuilder()">‹ Back to Templates</button></div>
-   <div class="import-bottom-right"><button class="btn btn-primary btn-sm" id="tb-bottom-next" onclick="advanceBuilderStep()">Save & Complete</button></div>
+   <div class="import-bottom-left"><button class="btn btn-sm" id="tb-bottom-back" onclick="goBackBuilderStep()">‹ Back</button></div>
+   <div class="import-bottom-right"><button class="btn btn-primary btn-sm" id="tb-bottom-next" onclick="advanceBuilderStep()">Save & Continue</button></div>
   </div>
  </div>
 </div>
@@ -2753,13 +2783,14 @@ function saveTemplate() {
 
 function showTemplateCreator() {
  builderFields=[];builderSections=[];builderEditIdx=-1;activeFormSection=null;fieldsAddedCount=0;
- assignedUtilities=[];expandedAssigned=false;builderStep='build';
+ assignedUtilities=[];expandedAssigned=false;builderStep='upload';
  document.getElementById('tmpl-builder-title').textContent='New Template';
  document.getElementById('tmpl-name-input').value='';
  document.getElementById('tmpl-status-input').value='Draft';
  document.getElementById('tmpl-desc-input').value='';
+ resetTemplateUpload();
  document.getElementById('tmpl-builder-overlay').classList.add('open');
- setBuilderStep('build');
+ setBuilderStep('upload');
  renderBuilderFields();
 }
 
@@ -2793,15 +2824,17 @@ var AVAILABLE_UTILITIES = [
 
 function setBuilderStep(step) {
  builderStep = step;
+ document.getElementById('tb-screen-upload').style.display = step==='upload'?'block':'none';
  document.getElementById('tb-screen-build').style.display = step==='build'?'block':'none';
  document.getElementById('tb-screen-assign').style.display = step==='assign'?'block':'none';
  document.getElementById('tb-screen-review').style.display = step==='review'?'block':'none';
- document.getElementById('tb-step-details').className = 'sidebar-item'+(step==='build'?' active':'');
+ document.getElementById('tb-step-upload').className = 'sidebar-item'+(step==='upload'?' active':'');
+ document.getElementById('tb-step-build').className = 'sidebar-item'+(step==='build'?' active':'');
  document.getElementById('tb-step-assign').className = 'sidebar-item'+(step==='assign'?' active':'');
  document.getElementById('tb-step-review').className = 'sidebar-item'+(step==='review'?' active':'');
- // Update bottom bar button
  var btn = document.getElementById('tb-bottom-next');
- if(step==='build') btn.textContent = 'Next: Assign Utilities';
+ if(step==='upload') btn.textContent = 'Save & Continue';
+ else if(step==='build') btn.textContent = 'Next: Assign Utilities';
  else if(step==='assign') btn.textContent = 'Next: Review';
  else btn.textContent = 'Create Template';
  document.getElementById('tb-main').scrollTop = 0;
@@ -2810,9 +2843,35 @@ function setBuilderStep(step) {
 }
 
 function advanceBuilderStep() {
- if(builderStep==='build') setBuilderStep('assign');
+ if(builderStep==='upload') setBuilderStep('build');
+ else if(builderStep==='build') setBuilderStep('assign');
  else if(builderStep==='assign') setBuilderStep('review');
  else saveTemplate();
+}
+
+function goBackBuilderStep() {
+ if(builderStep==='review') setBuilderStep('assign');
+ else if(builderStep==='assign') setBuilderStep('build');
+ else if(builderStep==='build') setBuilderStep('upload');
+ else closeTemplateBuilder();
+}
+
+function startFromScratch() {
+ builderFields=[];builderSections=[];activeFormSection=null;
+ document.getElementById('tmpl-name-input').value='';
+ document.getElementById('tmpl-desc-input').value='';
+ setBuilderStep('build');
+ renderBuilderFields();
+}
+
+function startManualEntry() {
+ builderFields=[];
+ builderSections=['Report Information'];
+ activeFormSection='Report Information';
+ document.getElementById('tmpl-name-input').value='';
+ document.getElementById('tmpl-desc-input').value='';
+ setBuilderStep('build');
+ renderBuilderFields();
 }
 
 function filterUtilityDropdown(query) {
@@ -2928,6 +2987,139 @@ function renderReviewSummary() {
 
 function closeTemplateBuilder() {
  document.getElementById('tmpl-builder-overlay').classList.remove('open');
+}
+
+function resetTemplateUpload() {
+ var area = document.getElementById('tb-upload-area');
+ var proc = document.getElementById('tb-upload-processing');
+ if(area) area.style.display = 'block';
+ if(proc) proc.style.display = 'none';
+}
+
+function simulateTemplateUpload() {
+ document.getElementById('tb-upload-area').style.display = 'none';
+ var proc = document.getElementById('tb-upload-processing');
+ proc.style.display = 'block';
+ var status = document.getElementById('tb-upload-status');
+ var detail = document.getElementById('tb-upload-detail');
+ var steps = [
+  {s:'Analyzing form structure...',d:'Detecting sections and fields',t:800},
+  {s:'Reading Page 1 — Physical & Chemical Data...',d:'Extracting column headers and parameters',t:900},
+  {s:'Reading Page 2 — Operations Data...',d:'Mapping daily entry columns',t:700},
+  {s:'Reading Pages 3-4 — GW Rule Residual...',d:'Parsing compliance sections',t:800},
+  {s:'Reading Page 5 — 4-Log Credit...',d:'Extracting calculation fields',t:600},
+  {s:'Reading Page 6 — Chlorine Event Log...',d:'Parsing event structure',t:500}
+ ];
+ var i = 0;
+ function nextStep() {
+  if(i < steps.length) {
+   status.textContent = steps[i].s;
+   detail.textContent = steps[i].d;
+   i++;
+   setTimeout(nextStep, steps[i-1].t);
+  } else {
+   prefillFromMOR();
+  }
+ }
+ nextStep();
+}
+
+function prefillFromMOR() {
+ // Pre-fill template details
+ document.getElementById('tmpl-name-input').value = 'Monthly Report of Operation — R11';
+ document.getElementById('tmpl-status-input').value = 'Draft';
+ document.getElementById('tmpl-desc-input').value = 'State Form 34609 (R11 / 1-17). Monthly report for water treatment plant operations including physical/chemical data, compliance checks, GW rule residual monitoring, 4-log credit calculations, and chlorine event logging.';
+
+ // Build sections and fields matching the real MOR
+ builderSections = [
+  'Report Information',
+  'Physical & Chemical Data (Daily)',
+  'Production & Operations (Daily)',
+  'Compliance Checks',
+  'GW Rule Residual — First Customer',
+  'GW Rule Residual — Point of Entry',
+  '4-Log Credit Calculations',
+  'Chlorine Event Log',
+  'Monthly Summary',
+  'Certification'
+ ];
+
+ builderFields = [
+  // Report Information
+  {name:'Water System Name',type:'text',section:'Report Information',req:true,desc:''},
+  {name:'PWSID Number',type:'text',section:'Report Information',req:true,desc:''},
+  {name:'Report Period',type:'date',section:'Report Information',req:true,desc:'Month and year'},
+  {name:'Plant Name',type:'text',section:'Report Information',req:true,desc:''},
+  {name:'Source Type',type:'dropdown',section:'Report Information',req:true,desc:'',options:['Surface Water','Groundwater','Purchased']},
+  {name:'IDEM Field Rep.',type:'text',section:'Report Information',req:true,desc:''},
+  {name:'Signed By',type:'text',section:'Report Information',req:true,desc:''},
+  {name:'Title',type:'text',section:'Report Information',req:true,desc:''},
+  {name:'Certification Number',type:'text',section:'Report Information',req:true,desc:''},
+
+  // Physical & Chemical Data
+  {name:'Physical & Chemical Data',type:'table',section:'Physical & Chemical Data (Daily)',req:true,desc:'31 days of water quality parameters',
+   rows:[{name:'Day 1',type:'text'},{name:'Day 2',type:'text'},{name:'Day 3',type:'text'},{name:'Day 4',type:'text'},{name:'Day 5',type:'text'},{name:'Day 6',type:'text'},{name:'Day 7',type:'text'},{name:'Day 8',type:'text'},{name:'Day 9',type:'text'},{name:'Day 10',type:'text'},{name:'Day 11',type:'text'},{name:'Day 12',type:'text'},{name:'Day 13',type:'text'},{name:'Day 14',type:'text'},{name:'Day 15',type:'text'},{name:'Day 16',type:'text'},{name:'Day 17',type:'text'},{name:'Day 18',type:'text'},{name:'Day 19',type:'text'},{name:'Day 20',type:'text'},{name:'Day 21',type:'text'},{name:'Day 22',type:'text'},{name:'Day 23',type:'text'},{name:'Day 24',type:'text'},{name:'Day 25',type:'text'},{name:'Day 26',type:'text'},{name:'Day 27',type:'text'},{name:'Day 28',type:'text'},{name:'Day 29',type:'text'},{name:'Day 30',type:'text'},{name:'Day 31',type:'text'}],
+   columns:[{name:'Turb. Raw',type:'number'},{name:'Turb. Fin.',type:'number'},{name:'Alk. Raw',type:'number'},{name:'Alk. Fin.',type:'number'},{name:'pH Raw',type:'number'},{name:'pH Fin.',type:'number'},{name:'Hardness Raw',type:'number'},{name:'Hardness Fin.',type:'number'},{name:'Iron Raw',type:'number'},{name:'Iron Fin.',type:'number'},{name:'Mn Raw',type:'number'},{name:'Mn Fin.',type:'number'},{name:'Phosphate',type:'number'},{name:'Fluoride',type:'number'}]},
+
+  // Production & Operations
+  {name:'Production & Operations',type:'table',section:'Production & Operations (Daily)',req:true,desc:'Daily production volumes, chemical usage, and chlorine residual',
+   rows:[{name:'Day 1',type:'text'},{name:'Day 2',type:'text'},{name:'Day 3',type:'text'},{name:'Day 4',type:'text'},{name:'Day 5',type:'text'},{name:'Day 6',type:'text'},{name:'Day 7',type:'text'},{name:'Day 8',type:'text'},{name:'Day 9',type:'text'},{name:'Day 10',type:'text'},{name:'Day 11',type:'text'},{name:'Day 12',type:'text'},{name:'Day 13',type:'text'},{name:'Day 14',type:'text'},{name:'Day 15',type:'text'},{name:'Day 16',type:'text'},{name:'Day 17',type:'text'},{name:'Day 18',type:'text'},{name:'Day 19',type:'text'},{name:'Day 20',type:'text'},{name:'Day 21',type:'text'},{name:'Day 22',type:'text'},{name:'Day 23',type:'text'},{name:'Day 24',type:'text'},{name:'Day 25',type:'text'},{name:'Day 26',type:'text'},{name:'Day 27',type:'text'},{name:'Day 28',type:'text'},{name:'Day 29',type:'text'},{name:'Day 30',type:'text'},{name:'Day 31',type:'text'}],
+   columns:[{name:'Water Treated (kgal)',type:'number'},{name:'Chlorine (lbs)',type:'number'},{name:'Fluoride (lbs)',type:'number'},{name:'Filter Run (hrs)',type:'number'},{name:'Cl2 Tap Free',type:'number'},{name:'Cl2 Tap Total',type:'number'},{name:'Cl2 D.S. Free',type:'number'},{name:'Cl2 D.S. Total',type:'number'}]},
+
+  // Compliance Checks
+  {name:'Disinfectant residual fell below state minimum',type:'checkboxes',section:'Compliance Checks',req:true,desc:''},
+  {name:'Monitored every 4 hours when below minimum',type:'checkboxes',section:'Compliance Checks',req:true,desc:''},
+  {name:'Continuous monitoring equipment operated all month',type:'checkboxes',section:'Compliance Checks',req:true,desc:''},
+  {name:'Equipment failed this month',type:'checkboxes',section:'Compliance Checks',req:true,desc:''},
+  {name:'Changes requiring 4-log credit reevaluation',type:'checkboxes',section:'Compliance Checks',req:true,desc:''},
+  {name:'All sampling performed per IAC 8-2-8.7',type:'checkboxes',section:'Compliance Checks',req:true,desc:''},
+
+  // GW Rule - First Customer
+  {name:'Monitoring Location',type:'text',section:'GW Rule Residual — First Customer',req:true,desc:''},
+  {name:'State Required Min. Residual',type:'number',section:'GW Rule Residual — First Customer',req:true,desc:'mg/L'},
+  {name:'Disinfectant Type',type:'dropdown',section:'GW Rule Residual — First Customer',req:true,desc:'',options:['Chlorine','Chloramines','Ozone']},
+  {name:'Daily Residual Readings',type:'table',section:'GW Rule Residual — First Customer',req:true,desc:'Lowest residual per sampling day',
+   rows:[],columns:[{name:'Lowest Residual (mg/L)',type:'number'},{name:'Below Required',type:'checkbox'},{name:'Reported to IDEM',type:'text'}]},
+
+  // GW Rule - Point of Entry
+  {name:'Monitoring Location',type:'text',section:'GW Rule Residual — Point of Entry',req:true,desc:''},
+  {name:'State Required Min. Residual',type:'number',section:'GW Rule Residual — Point of Entry',req:true,desc:'mg/L'},
+  {name:'Daily Residual Readings',type:'table',section:'GW Rule Residual — Point of Entry',req:true,desc:'All 31 days',
+   rows:[{name:'Day 1',type:'text'},{name:'Day 2',type:'text'},{name:'Day 3',type:'text'},{name:'Day 4',type:'text'},{name:'Day 5',type:'text'},{name:'Day 6',type:'text'},{name:'Day 7',type:'text'},{name:'Day 8',type:'text'},{name:'Day 9',type:'text'},{name:'Day 10',type:'text'},{name:'Day 11',type:'text'},{name:'Day 12',type:'text'},{name:'Day 13',type:'text'},{name:'Day 14',type:'text'},{name:'Day 15',type:'text'},{name:'Day 16',type:'text'},{name:'Day 17',type:'text'},{name:'Day 18',type:'text'},{name:'Day 19',type:'text'},{name:'Day 20',type:'text'},{name:'Day 21',type:'text'},{name:'Day 22',type:'text'},{name:'Day 23',type:'text'},{name:'Day 24',type:'text'},{name:'Day 25',type:'text'},{name:'Day 26',type:'text'},{name:'Day 27',type:'text'},{name:'Day 28',type:'text'},{name:'Day 29',type:'text'},{name:'Day 30',type:'text'},{name:'Day 31',type:'text'}],
+   columns:[{name:'Lowest Residual (mg/L)',type:'number'},{name:'Below Required',type:'checkbox'},{name:'Reported to IDEM',type:'text'}]},
+
+  // 4-Log Credit
+  {name:'Operating Conditions',type:'summary',section:'4-Log Credit Calculations',req:true,desc:'Min Residual, Total Volume, Peak Flow, Temperature'},
+  {name:'4-Log Calculations',type:'table',section:'4-Log Credit Calculations',req:true,desc:'Daily CT calculations',
+   rows:[{name:'Day 1',type:'text'},{name:'Day 2',type:'text'},{name:'Day 3',type:'text'},{name:'Day 4',type:'text'},{name:'Day 5',type:'text'},{name:'Day 6',type:'text'},{name:'Day 7',type:'text'},{name:'Day 8',type:'text'},{name:'Day 9',type:'text'},{name:'Day 10',type:'text'},{name:'Day 11',type:'text'},{name:'Day 12',type:'text'},{name:'Day 13',type:'text'},{name:'Day 14',type:'text'},{name:'Day 15',type:'text'},{name:'Day 16',type:'text'},{name:'Day 17',type:'text'},{name:'Day 18',type:'text'},{name:'Day 19',type:'text'},{name:'Day 20',type:'text'},{name:'Day 21',type:'text'},{name:'Day 22',type:'text'},{name:'Day 23',type:'text'},{name:'Day 24',type:'text'},{name:'Day 25',type:'text'},{name:'Day 26',type:'text'},{name:'Day 27',type:'text'},{name:'Day 28',type:'text'},{name:'Day 29',type:'text'},{name:'Day 30',type:'text'},{name:'Day 31',type:'text'}],
+   columns:[{name:'Hrs Running',type:'number'},{name:'Total Treated',type:'number'},{name:'Peak Flow Rate',type:'number'},{name:'Volume',type:'number'},{name:'Time (min)',type:'number'},{name:'Free Cl Reading',type:'number'},{name:'Actual CT',type:'number'},{name:'Temperature',type:'number'},{name:'Required CT',type:'number'}]},
+
+  // Chlorine Event Log
+  {name:'Event Date',type:'date',section:'Chlorine Event Log',req:true,desc:''},
+  {name:'Event Description',type:'text',section:'Chlorine Event Log',req:true,desc:''},
+  {name:'Timestamped Readings',type:'table',section:'Chlorine Event Log',req:true,desc:'Readings taken during the event',
+   rows:[],columns:[{name:'Time',type:'text'},{name:'HS Flow',type:'number'},{name:'Cl2 Reading',type:'number'},{name:'Notes',type:'text'}]},
+
+  // Monthly Summary
+  {name:'Total Gallons',type:'number',section:'Monthly Summary',req:true,desc:'kgal'},
+  {name:'Peak Day',type:'number',section:'Monthly Summary',req:true,desc:'kgal'},
+  {name:'Min Day',type:'number',section:'Monthly Summary',req:true,desc:'kgal'},
+  {name:'Avg Daily',type:'number',section:'Monthly Summary',req:true,desc:'kgal'},
+
+  // Certification
+  {name:'Certified Operator Name',type:'text',section:'Certification',req:true,desc:''},
+  {name:'Signature Date',type:'date',section:'Certification',req:true,desc:''},
+  {name:'Certification Statement',type:'checkboxes',section:'Certification',req:true,desc:'All residual disinfectant sampling per IAC 8-2-8.7'}
+ ];
+
+ activeFormSection = null;
+ var totalFields = builderFields.length;
+ document.getElementById('tb-upload-processing').style.display = 'none';
+ // Show success briefly then advance to build
+ setBuilderStep('build');
+ renderBuilderFields();
+ triggerAutosave();
+ showToast(builderSections.length + ' sections, ' + totalFields + ' fields extracted from form');
 }
 
 // ========== ATTESTATION ==========
